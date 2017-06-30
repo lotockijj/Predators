@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "NewArtist";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <environment names="Development">
+        <link rel="stylesheet" href="~/css/NewArtist/NewArtist.css" />
+    </environment>
+</head>
+
+<body>
+    <div class="container">
+        <div class="col-md-6">
+            <form class="registration" action="/bandPage.html" method="post"><!--NEED CHANGE ACTION PAGE-->
+                <p>
+                    <b>Artist's name:</b><br>
+                    <input type="text" placeholder="Enter Artist's name" size="30" required >
+                </p>
+                <p>
+                    <b>Artist's style:</b><br>
+                    <input type="text" placeholder="Enter Artist's style" size="30" required >
+                </p>
+                <p>
+                    <b>Artist's country:</b><br>
+                    <input type="text" placeholder="Ukraine" size="30" required>
+                </p>
+                <p>
+                    <b>Contact phone number:</b><br>
+                    <input type="text" placeholder="0936912791" size="30" required>
+                </p>
+                <p>
+                    <b>Contact E-mail:</b><br>
+                    <input type="email" placeholder="example@gmail.com" size="30" required>
+                </p>
+                <p>
+                    <b>Load your Artist image or logo of the band:</b><br>
+                    <input type="file" id="imageFile" accept="image/*">
+                </p>
+                <p>
+                    <br />
+                    <b>Load your audio file:</b><br>
+                    <input type="file" id="audioFile" accept="audio/*">
+                </p>
+                <p>
+                    <br />
+                    <b>Load your video file:</b><br>
+                    <input type="file" id="videoFile" accept="video/*">
+                </p>
+
+                <p>
+                    <b>Comment:</b><Br>
+                    <textarea name="comment" cols="50" rows="5"></textarea>
+                </p>
+                <p>
+                    <input type="submit" class="button" value="Send" width="200">
+                    <input type="reset" class="button" value="Clear">
+                </p>
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            <div class="band">
+                <img src="~/images/NewArtist/BandClipart.png" />
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
