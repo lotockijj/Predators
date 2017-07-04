@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Battle_Bands.Controllers
+namespace BattleBands.Controllers
 {
     public class HomeController : Controller
     {
@@ -27,7 +27,7 @@ namespace Battle_Bands.Controllers
         {
             return View();
         }
-        public IActionResult SignIn()
+       /* public IActionResult SignIn()
         {
             return View();
         }
@@ -35,7 +35,7 @@ namespace Battle_Bands.Controllers
         public IActionResult SignUp()
         {
             return View();
-        }
+        }*/
 
         public IActionResult Error()
         {

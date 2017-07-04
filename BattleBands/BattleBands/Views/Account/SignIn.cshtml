@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "SignIn";
+}
+@model BattleBands.ViewModels.LoginViewModel
+<environment names="Development">
+    <link rel="stylesheet" href="~/css/SignIn/SignIn.css" />
+</environment>
+
+<div id="idmodal" class="modal">
+    <!-- Modal Content -->
+    <form class="modal-content animate" method="post" asp-controller="Account" asp-action="SignIn"
+          asp-route-returnUrl="@Model.ReturnUrl">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="imgcontainer">
+            <img src="~/images/SignIn/SignIn.png" alt="Avatar" class="avatar">
+        </div>
+        <div class="text-center">
+            <label asp-for="Email"></label><br />
+            <input asp-for="Email" required/>
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div class="text-center">
+            <label asp-for="Password"></label><br />
+            <input asp-for="Password" required/>
+            <span asp-validation-for="Password"></span>
+        </div>
+        <div class="text-center">
+            <label asp-for="RememberMe"></label><br />
+            <input asp-for="RememberMe" />
+        </div>
+        <div class="signcontainer" style="background-color:#f1f1f1">
+            <input type="submit" value="Войти"  class="btn btn-default"/>
+        </div>
+    </form>
+</div>

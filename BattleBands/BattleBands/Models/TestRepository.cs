@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Battle_Bands.Models
+namespace BattleBands.Models
 {
-    public class UserRepository : IRepository<UserModel>
+    public class UserRepository : IRepository<User>
     {
-        private List<UserModel> Users;
-        private UserModel User;
-        public void Add(UserModel item)
+        private List<User> Users;
+        private User User;
+        public void Add(User item)
         {
             Users.Add(item);
         }
@@ -19,10 +19,10 @@ namespace Battle_Bands.Models
         //    throw new NotImplementedException();
         //}
 
-        public void Delete(UserModel item)
+        public void Delete(User item)
         {
             Users.Remove(Users.Find(
-                delegate (UserModel um)
+                delegate (User um)
                 {
                     if (um.Username == item.Username && um.Password == item.Password)
                     {
@@ -38,18 +38,18 @@ namespace Battle_Bands.Models
         //    throw new NotImplementedException();
         //}
 
-        public UserModel GetItem(Guid id)
+        public User GetItem(Guid id)
         {
             User = Users.Find(x => x.IdUser == id);
             return User;
         }
 
-        public IEnumerable<UserModel> GetList()
+        public IEnumerable<User> GetList()
         {
             return Users;
         }
 
-        public void Update(UserModel item)
+        public void Update(User item)
         {
            for (int i = 0; i != Users.Count(); i++)
             {

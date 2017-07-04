@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "SignUp";
+}
+@model BattleBands.ViewModels.RegisterViewModel
+<environment names="Development">
+    <link rel="stylesheet" href="~/css/SignIn/SignUp.css" />
+</environment>
+
+<div id="idmodel" class="modal">
+    <form class="modal-content animate" method="post" asp-controller="Account" asp-action="Register">
+        <div class="text-center">
+            <div asp-validation-summary="ModelOnly"></div>
+            <div class="text-center">
+                <label asp-for="Email"></label><br />
+                <input asp-for="Email" required />
+                <span asp-validation-for="Email"></span>
+            </div>
+            <div class="text-center">
+                <label asp-for="Password"></label><br />
+                <input asp-for="Password" required />
+                <span asp-validation-for="Password"></span>
+            </div>
+            <div class="text-center">
+                <label asp-for="PasswordConfirm"></label><br />
+                <input asp-for="PasswordConfirm" required />
+                <span asp-validation-for="PasswordConfirm"></span>
+            </div>
+            <div>
+                <input type="submit" value="Регистрация" class="btn btn-default"/>
+            </div>
+        </div>
+       
+    </form>
+</div>
