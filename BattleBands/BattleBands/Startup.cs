@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 using BattleBands.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Identity;
 
 namespace BattleBands
 {
@@ -65,6 +65,38 @@ namespace BattleBands
                     name: "default",
                     template: "{controller=Home}/{action=Home}/{id?}");
             });
+            DatabaseInitialize(app.ApplicationServices).Wait();
+        }
+        public async Task DatabaseInitialize(IServiceProvider serviceProvider)
+        {
+            UserManager<User> userManager =
+                serviceProvider.GetRequiredService<UserManager<User>>();
+            RoleManager<IdentityRole> roleManager =
+                serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+            string adminEmail = "maksim.tantsyura@gmail.com";
+            string password = "A5W,L#5D.^Dx";
+            if (await roleManager.FindByNameAsync("admin") == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole("admin"));
+            }
+            if (await roleManager.FindByNameAsync("user") == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole("user"));
+            }
+            if (await roleManager.FindByNameAsync("moder") == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole("moder"));
+            }
+            if (await userManager.FindByNameAsync(adminEmail) == null)
+            {
+                User admin = new User { Email = adminEmail, UserName = adminEmail };
+                IdentityResult result = await userManager.CreateAsync(admin, password);
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(admin, "admin");
+                }
+            }
         }
     }
 }
