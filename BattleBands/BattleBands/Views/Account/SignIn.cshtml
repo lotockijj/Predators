@@ -7,7 +7,6 @@
 </environment>
 
 <div id="idmodal" class="modal">
-    <!-- Modal Content -->
     <form class="modal-content animate" method="post" asp-controller="Account" asp-action="SignIn"
           asp-route-returnUrl="@Model.ReturnUrl">
         <div asp-validation-summary="ModelOnly"></div>
@@ -28,8 +27,8 @@
             <label asp-for="RememberMe"></label><br />
             <input asp-for="RememberMe" />
         </div>
-        <div class="signcontainer" style="background-color:#f1f1f1">
-            <input type="submit" value="Войти"  class="btn btn-default"/>
+        <div class="signcontainer text-center" style="background-color:#f1f1f1">
+            <input type="submit" value="Войти"  class="button"/>
         </div>
     </form>
 </div>
