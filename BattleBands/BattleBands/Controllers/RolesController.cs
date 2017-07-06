@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -79,6 +78,7 @@ namespace BattleBands.Controllers
 
             return NotFound();
         }
+
         [HttpPost]
         public async Task<IActionResult> Edit(string userId, List<string> roles)
         {

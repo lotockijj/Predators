@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
@@ -21,11 +19,13 @@ namespace BattleBands.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
+
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -50,6 +50,7 @@ namespace BattleBands.Controllers
             }
             return View(model);
         }
+
         [HttpGet]
         public IActionResult SignIn(string returnUrl = null)
         {

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
@@ -12,7 +10,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BattleBands.Controllers
 {
-    //
     [Authorize]
     public class UsersController : Controller
     {
@@ -22,6 +19,7 @@ namespace BattleBands.Controllers
         {
             _userManager = userManager;
         }
+
         [Authorize]
         [HttpGet]
         public async Task<string> GetCurrentUserId()
