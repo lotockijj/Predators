@@ -67,3 +67,12 @@ img.avatar {
     border: 1px solid #888;
     width: 60%;
 }
+
+.line-direction{
+    display: flex;
+    justify-content: center;
+}
+
+.line-direction label{
+    margin-right: 20px;
+}
