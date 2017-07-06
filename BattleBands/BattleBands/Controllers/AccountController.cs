@@ -38,7 +38,7 @@ namespace BattleBands.Controllers
                 {
                     // установка куки
                     await _signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Home", "Home");
+                    return Redirect("~/Home/Home");
                 }
                 else
                 {
@@ -73,7 +73,7 @@ namespace BattleBands.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Home", "Home");
+                        return Redirect("~/Home/Home");
                     }
                 }
                 else
@@ -90,7 +90,7 @@ namespace BattleBands.Controllers
         {
             // удаляем аутентификационные куки
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Home", "Home");
+            return Redirect("~/Home/Home");
         }
     }
 }

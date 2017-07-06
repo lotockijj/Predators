@@ -7,8 +7,9 @@
 @{
     ViewBag.Title = "Список пользователей";
 }
+<a asp-controller="Roles" asp-action="UserList" class="btn btn-sm">Роли пользователей</a>
 
-<a asp-action="Create">Добавить пользователя</a>
+<a asp-action="Create" class="btn btn-sm">Добавить пользователя</a>
 
 <table class="table">
     <tr><th>Email</th><th>Год</th><th></th></tr>

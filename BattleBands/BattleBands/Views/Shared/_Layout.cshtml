@@ -30,18 +30,53 @@
                 </button>
                 <a asp-area="" asp-controller="Home" asp-action="Home" class="navbar-brand">BATTLE BANDS</a>
             </div>
+            @if (!@User.Identity.IsAuthenticated)
+            {
             <div class="navbar-collapse collapse">
+                
                 <ul class="nav navbar-nav navbar-right">
+                    <!--<li><a asp-area="" asp-controller="Users" asp-action="Index">Temp adminka</a></li>-->
+                    <li><a asp-area="" asp-controller="Home" asp-action="Bands">Bands</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Events">Events</a></li>
+                    <!--<li><a asp-area="" asp-controller="Home" asp-action="NewArtist">NewArtist</a></li>-->
+                    <li><a asp-area="" asp-controller="Account" asp-action="SignIn">SignIn</a></li>
+                    <li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+                    
+                </ul>
+            </div>
+            }
+            else if(User.IsInRole("user"))
+            {
+            <div class="navbar-collapse collapse">
+
+                <ul class="nav navbar-nav navbar-right">
+                    <!--<li><a asp-area="" asp-controller="Users" asp-action="Index">Temp adminka</a></li>-->
                     <li><a asp-area="" asp-controller="Home" asp-action="Bands">Bands</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Events">Events</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="NewArtist">NewArtist</a></li>
-                    <li><a asp-area="" asp-controller="Account" asp-action="SignIn">SignIn</a></li>
-                    <li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+                    <li><a asp-area="" asp-controller="Users" asp-action="ProfileChangePassword">Edit Profile</a></li>
+                    <!--<li><a asp-area="" asp-controller="Account" asp-action="LogOff">Log Off</a></li>-->
 
                 </ul>
             </div>
+            }
+            else if (User.IsInRole("admin") || User.IsInRole("moder"))
+            {
+                <div class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a asp-area="" asp-controller="Users" asp-action="Index">Temp adminka</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Bands">Bands</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Events">Events</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="NewArtist">NewArtist</a></li>
+                        <li><a asp-area="" asp-controller="Users" asp-action="ProfileChangePassword">Edit Profile</a></li>
+                        <!--<li><form method="post" asp-controller="Account" asp-action="LogOff"><input type="submit" value="Выход" class="btn btn-sm btn-primary" /></form> LOL</li>-->
+                    </ul>
+                </div>
+            }
         </div>
     </nav>
+            
     <div class="container body-content">
         @RenderBody()
         <hr />

@@ -12,7 +12,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BattleBands.Controllers
 {
-    [Authorize(Roles = "admin")]
+    //
+    [Authorize]
     public class UsersController : Controller
     {
         UserManager<User> _userManager;
@@ -21,11 +22,20 @@ namespace BattleBands.Controllers
         {
             _userManager = userManager;
         }
+        [Authorize]
+        [HttpGet]
+        public async Task<string> GetCurrentUserId()
+        {
+            User usr = await GetCurrentUserAsync();
+            return usr?.Id;
+        }
 
+        private Task<User> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+        [Authorize(Roles = "admin")]
         public IActionResult Index() => View(_userManager.Users.ToList());
-
+        [Authorize(Roles = "admin")]
         public IActionResult Create() => View();
-
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> Create(CreateUserViewModel model)
         {
@@ -47,7 +57,7 @@ namespace BattleBands.Controllers
             }
             return View(model);
         }
-
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(string id)
         {
             User user = await _userManager.FindByIdAsync(id);
@@ -58,7 +68,7 @@ namespace BattleBands.Controllers
             EditUserViewModel model = new EditUserViewModel { Id = user.Id, Email = user.Email};
             return View(model);
         }
-
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> Edit(EditUserViewModel model)
         {
@@ -86,7 +96,7 @@ namespace BattleBands.Controllers
             }
             return View(model);
         }
-
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult> Delete(string id)
         {
@@ -107,7 +117,7 @@ namespace BattleBands.Controllers
             ChangePasswordViewModel model = new ChangePasswordViewModel { Id = user.Id, Email = user.Email };
             return View(model);
         }
-
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
@@ -128,6 +138,48 @@ namespace BattleBands.Controllers
                         user.PasswordHash = _passwordHasher.HashPassword(user, model.NewPassword);
                         await _userManager.UpdateAsync(user);
                         return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Пользователь не найден");
+                }
+            }
+            return View(model);
+        }
+        [Authorize]
+        public async Task<IActionResult> ProfileChangePassword()// string id)
+        {
+           
+            User user = await _userManager.FindByIdAsync(await GetCurrentUserId());
+            if (user == null)
+            {
+                return NotFound();
+            }
+            ProfileChangePasswordViewModel model = new ProfileChangePasswordViewModel { Id = user.Id, Email = user.Email };
+            return View(model);
+        }
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> ProfileChangePassword(ProfileChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = await _userManager.FindByIdAsync(model.Id);
+                if (user != null)
+                {
+                    IdentityResult result =
+                        await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+                    if (result.Succeeded)
+                    {
+                        return Redirect("~/Home/Home");
                     }
                     else
                     {
