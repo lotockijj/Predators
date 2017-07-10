@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Battle Bands</title>
+    <title>@ViewData["Title"] - BattleBands</title>
 
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -28,60 +28,24 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Home" class="navbar-brand">BATTLE BANDS</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">BattleBands</a>
             </div>
-            @if (!@User.Identity.IsAuthenticated)
-            {
             <div class="navbar-collapse collapse">
-                
-                <ul class="nav navbar-nav navbar-right">
-                    <!--<li><a asp-area="" asp-controller="Users" asp-action="Index">Temp adminka</a></li>-->
-                    <li><a asp-area="" asp-controller="Home" asp-action="Bands">Bands</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Events">Events</a></li>
-                    <!--<li><a asp-area="" asp-controller="Home" asp-action="NewArtist">NewArtist</a></li>-->
-                    <li><a asp-area="" asp-controller="Account" asp-action="SignIn">SignIn</a></li>
-                    <li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
-                    
+                <ul class="nav navbar-nav">
+                    <li><a asp-area="" asp-controller="Performer" asp-action="Index">Виконавці</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Events">Події</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Music">Музика</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Video">Відео</a></li>
                 </ul>
+                @await Html.PartialAsync("_LoginPartial")
             </div>
-            }
-            else if(User.IsInRole("user"))
-            {
-            <div class="navbar-collapse collapse">
-
-                <ul class="nav navbar-nav navbar-right">
-                    <!--<li><a asp-area="" asp-controller="Users" asp-action="Index">Temp adminka</a></li>-->
-                    <li><a asp-area="" asp-controller="Home" asp-action="Bands">Bands</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Events">Events</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="NewArtist">NewArtist</a></li>
-                    <li><a asp-area="" asp-controller="Users" asp-action="ProfileChangePassword">Edit Profile</a></li>
-                    <!--<li><a asp-area="" asp-controller="Account" asp-action="LogOff">Log Off</a></li>-->
-
-                </ul>
-            </div>
-            }
-            else if (User.IsInRole("admin") || User.IsInRole("moder"))
-            {
-                <div class="navbar-collapse collapse">
-
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a asp-area="" asp-controller="Users" asp-action="Index">Temp adminka</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="Bands">Bands</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="Events">Events</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="NewArtist">NewArtist</a></li>
-                        <li><a asp-area="" asp-controller="Users" asp-action="ProfileChangePassword">Edit Profile</a></li>
-                        <!--<li><form method="post" asp-controller="Account" asp-action="LogOff"><input type="submit" value="Выход" class="btn btn-sm btn-primary" /></form> LOL</li>-->
-                    </ul>
-                </div>
-            }
         </div>
     </nav>
-            
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer class="text-center">
-            <p>&copy; @DateTime.Now.Year - BATTLE BANDS</p>
+        <footer>
+            <p>&copy; 2017 - BattleBands</p>
         </footer>
     </div>
 

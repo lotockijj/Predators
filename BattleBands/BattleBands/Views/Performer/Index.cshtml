@@ -1,0 +1,34 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<BattleBands.Models.ApplicationPerformer>
+@{
+    ViewBag.Title = "List of performers";
+}
+@{
+    ViewData["Title"] = "Виконавці";
+}
+<h2>@ViewData["Title"].</h2>
+<h3>@ViewData["Message"]</h3>
+
+<h2>Наші виконавці!</h2>
+
+<a asp-controller="Performer" asp-action="CreatePerformer" class="btn btn-default">Новий виконавець</a>
+
+
+<table class="table">
+    <tr><th>Ім'я</th><th>Enail</th><th>Країна</th><th>Жанр</th><th>Телефон</th><th>Група?</th></tr>
+    @foreach (var band in Model)
+    {
+        <tr>
+            <td>@band.PerformerName</td>
+            <td>@band.PerformerEmail</td>
+            <td>@band.PerformerCountry</td>
+            <td>@band.PerformerGenre</td>
+            <td>@band.PerformerPhone</td>
+            <td>@band.PerformerIsBand</td>
+        </tr>
+    }
+</table>

@@ -8,30 +8,72 @@
     <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <UserSecretsId>aspnet-WebApplication1-336b3b5f-4461-4d9d-b922-e1019c8519ae</UserSecretsId>
+  </PropertyGroup>
+
   <ItemGroup>
-    <Compile Remove="Models\BandModel.cs" />
-    <Compile Remove="Models\BandsOnEventsModel.cs" />
-    <Compile Remove="Models\EventModel.cs" />
-    <Compile Remove="Models\IRepository.cs" />
-    <Compile Remove="Models\MusicModel.cs" />
-    <Compile Remove="Models\PhotoModel.cs" />
-    <Compile Remove="Models\TestRepository.cs" />
-    <Compile Remove="Models\UnitOfWork.cs" />
-    <Compile Remove="Models\VideoModel.cs" />
+    <Compile Remove="Models\AccountViewModels\ExternalLoginConfirmationViewModel.cs" />
+    <Compile Remove="Models\AccountViewModels\ForgotPasswordViewModel.cs" />
+    <Compile Remove="Models\AccountViewModels\ResetPasswordViewModel.cs" />
+    <Compile Remove="Models\AccountViewModels\SendCodeViewModel.cs" />
+    <Compile Remove="Models\AccountViewModels\VerifyCodeViewModel.cs" />
+    <Compile Remove="Models\ManageViewModels\ConfigureTwoFactorViewModel.cs" />
+    <Compile Remove="Models\ManageViewModels\FactorViewModel.cs" />
+    <Compile Remove="Models\ManageViewModels\ManageLoginsViewModel.cs" />
+    <Compile Remove="Models\ManageViewModels\RemoveLoginViewModel.cs" />
+    <Compile Remove="Models\ManageViewModels\SetPasswordViewModel.cs" />
+    <Compile Remove="Models\ManageViewModels\VerifyPhoneNumberViewModel.cs" />
+    <Compile Remove="Services\IRepository.cs" />
+    <Compile Remove="Services\PerformerRepository.cs" />
+    <Compile Remove="Services\UnitOfWork.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Account\ConfirmEmail.cshtml" />
+    <Content Remove="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Remove="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Remove="Views\Account\ForgotPassword.cshtml" />
+    <Content Remove="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Remove="Views\Account\Lockout.cshtml" />
+    <Content Remove="Views\Account\Login1.cshtml" />
+    <Content Remove="Views\Account\Login2.cshtml" />
+    <Content Remove="Views\Account\Register1.cshtml" />
+    <Content Remove="Views\Account\Register2.cshtml" />
+    <Content Remove="Views\Account\ResetPassword.cshtml" />
+    <Content Remove="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Remove="Views\Account\SendCode.cshtml" />
+    <Content Remove="Views\Account\VerifyCode.cshtml" />
+    <Content Remove="Views\Home\Index1.cshtml" />
+    <Content Remove="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Remove="Views\Manage\ManageLogins.cshtml" />
+    <Content Remove="Views\Manage\SetPassword.cshtml" />
+    <Content Remove="Views\Manage\VerifyPhoneNumber.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="1.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="1.1.1" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.1" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.2" />
   </ItemGroup>
   <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.1" />
+    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.1" />
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\AdminViewModels\" />
   </ItemGroup>
 
 </Project>

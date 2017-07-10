@@ -1,51 +1,40 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
-using BattleBands.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BattleBands.Controllers
 {
     public class HomeController : Controller
     {
-        private UserManager<User> _userManager;
-
-        //class constructor
-        public HomeController(UserManager<User> userManager)
-        {
-            _userManager = userManager;
-        }
-        public IActionResult Home()
+        public IActionResult Index()
         {
             return View();
         }
+        public IActionResult Performers() => View();
 
-        public IActionResult Bands()
-        {
-            return View();
-        }
+        public IActionResult Music() => View();
 
-        public IActionResult Events()
-        {
-            return View();
-        }
+        public IActionResult Video() => View();
 
-        public IActionResult NewArtist()
+        public IActionResult Events() => View();
+
+        public IActionResult NewPerformer() => View();
+
+        public IActionResult About()
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return Redirect("~/Account/Register");
-            }
-            else 
-            return View();
-        }
-       /* public IActionResult SignIn()
-        {
+            ViewData["Message"] = "Your application description page.";
+
             return View();
         }
 
-        public IActionResult SignUp()
+        public IActionResult Contact()
         {
+            ViewData["Message"] = "Your contact page.";
+
             return View();
-        }*/
+        }
 
         public IActionResult Error()
         {

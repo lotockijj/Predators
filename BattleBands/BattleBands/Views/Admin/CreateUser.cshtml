@@ -1,0 +1,23 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model BattleBands.Models.AdminViewModels.CreateUserViewModel
+@{
+    ViewBag.Title = "Add user";
+}
+<form asp-action="CreateUser" asp-controller="Admin">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Email" class="control-label">Email</label>
+        <input type="text" asp-for="Email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Password" class="control-label">Пароль</label>
+        <input type="text" asp-for="Password" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Добавить" class="btn btn-default" />
+    </div>
+</form>
