@@ -22,13 +22,13 @@ namespace BattleBands.Services
             _context.Performers.Add(item);
         }
 
-        public void Delete(int id)
+        public void Delete(string id)
         {
             ApplicationPerformer ap = _context.Performers.Find(id);
             if (ap != null) _context.Performers.Remove(ap);
         }
 
-        public ApplicationPerformer Get(int id)
+        public ApplicationPerformer Get(string id)
         {
             return _context.Performers.Find(id);
         }
@@ -36,6 +36,16 @@ namespace BattleBands.Services
         public IEnumerable<ApplicationPerformer> GetAll()
         {
             return _context.Performers;
+        }
+
+        public IEnumerable<ApplicationPerformer> GetAll(string id)
+        {
+            var result = new List<ApplicationPerformer>();
+            foreach (var perf in this._context.Performers)
+            {
+                if (perf.UserId == id) result.Add(perf);
+            }
+            return result;
         }
 
         public void Update(ApplicationPerformer item)

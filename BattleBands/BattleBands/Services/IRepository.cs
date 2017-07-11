@@ -8,9 +8,10 @@ namespace BattleBands.Services
     interface IRepository<T> where T : class
     {
         IEnumerable<T> GetAll();
-        T Get(int id);
+        IEnumerable<T> GetAll(string id);
+        T Get(string id);
         void Create(T item);
         void Update(T item);
-        void Delete(int id);
+        void Delete(string id);
     }
 }

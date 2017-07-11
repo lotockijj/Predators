@@ -1,0 +1,22 @@
+﻿@model IEnumerable<BattleBands.Models.ApplicationPerformer>
+
+
+<div class="row">
+    <div class="col-md-8">
+        <section>
+            <table class="table">
+                @foreach (var perf in Model)
+                {
+                    <tr>
+                        <td>
+                            <a asp-action="ProfilePerformer" asp-route-id="@perf.PerformerId">@perf.PerformerName</a><br />
+                            <b>Email - @perf.PerformerEmail</b><br />
+                            <b>Телефон - @perf.PerformerPhone</b><br />
+                            <a asp-controller="Performer" asp-action="DeletePerformer" asp-route-id="@perf.PerformerId" class="btn btn-default">Видалити виконавця</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </section>
+    </div>
+</div>

@@ -19,6 +19,7 @@ namespace BattleBands.Controllers
     {
         ApplicationDbContext _context;
         UserManager<ApplicationUser> _userManager;
+
         UnitOfWork unitOfWork;
         //RoleManager<IdentityRole> _roleManager;
         public PerformerController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
@@ -54,6 +55,27 @@ namespace BattleBands.Controllers
             unitOfWork.Performers.Create(item);
             unitOfWork.Save();
             return RedirectToAction("Index");
+        }
+        [Authorize]
+        public IActionResult ProfilePerformer(string id)
+        {
+            var prf = unitOfWork.Performers.Get(id);
+            return View(prf);
+        }
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> MyPerformers()
+        {
+            var usr = await GetCurrentUserAsync();
+            return View(unitOfWork.Performers.GetAll(usr.Id));
+        }
+       
+        [Authorize]
+        public IActionResult DeletePerformer(string id)
+        {
+            unitOfWork.Performers.Delete(id);
+            unitOfWork.Save();
+            return RedirectToAction("MyPerformers");
         }
     }
 }

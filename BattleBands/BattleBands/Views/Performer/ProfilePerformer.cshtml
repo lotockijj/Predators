@@ -1,0 +1,26 @@
+﻿@model BattleBands.Models.ApplicationPerformer
+
+
+<h1>@Model.PerformerName</h1><br />
+
+@if (Model.PerformerIsBand == true)
+{
+    <p>Група</p><br />
+}
+else
+{
+    <p>Соло</p><br />
+}
+
+<label>Жанр/стиль:</label><br />
+<p>@Model.PerformerGenre</p><br />
+<label>Emali:</label><br />
+<p>@Model.PerformerEmail</p><br />
+<label>Країна:</label><br />
+<p>@Model.PerformerCountry</p><br />
+<label>Телефон:</label><br />
+<p>@Model.PerformerPhone</p><br />
+<label>Біо:</label><br />
+<p>@Model.PerformerDescription</p><br />
+
+

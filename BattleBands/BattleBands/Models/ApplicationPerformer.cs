@@ -11,6 +11,7 @@ namespace BattleBands.Models
         [Key]
         public string PerformerId { get; set; }
         public string PerformerName { get; set; }
+        public string PerformerDescription { get; set; }
         public bool PerformerIsBand { get; set; }
         public string PerformerGenre { get; set; }
         public string PerformerEmail { get; set; }
