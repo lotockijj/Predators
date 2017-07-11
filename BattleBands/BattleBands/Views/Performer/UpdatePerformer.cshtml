@@ -1,0 +1,53 @@
+﻿@model BattleBands.Models.ApplicationPerformer
+
+<div class="container">
+    <div class="col-md-6">
+        <form class="registration" asp-action="UpdatePerformer" asp-route-id="@Model.PerformerId" method="post">
+            <!--NEED CHANGE ACTION PAGE-->
+            <p>
+                <label for="PerformerName">Ім'я виконавця (Назва групи):</label><br />
+                <input type="text" asp-for="PerformerName" size="30" required>
+            </p>
+            <p>
+                <label for="PerformerGenre">Стиль/жанр:</label><br />
+                <input type="text" asp-for="PerformerGenre" size="30" required>
+            </p>
+            <p>
+                <label for="PerformerCountry">Країна:</label><br />
+                <input type="text" asp-for="PerformerCountry" placeholder="Ukraine" size="30" required>
+            </p>
+            <p>
+                <label for="PerformerPhone">Контактний телефон:</label><br />
+                <input type="text" asp-for="PerformerPhone" placeholder="0936912791" size="30" required>
+            </p>
+            <p>
+                <label for="PerformerEmail">Email:</label><br />
+                <input type="email" asp-for="PerformerEmail" placeholder="example@gmail.com" size="30" required>
+            </p>
+            <p>
+                <b>Load your Artist image or logo of the band:</b><br>
+                <input type="file" id="imageFile" accept="image/*">
+            </p>
+            <p>
+                <br />
+                <b>Load your audio file:</b><br>
+                <input type="file" id="audioFile" accept="audio/*">
+            </p>
+            <p>
+                <br />
+                <b>Load your video file:</b><br>
+                <input type="file" id="videoFile" accept="video/*">
+            </p>
+
+            <p>
+                <label for="PerformerDescription">Біо:</label><br />
+                <textarea name="comment" asp-for="PerformerDescription" cols="50" rows="5"></textarea>
+            </p>
+            <p>
+                <input type="submit" class="button" value="Send" width="200">
+                <input type="reset" class="button" value="Clear">
+            </p>
+        </form>
+    </div>
+</div>
+

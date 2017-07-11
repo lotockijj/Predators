@@ -75,7 +75,23 @@ namespace BattleBands.Controllers
         {
             unitOfWork.Performers.Delete(id);
             unitOfWork.Save();
-            return RedirectToAction("MyPerformers");
+            if (User.IsInRole("admin")) return RedirectToAction("Index");
+            else return RedirectToAction("MyPerformers");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult UpdatePerformer(string id) => View(unitOfWork.Performers.Get(id));
+
+
+        [Authorize]
+        public async Task<IActionResult> UpdatePerformer(string id, ApplicationPerformer item)
+        {
+            item.UserId = await GetCurrentUserId();
+            unitOfWork.Performers.Update(id,item);
+            unitOfWork.Save();
+            if (User.IsInRole("admin")) return RedirectToAction("Index");
+            else return RedirectToAction("MyPerformers");
         }
     }
 }

@@ -12,6 +12,7 @@
                             <a asp-action="ProfilePerformer" asp-route-id="@perf.PerformerId">@perf.PerformerName</a><br />
                             <b>Email - @perf.PerformerEmail</b><br />
                             <b>Телефон - @perf.PerformerPhone</b><br />
+                            <a asp-controller="Performer" asp-action="UpdatePerformer" asp-route-id="@perf.PerformerId" class="btn btn-default">Редагувати виконавця</a>
                             <a asp-controller="Performer" asp-action="DeletePerformer" asp-route-id="@perf.PerformerId" class="btn btn-default">Видалити виконавця</a>
                         </td>
                     </tr>

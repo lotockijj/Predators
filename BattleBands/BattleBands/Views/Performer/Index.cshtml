@@ -28,6 +28,10 @@
                                 <a asp-action="ProfilePerformer" asp-route-id="@band.PerformerId">@band.PerformerName</a><br />
                                 <b>Email - @band.PerformerEmail</b><br />
                                 <b>Телефон - @band.PerformerPhone</b><br />
+                            @if (User.IsInRole("admin"))
+                            {
+                                <a asp-controller="Performer" asp-action="DeletePerformer" asp-route-id="@band.PerformerId"class="btn btn-default">Видалити</a>
+                            }
                         </td>
                     </tr>
                 }

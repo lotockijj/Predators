@@ -7,6 +7,8 @@ using BattleBands.Models.AdminViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Collections.Generic;
+using BattleBands.Data;
+using BattleBands.Services;
 
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -16,11 +18,18 @@ namespace BattleBands.Controllers
     [Authorize]
     public class AdminController : Controller
     {
+        ApplicationDbContext _context;
+        UnitOfWork _unitOfWork;
         UserManager<ApplicationUser> _userManager;
         RoleManager<IdentityRole> _roleManager;
 
-        public AdminController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public AdminController(UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager,
+            ApplicationDbContext context,
+            UnitOfWork unitOfWork
+            )
         {
+            _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
         }
@@ -244,6 +253,21 @@ namespace BattleBands.Controllers
             }
 
             return NotFound();
+        }
+        //public IActionResult ControlPerformers() => View(_unitOfWork.Performers.GetAll());
+
+        public async Task<IActionResult> EditPerformers(string id, ApplicationPerformer item)
+        {
+            item.UserId = await GetCurrentUserId();
+            _unitOfWork.Performers.Update(id, item);
+            _unitOfWork.Save();
+            return Redirect("~/Performer/Index");
+        }
+        public IActionResult DeletePerformers(string id)
+        {
+            _unitOfWork.Performers.Delete(id);
+            _unitOfWork.Save();
+            return Redirect("~/Performer/Index");
         }
     }
 }

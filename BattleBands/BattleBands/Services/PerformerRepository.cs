@@ -48,9 +48,16 @@ namespace BattleBands.Services
             return result;
         }
 
+        public void Update(string id, ApplicationPerformer item)
+        {
+            //_context.Entry(item).State = EntityState.Modified;
+            _context.Performers.Remove(_context.Performers.Find(id));
+            _context.Performers.Add(item);
+        }
+
         public void Update(ApplicationPerformer item)
         {
-            _context.Entry(item).State = EntityState.Modified;
+            throw new NotImplementedException();
         }
     }
 }
