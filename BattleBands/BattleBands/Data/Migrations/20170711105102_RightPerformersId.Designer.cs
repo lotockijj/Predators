@@ -8,8 +8,8 @@ using BattleBands.Data;
 namespace BattleBands.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170710152008_temp2")]
-    partial class temp2
+    [Migration("20170711105102_RightPerformersId")]
+    partial class RightPerformersId
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,7 +19,7 @@ namespace BattleBands.Data.Migrations
 
             modelBuilder.Entity("BattleBands.Models.ApplicationPerformer", b =>
                 {
-                    b.Property<Guid>("PerformerId")
+                    b.Property<string>("PerformerId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("PerformerCountry");
@@ -34,7 +34,7 @@ namespace BattleBands.Data.Migrations
 
                     b.Property<string>("PerformerPhone");
 
-                    b.Property<Guid>("UserId");
+                    b.Property<string>("UserId");
 
                     b.HasKey("PerformerId");
 

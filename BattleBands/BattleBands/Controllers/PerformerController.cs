@@ -8,7 +8,8 @@ using BattleBands.Models;
 using BattleBands.Services;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using BattleBands.Data;
-using BattleBands.Models.PerformerViewModels;
+//using BattleBands.Models.PerformerViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,11 +19,11 @@ namespace BattleBands.Controllers
     {
         ApplicationDbContext _context;
         UserManager<ApplicationUser> _userManager;
-        //UnitOfWork unitOfWork;
+        UnitOfWork unitOfWork;
         //RoleManager<IdentityRole> _roleManager;
         public PerformerController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
-            //unitOfWork = new UnitOfWork();
+            unitOfWork = new UnitOfWork(context);
             _context = context;
             _userManager = userManager;
         }
@@ -36,20 +37,23 @@ namespace BattleBands.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            var users = _context.Performers.ToList();
+            var users = unitOfWork.Performers.GetAll();
             return View(users);
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult CreatePerformer() => View();
-        [HttpPost]
-        public IActionResult CreatePerformer(ApplicationPerformer item)
-        {
-            _context.Performers.Add(item);
-            _context.SaveChangesAsync();
-            return RedirectToAction("Index");
-            //return View();
-        }
 
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> CreatePerformer(ApplicationPerformer item)
+        {
+            var usr = await GetCurrentUserAsync();
+            item.UserId = usr.Id;
+            unitOfWork.Performers.Create(item);
+            unitOfWork.Save();
+            return RedirectToAction("Index");
+        }
     }
 }

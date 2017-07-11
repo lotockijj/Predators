@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BattleBands.Data.Migrations
 {
-    public partial class temp : Migration
+    public partial class RightPerformersId : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,14 +20,14 @@ namespace BattleBands.Data.Migrations
                 name: "Performers",
                 columns: table => new
                 {
-                    PerformerId = table.Column<Guid>(nullable: false),
+                    PerformerId = table.Column<string>(nullable: false),
                     PerformerCountry = table.Column<string>(nullable: true),
                     PerformerEmail = table.Column<string>(nullable: true),
                     PerformerGenre = table.Column<string>(nullable: true),
                     PerformerIsBand = table.Column<bool>(nullable: false),
                     PerformerName = table.Column<string>(nullable: true),
                     PerformerPhone = table.Column<string>(nullable: true),
-                    UserId = table.Column<Guid>(nullable: false)
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

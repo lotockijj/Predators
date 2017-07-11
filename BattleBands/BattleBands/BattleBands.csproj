@@ -24,9 +24,7 @@
     <Compile Remove="Models\ManageViewModels\RemoveLoginViewModel.cs" />
     <Compile Remove="Models\ManageViewModels\SetPasswordViewModel.cs" />
     <Compile Remove="Models\ManageViewModels\VerifyPhoneNumberViewModel.cs" />
-    <Compile Remove="Services\IRepository.cs" />
-    <Compile Remove="Services\PerformerRepository.cs" />
-    <Compile Remove="Services\UnitOfWork.cs" />
+    <Compile Remove="Models\PerformerViewModels\CreatePerformerViewModel.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -74,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\AdminViewModels\" />
+    <Folder Include="Models\PerformerViewModels\" />
   </ItemGroup>
 
 </Project>

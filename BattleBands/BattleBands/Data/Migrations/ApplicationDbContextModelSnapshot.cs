@@ -18,7 +18,7 @@ namespace BattleBands.Data.Migrations
 
             modelBuilder.Entity("BattleBands.Models.ApplicationPerformer", b =>
                 {
-                    b.Property<Guid>("PerformerId")
+                    b.Property<string>("PerformerId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("PerformerCountry");
@@ -33,7 +33,7 @@ namespace BattleBands.Data.Migrations
 
                     b.Property<string>("PerformerPhone");
 
-                    b.Property<Guid>("UserId");
+                    b.Property<string>("UserId");
 
                     b.HasKey("PerformerId");
 

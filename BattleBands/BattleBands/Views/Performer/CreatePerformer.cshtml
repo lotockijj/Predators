@@ -11,28 +11,34 @@
 </head>
 
 <body>
+    @inject UserManager<ApplicationUser> _usrMng
     <div class="container">
         <div class="col-md-6">
             <form class="registration" asp-action="CreatePerformer" method="post">
                 <!--NEED CHANGE ACTION PAGE-->
                 <p>
-                    <b>Artist's name:</b><br>
-                    <input type="text" asp-for="PerformerName" placeholder="Enter Artist's name" size="30" required>
+                    <label for="PerformerIsBand">Виконавець:</label><br />
+                        <input type="radio" asp-for="PerformerIsBand" value="True" checked> Група<br>
+                        <input type="radio" asp-for="PerformerIsBand" value="False"> Соло
                 </p>
                 <p>
-                    <b>Artist's style:</b><br>
-                    <input type="text" asp-for="PerformerGenre" placeholder="Enter Artist's style" size="30" required>
+                    <label for="PerformerName">Ім'я виконавця (Назва групи):</label><br />
+                    <input type="text" asp-for="PerformerName" size="30" required>
                 </p>
                 <p>
-                    <b>Artist's country:</b><br>
+                    <label for="PerformerGenre">Стиль/жанр:</label><br />
+                    <input type="text" asp-for="PerformerGenre" size="30" required>
+                </p>
+                <p>
+                    <label for="PerformerCountry">Країна:</label><br />
                     <input type="text" asp-for="PerformerCountry" placeholder="Ukraine" size="30" required>
                 </p>
                 <p>
-                    <b>Contact phone number:</b><br>
+                    <label for="PerformerPhone">Контактний телефон:</label><br />
                     <input type="text" asp-for="PerformerPhone" placeholder="0936912791" size="30" required>
                 </p>
                 <p>
-                    <b>Contact E-mail:</b><br>
+                    <label for="PerformerEmail">Email:</label><br />
                     <input type="email" asp-for="PerformerEmail" placeholder="example@gmail.com" size="30" required>
                 </p>
                 <p>
@@ -51,8 +57,8 @@
                 </p>
 
                 <p>
-                    <b>Comment:</b><Br>
-                    <textarea name="comment" cols="50" rows="5"></textarea>
+                    <label for="PerformerDescription">Біо:</label><br />
+                    <textarea name="comment" asp-for ="PerformerDescription" cols="50" rows="5"></textarea>
                 </p>
                 <p>
                     <input type="submit" class="button" value="Send" width="200">

@@ -8,16 +8,20 @@ namespace BattleBands.Services
 {
     public class UnitOfWork : IDisposable
     {
-        private PerformerContext db = new PerformerContext();
+        ApplicationDbContext _context;
         private PerformerRepository performerRepository;
 
+        public UnitOfWork(ApplicationDbContext context)
+        {
+            _context = context;
+        }
         public PerformerRepository Performers
         {
             get
             {
                 if (performerRepository == null)
                 { 
-                    performerRepository = new PerformerRepository(db);
+                    performerRepository = new PerformerRepository(_context);
                 }
                 return performerRepository;
             }
@@ -25,7 +29,7 @@ namespace BattleBands.Services
 
         public void Save()
         {
-            db.SaveChanges();
+            _context.SaveChanges();
         }
 
         private bool disposed = false;
@@ -36,7 +40,7 @@ namespace BattleBands.Services
             {
                 if (disposing)
                 {
-                    db.Dispose();
+                    _context.Dispose();
                 }
                 this.disposed = true;
             }

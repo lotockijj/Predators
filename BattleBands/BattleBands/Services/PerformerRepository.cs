@@ -10,37 +10,37 @@ namespace BattleBands.Services
 {
     public class PerformerRepository : IRepository<ApplicationPerformer>
     {
-        private PerformerContext db;
+        ApplicationDbContext _context;
 
-        public PerformerRepository(PerformerContext context)
+        public PerformerRepository(ApplicationDbContext context)
         {
-            this.db = context;
+            this._context = context;
         }
 
         public void Create(ApplicationPerformer item)
         {
-            db.Performers.Add(item);
+            _context.Performers.Add(item);
         }
 
         public void Delete(int id)
         {
-            ApplicationPerformer ap = db.Performers.Find(id);
-            if (ap != null) db.Performers.Remove(ap);
+            ApplicationPerformer ap = _context.Performers.Find(id);
+            if (ap != null) _context.Performers.Remove(ap);
         }
 
         public ApplicationPerformer Get(int id)
         {
-            return db.Performers.Find(id);
+            return _context.Performers.Find(id);
         }
 
         public IEnumerable<ApplicationPerformer> GetAll()
         {
-            return db.Performers;
+            return _context.Performers;
         }
 
         public void Update(ApplicationPerformer item)
         {
-            db.Entry(item).State = EntityState.Modified;
+            _context.Entry(item).State = EntityState.Modified;
         }
     }
 }
