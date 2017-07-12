@@ -48,6 +48,11 @@
     <Content Remove="Views\Manage\SetPassword.cshtml" />
     <Content Remove="Views\Manage\VerifyPhoneNumber.cshtml" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\css\Media\Music.css" />
+    <Content Include="wwwroot\css\Media\Video.css" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
