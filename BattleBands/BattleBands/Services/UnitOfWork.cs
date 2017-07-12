@@ -10,6 +10,8 @@ namespace BattleBands.Services
     {
         ApplicationDbContext _context;
         private PerformerRepository performerRepository;
+        private EventRepository eventRepository;
+
 
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -24,6 +26,18 @@ namespace BattleBands.Services
                     performerRepository = new PerformerRepository(_context);
                 }
                 return performerRepository;
+            }
+        }
+
+        public EventRepository Events
+        {
+            get
+            {
+                if (eventRepository == null)
+                {
+                    eventRepository = new EventRepository(_context);
+                }
+                return eventRepository;
             }
         }
 

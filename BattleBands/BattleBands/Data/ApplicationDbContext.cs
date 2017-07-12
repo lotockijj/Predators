@@ -11,7 +11,7 @@ namespace BattleBands.Data
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<ApplicationPerformer> Performers {get;set;}
-        //public DbSet<ApplicationEvent> Events { get; set; }
+        public DbSet<ApplicationEvent> Events { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

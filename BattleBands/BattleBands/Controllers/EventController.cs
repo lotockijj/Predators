@@ -15,84 +15,89 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BattleBands.Controllers
 {
-    public class PerformerController : Controller
+    public class EventController : Controller
     {
         ApplicationDbContext _context;
         UserManager<ApplicationUser> _userManager;
 
         UnitOfWork unitOfWork;
         //RoleManager<IdentityRole> _roleManager;
-        public PerformerController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
+        public EventController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
             unitOfWork = new UnitOfWork(context);
             _context = context;
             _userManager = userManager;
         }
         [HttpGet]
+
         public async Task<string> GetCurrentUserId()
         {
             ApplicationUser usr = await GetCurrentUserAsync();
             return usr?.Id;
         }
+
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
         // GET: /<controller>/
         public IActionResult Index()
         {
-            var users = unitOfWork.Performers.GetAll();
-            return View(users);
+            var events = unitOfWork.Events.GetAll();
+            return View(events);
         }
 
         [HttpGet]
         [Authorize]
-        public IActionResult CreatePerformer() => View();
+        public IActionResult CreateEvent() => View();
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> CreatePerformer(ApplicationPerformer item)
+        public async Task<IActionResult> CreateEvent(ApplicationEvent item)
         {
             var usr = await GetCurrentUserAsync();
-            item.UserId = usr.Id;
-            item.PerformerDescription = "dhsfkjdsfhdsjkkjfhkjfhdsjkfhdsjkfhsdkjfhdskjfdshkfjdshkfjhdskfjdshkfjhdhsfkjdsfhdsjkkjfhkjfhdsjkfhdsjkfhsdkjfhdskjfdshkfjdshkfjhdskfjdshkfjh";
-            unitOfWork.Performers.Create(item);
+            item.E_UserId = usr.Id;
+            item.EventDescription = "dhsfkjdsfhdsjkkjfhkjfhdsjkfhdsjkfhsdkjfhdskjfdshkfjdshkfjhdskfjdshkfjhdhsfkjdsfhdsjkkjfhkjfhdsjkfhdsjkfhsdkjfhdskjfdshkfjdshkfjhdskfjdshkfjh";
+
+            unitOfWork.Events.Create(item);
             unitOfWork.Save();
             return RedirectToAction("Index");
         }
+
         [Authorize]
-        public IActionResult ProfilePerformer(string id)
+        public IActionResult DetailEvent(string id)
         {
-            var prf = unitOfWork.Performers.Get(id);
-            return View(prf);
+            var events = unitOfWork.Events.Get(id);
+            return View(events);
         }
+
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> MyPerformers()
+        public async Task<IActionResult> MyEvents()
         {
             var usr = await GetCurrentUserAsync();
-            return View(unitOfWork.Performers.GetAll(usr.Id));
+            return View(unitOfWork.Events.GetAll(usr.Id));
         }
-       
+
         [Authorize]
-        public IActionResult DeletePerformer(string id)
+        public IActionResult DeleteEvent(string id)
         {
-            unitOfWork.Performers.Delete(id);
+            unitOfWork.Events.Delete(id);
             unitOfWork.Save();
-            if (User.IsInRole("admin")) return RedirectToAction("Index");
-            else return RedirectToAction("MyPerformers");
+            if (User.IsInRole("admin")) return RedirectToAction("MyEvents");
+            else return RedirectToAction("Index");
         }
 
         [HttpGet]
         [Authorize]
-        public IActionResult UpdatePerformer(string id) => View(unitOfWork.Performers.Get(id));
+        public IActionResult UpdateEvent(string id) => View(unitOfWork.Events.Get(id));
 
 
         [Authorize]
-        public async Task<IActionResult> UpdatePerformer(string id, ApplicationPerformer item)
+        public async Task<IActionResult> UpdateEvent(string id, ApplicationEvent item)
         {
-            item.UserId = await GetCurrentUserId();
-            unitOfWork.Performers.Update(id,item);
+            item.E_UserId = await GetCurrentUserId();
+            unitOfWork.Events.Update(id, item);
             unitOfWork.Save();
-            if (User.IsInRole("admin")) return RedirectToAction("Index");
-            else return RedirectToAction("MyPerformers");
+            if (User.IsInRole("admin")) return RedirectToAction("MyEvents");
+            else return RedirectToAction("Index");
         }
     }
 }

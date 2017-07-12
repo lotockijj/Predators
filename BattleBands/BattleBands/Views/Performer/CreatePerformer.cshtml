@@ -14,7 +14,7 @@
     @inject UserManager<ApplicationUser> _usrMng
     <div class="container">
         <div class="col-md-6">
-            <form class="registration" asp-action="CreatePerformer" method="post">
+            <form class="registration" asp-action="CreatePerformer" method="post" id="frm">
                 <!--NEED CHANGE ACTION PAGE-->
                 <p>
                     <label for="PerformerIsBand">Виконавець:</label><br />
@@ -58,7 +58,7 @@
 
                 <p>
                     <label for="PerformerDescription">Біо:</label><br />
-                    <textarea name="comment" asp-for ="PerformerDescription" cols="50" rows="5"></textarea>
+                    <textarea name="comment" id="txtarea" runat="server" textmode="multiline" form="frm" asp-for ="PerformerDescription" cols="50" rows="5"></textarea>
                 </p>
                 <p>
                     <input type="submit" class="button" value="Send" width="200">
