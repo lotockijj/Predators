@@ -14,8 +14,6 @@
 
   <ItemGroup>
     <Compile Remove="Models\AccountViewModels\ExternalLoginConfirmationViewModel.cs" />
-    <Compile Remove="Models\AccountViewModels\ForgotPasswordViewModel.cs" />
-    <Compile Remove="Models\AccountViewModels\ResetPasswordViewModel.cs" />
     <Compile Remove="Models\AccountViewModels\SendCodeViewModel.cs" />
     <Compile Remove="Models\AccountViewModels\VerifyCodeViewModel.cs" />
     <Compile Remove="Models\ManageViewModels\ConfigureTwoFactorViewModel.cs" />
@@ -28,18 +26,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Account\ConfirmEmail.cshtml" />
     <Content Remove="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Remove="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Remove="Views\Account\ForgotPassword.cshtml" />
-    <Content Remove="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Remove="Views\Account\Lockout.cshtml" />
     <Content Remove="Views\Account\Login1.cshtml" />
     <Content Remove="Views\Account\Login2.cshtml" />
     <Content Remove="Views\Account\Register1.cshtml" />
     <Content Remove="Views\Account\Register2.cshtml" />
-    <Content Remove="Views\Account\ResetPassword.cshtml" />
-    <Content Remove="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Remove="Views\Account\SendCode.cshtml" />
     <Content Remove="Views\Account\VerifyCode.cshtml" />
     <Content Remove="Views\Home\Index1.cshtml" />
@@ -49,6 +42,7 @@
     <Content Remove="Views\Manage\VerifyPhoneNumber.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MailKit" Version="1.16.2" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.2" />

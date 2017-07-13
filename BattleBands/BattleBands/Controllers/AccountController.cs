@@ -116,22 +116,27 @@ namespace BattleBands.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
-                    // Send an email with this link
-                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //var callbackUrl = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                    //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
-                    //    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    await _userManager.AddToRoleAsync(user, "user");
-                    _logger.LogInformation(3, "User created a new account with password.");
-                    return RedirectToLocal(returnUrl);
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var callbackUrl = Url.Action(
+                        "ConfirmEmail",
+                        "Account",
+                        new { userId = user.Id, code = code },
+                        protocol: HttpContext.Request.Scheme);
+                    EmailService emailService = new EmailService();
+                    await SendMessage(model.Email, "Підтвердження реєстрації",
+                        $"Підтвердіть реєстрацію, перейшовши за <a href='{callbackUrl}'>посиланням.</a>");
                 }
                 AddErrors(result);
+                return View();
             }
+            return View();
+        }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+        public async Task<IActionResult> SendMessage(string email, string subj, string txt)
+        {
+            EmailService emailService = new EmailService();
+            await emailService.SendEmailAsync(email, subj, txt);
+            return Redirect("~/Home/Index");
         }
 
         //
@@ -144,6 +149,113 @@ namespace BattleBands.Controllers
             _logger.LogInformation(4, "User logged out.");
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
+        // GET: /Account/ConfirmEmail
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail(string userId, string code)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                if (userId == null || code == null)
+                {
+                    return View("Error");
+                }
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user == null)
+                {
+                    return View("Error");
+                }
+                var result = await _userManager.ConfirmEmailAsync(user, code);
+                return View(result.Succeeded ? "ConfirmEmail" : "Error");
+            }
+            else return View("Error");
+        }
+        // GET: /Account/ForgotPassword
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/ForgotPassword
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByNameAsync(model.Email);
+                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                {
+                    return View("ForgotPasswordConfirmation");
+                }
+
+                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+                EmailService emailService = new EmailService();
+                await emailService.SendEmailAsync(model.Email, "Скидання паролю",
+                    $"Для скидання паролю перейдіть за <a href='{callbackUrl}'>посиланням</a>");
+                return View("ForgotPasswordConfirmation");
+            }
+            return View(model);
+        }
+
+        //
+        // GET: /Account/ForgotPasswordConfirmation
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+
+        //
+        // GET: /Account/ResetPassword
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ResetPassword(string code = null)
+        {
+            return code == null ? View("Error") : View();
+        }
+
+        //
+        // POST: /Account/ResetPassword
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                // Don't reveal that the user does not exist
+                return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
+            }
+            var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
+            if (result.Succeeded)
+            {
+                return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
+            }
+            AddErrors(result);
+            return View();
+        }
+
+        //
+        // GET: /Account/ResetPasswordConfirmation
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ResetPasswordConfirmation()
+        {
+            return View();
+        }
+
         #region [not used now]
         /*
                 //
@@ -235,114 +347,10 @@ namespace BattleBands.Controllers
                     return View(model);
                 }
 
-                // GET: /Account/ConfirmEmail
-                [HttpGet]
-                [AllowAnonymous]
-                public async Task<IActionResult> ConfirmEmail(string userId, string code)
-                {
-                    if (userId == null || code == null)
-                    {
-                        return View("Error");
-                    }
-                    var user = await _userManager.FindByIdAsync(userId);
-                    if (user == null)
-                    {
-                        return View("Error");
-                    }
-                    var result = await _userManager.ConfirmEmailAsync(user, code);
-                    return View(result.Succeeded ? "ConfirmEmail" : "Error");
-                }
+                
 
                 //
-                // GET: /Account/ForgotPassword
-                [HttpGet]
-                [AllowAnonymous]
-                public IActionResult ForgotPassword()
-                {
-                    return View();
-                }
-
-                //
-                // POST: /Account/ForgotPassword
-                [HttpPost]
-                [AllowAnonymous]
-                [ValidateAntiForgeryToken]
-                public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
-                {
-                    if (ModelState.IsValid)
-                    {
-                        var user = await _userManager.FindByEmailAsync(model.Email);
-                        if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
-                        {
-                            // Don't reveal that the user does not exist or is not confirmed
-                            return View("ForgotPasswordConfirmation");
-                        }
-
-                        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
-                        // Send an email with this link
-                        //var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                        //var callbackUrl = Url.Action(nameof(ResetPassword), "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                        //await _emailSender.SendEmailAsync(model.Email, "Reset Password",
-                        //   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
-                        //return View("ForgotPasswordConfirmation");
-                    }
-
-                    // If we got this far, something failed, redisplay form
-                    return View(model);
-                }
-
-                //
-                // GET: /Account/ForgotPasswordConfirmation
-                [HttpGet]
-                [AllowAnonymous]
-                public IActionResult ForgotPasswordConfirmation()
-                {
-                    return View();
-                }
-
-                //
-                // GET: /Account/ResetPassword
-                [HttpGet]
-                [AllowAnonymous]
-                public IActionResult ResetPassword(string code = null)
-                {
-                    return code == null ? View("Error") : View();
-                }
-
-                //
-                // POST: /Account/ResetPassword
-                [HttpPost]
-                [AllowAnonymous]
-                [ValidateAntiForgeryToken]
-                public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
-                {
-                    if (!ModelState.IsValid)
-                    {
-                        return View(model);
-                    }
-                    var user = await _userManager.FindByEmailAsync(model.Email);
-                    if (user == null)
-                    {
-                        // Don't reveal that the user does not exist
-                        return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
-                    }
-                    var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
-                    if (result.Succeeded)
-                    {
-                        return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
-                    }
-                    AddErrors(result);
-                    return View();
-                }
-
-                //
-                // GET: /Account/ResetPasswordConfirmation
-                [HttpGet]
-                [AllowAnonymous]
-                public IActionResult ResetPasswordConfirmation()
-                {
-                    return View();
-                }
+                
 
                 //
                 // GET: /Account/SendCode
@@ -445,7 +453,7 @@ namespace BattleBands.Controllers
                     }
                 }
                 */
-#endregion
+        #endregion
         //
         // GET /Account/AccessDenied
         [HttpGet]

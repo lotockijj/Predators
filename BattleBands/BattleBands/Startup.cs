@@ -48,6 +48,13 @@ namespace BattleBands
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddIdentity<ApplicationUser, IdentityRole>(config =>
+            {
+                config.SignIn.RequireConfirmedEmail = true;
+            })
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
+
             services.AddMvc();
 
             // Add application services.
@@ -94,7 +101,7 @@ namespace BattleBands
             RoleManager<IdentityRole> roleManager =
                 serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-            string adminEmail = "maksim.tantsyura@gmail.com";
+            string adminEmail = "lekossum@10mail.org";
             string password = "A5W,L#5D.^Dx";
             if (await roleManager.FindByNameAsync("admin") == null)
             {
@@ -112,6 +119,7 @@ namespace BattleBands
             {
                 ApplicationUser admin = new ApplicationUser { Email = adminEmail, UserName = adminEmail };
                 IdentityResult result = await userManager.CreateAsync(admin, password);
+                await userManager.IsEmailConfirmedAsync(admin);
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(admin, "admin");
