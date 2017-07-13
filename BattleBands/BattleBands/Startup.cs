@@ -119,7 +119,7 @@ namespace BattleBands
             {
                 ApplicationUser admin = new ApplicationUser { Email = adminEmail, UserName = adminEmail };
                 IdentityResult result = await userManager.CreateAsync(admin, password);
-                await userManager.IsEmailConfirmedAsync(admin);
+                admin.EmailConfirmed = true;
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(admin, "admin");

@@ -19,14 +19,14 @@ namespace BattleBands.Controllers
     public class AdminController : Controller
     {
         ApplicationDbContext _context;
-        UnitOfWork _unitOfWork;
+        //UnitOfWork _unitOfWork;
         UserManager<ApplicationUser> _userManager;
         RoleManager<IdentityRole> _roleManager;
 
         public AdminController(UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
-            ApplicationDbContext context,
-            UnitOfWork unitOfWork
+            ApplicationDbContext context
+            //UnitOfWork unitOfWork
             )
         {
             _context = context;
@@ -54,6 +54,7 @@ namespace BattleBands.Controllers
             if (ModelState.IsValid)
             {
                 ApplicationUser user = new ApplicationUser { Email = model.Email, UserName = model.Email};
+                user.EmailConfirmed = true;
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -253,21 +254,6 @@ namespace BattleBands.Controllers
             }
 
             return NotFound();
-        }
-        //public IActionResult ControlPerformers() => View(_unitOfWork.Performers.GetAll());
-
-        public async Task<IActionResult> EditPerformers(string id, ApplicationPerformer item)
-        {
-            item.UserId = await GetCurrentUserId();
-            _unitOfWork.Performers.Update(id, item);
-            _unitOfWork.Save();
-            return Redirect("~/Performer/Index");
-        }
-        public IActionResult DeletePerformers(string id)
-        {
-            _unitOfWork.Performers.Delete(id);
-            _unitOfWork.Save();
-            return Redirect("~/Performer/Index");
         }
     }
 }
