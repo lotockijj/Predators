@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BattleBands.Data.Migrations
 {
-    public partial class RightPerformersId : Migration
+    public partial class newDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,11 +17,28 @@ namespace BattleBands.Data.Migrations
                 table: "AspNetRoles");
 
             migrationBuilder.CreateTable(
+                name: "Events",
+                columns: table => new
+                {
+                    EventId = table.Column<string>(nullable: false),
+                    E_UserId = table.Column<string>(nullable: true),
+                    EventDescription = table.Column<string>(nullable: true),
+                    EventName = table.Column<string>(nullable: true),
+                    EventPlace = table.Column<string>(nullable: true),
+                    EventTime = table.Column<DateTimeOffset>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Events", x => x.EventId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Performers",
                 columns: table => new
                 {
                     PerformerId = table.Column<string>(nullable: false),
                     PerformerCountry = table.Column<string>(nullable: true),
+                    PerformerDescription = table.Column<string>(nullable: true),
                     PerformerEmail = table.Column<string>(nullable: true),
                     PerformerGenre = table.Column<string>(nullable: true),
                     PerformerIsBand = table.Column<bool>(nullable: false),
@@ -43,6 +60,9 @@ namespace BattleBands.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Events");
+
             migrationBuilder.DropTable(
                 name: "Performers");
 

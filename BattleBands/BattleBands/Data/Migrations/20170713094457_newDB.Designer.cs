@@ -8,14 +8,34 @@ using BattleBands.Data;
 namespace BattleBands.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170711123521_DescriptionAdd")]
-    partial class DescriptionAdd
+    [Migration("20170713094457_newDB")]
+    partial class newDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("BattleBands.Models.ApplicationEvent", b =>
+                {
+                    b.Property<string>("EventId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("E_UserId");
+
+                    b.Property<string>("EventDescription");
+
+                    b.Property<string>("EventName");
+
+                    b.Property<string>("EventPlace");
+
+                    b.Property<DateTimeOffset>("EventTime");
+
+                    b.HasKey("EventId");
+
+                    b.ToTable("Events");
+                });
 
             modelBuilder.Entity("BattleBands.Models.ApplicationPerformer", b =>
                 {
