@@ -52,7 +52,7 @@ namespace BattleBands.Controllers
         {
             var usr = await GetCurrentUserAsync();
             item.UserId = usr.Id;
-            item.PerformerDescription = "dhsfkjdsfhdsjkkjfhkjfhdsjkfhdsjkfhsdkjfhdskjfdshkfjdshkfjhdskfjdshkfjhdhsfkjdsfhdsjkkjfhkjfhdsjkfhdsjkfhsdkjfhdskjfdshkfjdshkfjhdskfjdshkfjh";
+            item.PerformerDescription = "zahardkozheno zahardkozhenozahardkozheno zahardkozhenozahardkozheno zahardkozhenozahardkozheno zahardkozheno";
             unitOfWork.Performers.Create(item);
             unitOfWork.Save();
             return RedirectToAction("Index");

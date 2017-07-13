@@ -43,6 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\css\Home\Home.css" />
     <Content Include="wwwroot\css\Media\Music.css" />
     <Content Include="wwwroot\css\Media\Video.css" />
   </ItemGroup>
