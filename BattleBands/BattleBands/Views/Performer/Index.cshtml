@@ -14,7 +14,12 @@
 <h3>@ViewData["Message"]</h3>
 
 <h2>Наші виконавці!</h2>
-
+@using (Html.BeginForm("SearchByName", "Performer"))
+{
+    <input type="text" placeholder="Iм’я виконавця" name="@Html.Raw("name")">
+    <input type="submit" value="Пошук">
+}
+<br />
 <a asp-controller="Performer" asp-action="CreatePerformer" class="btn btn-default">Новий виконавець</a>
 <a asp-controller="Performer" asp-action="MyPerformers" class="btn btn-default">Мої виконавці</a>
 <div class="row">

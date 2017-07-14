@@ -61,5 +61,15 @@ namespace BattleBands.Services
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<ApplicationPerformer> SearchByName(string name)
+        {
+            var result = new List<ApplicationPerformer>();
+            foreach (var perf in this._context.Performers)
+            {
+                if (perf.PerformerName == name) result.Add(perf);
+            }
+            return result;
+        }
     }
 }
