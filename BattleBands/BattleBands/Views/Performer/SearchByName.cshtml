@@ -1,0 +1,29 @@
+﻿@model IEnumerable<BattleBands.Models.ApplicationPerformer>
+
+@{
+    ViewData["Title"] = "List of my performers";
+}
+<h2>My performers</h2>
+<a asp-controller="Performer" asp-action="Index" class="btn btn-default">Повернутися до виконавців</a>
+<div class="row">
+    <div class="col-md-8">
+        <section>
+            <table class="table">
+                @foreach (var band in Model)
+                {
+                    <tr>
+                        <td>
+                            <a asp-action="ProfilePerformer" asp-route-id="@band.PerformerId">@band.PerformerName</a><br />
+                            <b>Email - @band.PerformerEmail</b><br />
+                            <b>Телефон - @band.PerformerPhone</b><br />
+                            @if (User.IsInRole("admin"))
+                            {
+                                <a asp-controller="Performer" asp-action="DeletePerformer" asp-route-id="@band.PerformerId" class="btn btn-default">Видалити</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+        </section>
+    </div>
+</div>

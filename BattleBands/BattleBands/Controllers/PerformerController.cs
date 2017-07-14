@@ -95,5 +95,11 @@ namespace BattleBands.Controllers
             if (User.IsInRole("admin")) return RedirectToAction("Index");
             else return RedirectToAction("MyPerformers");
         }
+
+        [Authorize]
+        public IActionResult SearchByName(string name)
+        {
+            return View(unitOfWork.Performers.SearchByName(name));
+        }
     }
 }
