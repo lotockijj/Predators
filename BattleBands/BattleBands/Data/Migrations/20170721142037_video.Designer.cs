@@ -8,8 +8,8 @@ using BattleBands.Data;
 namespace BattleBands.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170718145835_videocontext")]
-    partial class videocontext
+    [Migration("20170721142037_video")]
+    partial class video
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

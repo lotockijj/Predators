@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BattleBands.Data.Migrations
 {
-    public partial class videocontext : Migration
+    public partial class video : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
