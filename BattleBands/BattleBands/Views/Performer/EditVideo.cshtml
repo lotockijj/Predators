@@ -1,0 +1,32 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model BattleBands.Models.ApplicationVideo
+
+<div class="container">
+    <div class="col-md-6">
+        <form class="registration" asp-action="EditVideo" method="post">
+            <!--NEED CHANGE ACTION PAGE-->
+            <input type="hidden" asp-for="@Model.OwnerID" />
+            <input type="hidden" asp-for="@Model.VideoId" />
+            <p>
+                <label for="VideoName">Назва відео:</label><br />
+                <input type="text" asp-for="VideoName" size="30" required>
+            </p>
+            <p>
+                <label for="VideoReference">Посилання на відео:</label><br />
+                <input type="text" asp-for="VideoReference" size="30" required>
+            </p>
+            <p>
+                <label for="VideoDescription">Опис</label><br />
+                <textarea asp-for="VideoDescription" size="30" rows="5" cols="30"></textarea>
+            </p>
+            <p>
+                <input type="submit" class="button" value="Send" width="200">
+                <input type="reset" class="button" value="Clear">
+            </p>
+        </form>
+    </div>
+</div>

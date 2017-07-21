@@ -22,5 +22,8 @@ else
 <p>@Model.PerformerPhone</p><br />
 <label>Біо:</label><br />
 <p>@Model.PerformerDescription</p><br />
+<a asp-action="AddVideo" asp-route-id="@Model.PerformerId">Add video</a>
+<a asp-action="GetPerformerVideos" asp-route-id="@Model.PerformerId">Videos</a>
+
 
 

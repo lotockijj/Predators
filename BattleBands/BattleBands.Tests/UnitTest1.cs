@@ -2,6 +2,7 @@ using BattleBands.Data;
 using BattleBands.Models;
 using System;
 using Xunit;
+using Moq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -64,19 +65,32 @@ namespace BattleBands.Tests
             {
                 await roleManager.CreateAsync(new IdentityRole("moder"));
             }
+
+            var testUserOne = new ApplicationUser
+            {
+                UserName = "maksim.tantsyura@gmail.com",
+                Email = "maksim.tantsyura@gmail.com",
+                EmailConfirmed = true,
+            };
+            await userManager.CreateAsync(testUserOne, "Qwerty123456!");
+            var testUserTwo = new ApplicationUser
+            {
+                UserName = "qwerty@gmail.com",
+                Email = "qwerty@gmail.com",
+                EmailConfirmed= true
+            };
+            await userManager.CreateAsync(testUserTwo, "Qwerty123456!");
         }
 
         [Fact]
         public void AdminControllerDefaultRoleForUser()
         {
-
-            //var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-            //                .UseInMemoryDatabase(databaseName: "Add_writes_to_database")
-            //                .Options;
-            //var Context = new ApplicationDbContext(options);
-            string email = "qwerty@gmail.com";
+            string email = "createUserTest@gmail.com";
             string password = "Qwerty123456!";
 
+            var deleteMe = userManager.FindByEmailAsync(email);
+            if (deleteMe.Result != null) userManager.DeleteAsync(deleteMe.Result);
+            
             var controller = new AdminController(userManager, roleManager, Context);
 
             var createUser = new CreateUserViewModel
@@ -90,42 +104,10 @@ namespace BattleBands.Tests
 
             var resultUser = userManager.FindByEmailAsync(email);
             var result = userManager.IsInRoleAsync(resultUser.Result, "user");
+            deleteMe = userManager.FindByEmailAsync(email);
+            userManager.DeleteAsync(deleteMe.Result);
             Assert.True(result.Result);
-            
         }
 
-        //[Fact]
-        //public void Test()
-        //{
-
-        //    string email = "qwerty@gmail.com";
-        //    string password = "Qwerty123456!";
-
-        //    var controller = new AdminController(userManager, roleManager, Context);
-
-        //    var createUser = new CreateUserViewModel
-        //    {
-        //        Email = email,
-        //        Password = password
-        //    };
-        //    controller.CreateUser(createUser).Wait();
-
-        //    var findUsr = userManager.FindByEmailAsync(email);
-
-
-        //    string newEmail = "ytrewq@gmail.com";
-        //    var editUser = new EditUserViewModel
-        //    {
-        //        Email = newEmail,
-        //        Id = findUsr.Result.Id
-        //    };
-        //    controller.EditUser(editUser).Wait();
-
-        //    var resultUser = userManager.FindByIdAsync(findUsr.Result.Id);
-        //    Assert.Equal(newEmail, resultUser.Result.Email);
-
-        //    //var res = userManager.FindByEmailAsync(email);
-        //    //Assert.Null(res.Result);
-        //}
     }
 }

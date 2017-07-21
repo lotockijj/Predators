@@ -13,6 +13,7 @@ using BattleBands.Data;
 using BattleBands.Models;
 using BattleBands.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BattleBands
 {
