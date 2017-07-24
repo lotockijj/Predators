@@ -12,5 +12,8 @@
 <p>@Model.PerformerPhone</p><br />
 <label>Опис:</label><br />
 <p>@Model.PerformerDescription</p><br />
+<a asp-action="AddVideo" asp-route-id="@Model.PerformerId">Add video</a>
+<a asp-action="GetPerformerVideos" asp-route-id="@Model.PerformerId">Videos</a>
+
 
 

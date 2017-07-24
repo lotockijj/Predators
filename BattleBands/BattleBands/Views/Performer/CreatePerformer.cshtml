@@ -37,6 +37,9 @@
                 </p>
                 <p>
                     <b>Загрузити логотип виконавця:</b><br>
+                @*<p>
+                    <b>Load your Artist image or logo of the band:</b><br>
+>>>>>>> ddcc0f8d80ec5c4e130044b956818ddc2d044bc1
                     <input type="file" id="imageFile" accept="image/*">
                 </p>
                 <p>
@@ -48,11 +51,11 @@
                     <br />
                     <b>Загрузити відеофайл виконавця:</b><br>
                     <input type="file" id="videoFile" accept="video/*">
-                </p>
+                </p>*@
 
                 <p>
                     <label for="PerformerDescription">Опис:</label><br />
-                    <textarea name="comment" id="txtarea" runat="server" textmode="multiline" form="frm" asp-for ="PerformerDescription" cols="50" rows="5"></textarea>
+                    <textarea asp-for="PerformerDescription" cols="50" rows="5"></textarea>
                 </p>
                 <p>
                     <input type="submit" class="button" value="Send" width="200">
@@ -60,7 +63,6 @@
                 </p>
             </form>
         </div>
-
         <div class="col-md-6">
             <div class="band">
                 <img src="~/images/NewArtist/BandClipart.png" />
