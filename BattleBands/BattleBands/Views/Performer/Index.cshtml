@@ -5,10 +5,7 @@
 @{
     ViewData["Title"] = "Виконавці";
 }
-<h2>@ViewData["Title"].</h2>
-<h3>@ViewData["Message"]</h3>
-
-<h2>Наші виконавці!</h2>
+<h3>Наші виконавці!</h3>
 @using (Html.BeginForm("SearchByName", "Performer"))
 {
     <input type="text" placeholder="Iм’я виконавця" name="@Html.Raw("name")">

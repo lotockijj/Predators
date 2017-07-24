@@ -15,23 +15,17 @@
     <div class="container">
         <div class="col-md-6">
             <form class="registration" asp-action="CreatePerformer" method="post" id="frm">
-                <!--NEED CHANGE ACTION PAGE-->
-                <p>
-                    <label for="PerformerIsBand">Виконавець:</label><br />
-                        <input type="radio" asp-for="PerformerIsBand" value="True" checked> Група<br>
-                        <input type="radio" asp-for="PerformerIsBand" value="False"> Соло
-                </p>
                 <p>
                     <label for="PerformerName">Ім'я виконавця (Назва групи):</label><br />
-                    <input type="text" asp-for="PerformerName" size="30" required>
+                    <input type="text" asp-for="PerformerName" placeholder="Ім'я" size="30" required>
                 </p>
                 <p>
                     <label for="PerformerGenre">Стиль/жанр:</label><br />
-                    <input type="text" asp-for="PerformerGenre" size="30" required>
+                    <input type="text" asp-for="PerformerGenre" placeholder="Альтернатива" size="30" required>
                 </p>
                 <p>
                     <label for="PerformerCountry">Країна:</label><br />
-                    <input type="text" asp-for="PerformerCountry" placeholder="Ukraine" size="30" required>
+                    <input type="text" asp-for="PerformerCountry" placeholder="Україна" size="30" required>
                 </p>
                 <p>
                     <label for="PerformerPhone">Контактний телефон:</label><br />
@@ -42,17 +36,17 @@
                     <input type="email" asp-for="PerformerEmail" placeholder="example@gmail.com" size="30" required>
                 </p>
                 <p>
-                    <b>Load your Artist image or logo of the band:</b><br>
+                    <b>Загрузити логотип виконавця:</b><br>
                     <input type="file" id="imageFile" accept="image/*">
                 </p>
                 <p>
                     <br />
-                    <b>Load your audio file:</b><br>
+                    <b>Загрузити аудіофайл виконавця:</b><br>
                     <input type="file" id="audioFile" accept="audio/*">
                 </p>
                 <p>
                     <br />
-                    <b>Load your video file:</b><br>
+                    <b>Загрузити відеофайл виконавця:</b><br>
                     <input type="file" id="videoFile" accept="video/*">
                 </p>
 
@@ -73,7 +67,5 @@
             </div>
         </div>
     </div>
-
 </body>
-
 </html>

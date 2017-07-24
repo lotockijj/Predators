@@ -2,31 +2,36 @@
 @{
     ViewData["Title"] = "Реєстрація";
 }
-
-<h2>@ViewData["Title"].</h2>
+<h3>@ViewData["Title"].</h3>
+<environment names="Development">
+    <link rel="stylesheet" href="~/css/SignIn/SignIn.css" />
+</environment>
 
 <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
-    <h4>Створити аккаунт.</h4>
+    <div class="imgcontainer">
+        <img src="~/images/SignIn/SignIn.png" alt="Avatar" class="avatar">
+    </div>
     <hr />
+
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group">
         <label asp-for="Email" class="col-md-2 control-label"></label>
         <div class="col-md-10">
-            <input asp-for="Email" class="form-control" />
+            <input asp-for="Email" class="form-control" placeholder="your@gmail.com" />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group">
         <label asp-for="Password" class="col-md-2 control-label"></label>
         <div class="col-md-10">
-            <input asp-for="Password" class="form-control" />
+            <input asp-for="Password" class="form-control" placeholder="password" />
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group">
         <label asp-for="ConfirmPassword" class="col-md-2 control-label"></label>
         <div class="col-md-10">
-            <input asp-for="ConfirmPassword" class="form-control" />
+            <input asp-for="ConfirmPassword" class="form-control" placeholder="password" />
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
         </div>
     </div>

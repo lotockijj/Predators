@@ -1,5 +1,8 @@
 ﻿@model BattleBands.Models.ApplicationPerformer
-
+@{
+    ViewBag.Title = "Оновлення виконавця";
+}
+<h3>@ViewData["Title"]</h3>
 <div class="container">
     <div class="col-md-6">
         <form class="registration" asp-action="UpdatePerformer" asp-route-id="@Model.PerformerId" method="post">

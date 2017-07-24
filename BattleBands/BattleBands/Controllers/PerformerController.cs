@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using BattleBands.Models;
 using BattleBands.Services;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using BattleBands.Data;
 //using BattleBands.Models.PerformerViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -52,7 +48,7 @@ namespace BattleBands.Controllers
         {
             var usr = await GetCurrentUserAsync();
             item.UserId = usr.Id;
-            item.PerformerDescription = "zahardkozheno zahardkozhenozahardkozheno zahardkozhenozahardkozheno zahardkozhenozahardkozheno zahardkozheno";
+            item.PerformerDescription = "zahardkozheno zahardkozhenozahardkozheno zahardkozhenozahardkozheno zahardkozheno";
             unitOfWork.Performers.Create(item);
             unitOfWork.Save();
             return RedirectToAction("Index");
