@@ -8,7 +8,6 @@ using BattleBands.Models;
 using BattleBands.Services;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using BattleBands.Data;
-//using BattleBands.Models.PerformerViewModels;
 using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -19,9 +18,7 @@ namespace BattleBands.Controllers
     {
         ApplicationDbContext _context;
         UserManager<ApplicationUser> _userManager;
-
         UnitOfWork unitOfWork;
-        //RoleManager<IdentityRole> _roleManager;
         public EventController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
             unitOfWork = new UnitOfWork(context);
@@ -54,8 +51,6 @@ namespace BattleBands.Controllers
         {
             var usr = await GetCurrentUserAsync();
             item.E_UserId = usr.Id;
-            item.EventDescription = "dhsfkjdsfhdsjkkjfhkjfhdsjkfhdsjkfhsdkjfhdskjfdshkfjdshkfjhdskfjdshkfjhdhsfkjdsfhdsjkkjfhkjfhdsjkfhdsjkfhsdkjfhdskjfdshkfjdshkfjhdskfjdshkfjh";
-
             unitOfWork.Events.Create(item);
             unitOfWork.Save();
             return RedirectToAction("Index");

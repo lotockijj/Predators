@@ -5,9 +5,10 @@ using Microsoft.AspNetCore.Identity;
 using BattleBands.Models;
 using BattleBands.Services;
 using BattleBands.Data;
-//using BattleBands.Models.PerformerViewModels;
 using Microsoft.AspNetCore.Authorization;
 using BattleBands.Models.PerformerViewModels;
+using System.Text.RegularExpressions;
+using System.Linq;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,9 +18,7 @@ namespace BattleBands.Controllers
     {
         ApplicationDbContext _context;
         UserManager<ApplicationUser> _userManager;
-
         UnitOfWork unitOfWork;
-        //RoleManager<IdentityRole> _roleManager;
         public PerformerController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
             unitOfWork = new UnitOfWork(context);
@@ -50,7 +49,6 @@ namespace BattleBands.Controllers
         {
             var usr = await GetCurrentUserAsync();
             item.UserId = usr.Id;
-            //item.PerformerDescription = "zahardkozheno zahardkozhenozahardkozheno zahardkozhenozahardkozheno zahardkozhenozahardkozheno zahardkozheno";
             unitOfWork.Performers.Create(item);
             unitOfWork.Save();
             return RedirectToAction("Index");
@@ -87,7 +85,6 @@ namespace BattleBands.Controllers
         public async Task<IActionResult> UpdatePerformer(string id, ApplicationPerformer item)
         {
             item.UserId = await GetCurrentUserId();
-
             unitOfWork.Performers.Update(id, item);
             unitOfWork.Save();
             if (User.IsInRole("admin")) return RedirectToAction("Index");
@@ -117,7 +114,7 @@ namespace BattleBands.Controllers
             if (item.OwnerID == null) return RedirectToAction("Error");
             try
             {
-                var reference = new Uri(item.VideoReference);
+                item.VideoReference = ExtractVideoIdFromUri(new Uri(item.VideoReference));
                 unitOfWork.Videos.Create(item);
                 unitOfWork.Save();
                 return RedirectToAction("Index");
@@ -144,9 +141,8 @@ namespace BattleBands.Controllers
         [HttpGet]
         public IActionResult ViewPerformerVideo(string id)
         {
-            var item = new GetVideoAndInfoViewModel();
-            item.video = unitOfWork.Videos.Get(id);
-            item.reference = new Uri(item.video.VideoReference, UriKind.Absolute);
+            var item = new ApplicationVideo();
+            item = unitOfWork.Videos.Get(id);
             return View(item);
         }
         [Authorize]
@@ -165,7 +161,7 @@ namespace BattleBands.Controllers
             }
             catch
             {
-                return Redirect("Index"); //треба нормальні редіректи
+                return Redirect("Index"); //need right redirect
             }
         }
         [Authorize]
@@ -175,5 +171,34 @@ namespace BattleBands.Controllers
             unitOfWork.Save();
             return RedirectToAction("MyPerformers");
         }
+
+        #region [Helpers]
+        private const string YoutubeLinkRegex = "(?:.+?)?(?:\\/v\\/|watch\\/|\\?v=|\\&v=|youtu\\.be\\/|\\/v=|^youtu\\.be\\/)([a-zA-Z0-9_-]{11})+";
+        private static Regex regexExtractId = new Regex(YoutubeLinkRegex, RegexOptions.Compiled);
+        private static string[] validAuthorities = { "youtube.com", "www.youtube.com", "youtu.be", "www.youtu.be" };
+
+        public string ExtractVideoIdFromUri(Uri uri)
+        {
+            try
+            {
+                string authority = new UriBuilder(uri).Uri.Authority.ToLower();
+
+                //check if the url is a youtube url
+                if (validAuthorities.Contains(authority))
+                {
+                    //extract the id
+                    var regRes = regexExtractId.Match(uri.ToString());
+                    if (regRes.Success)
+                    {
+                        return regRes.Groups[1].Value;
+                    }
+                }
+            }
+            catch { }
+
+
+            return null;
+        }
+#endregion
     }
 }

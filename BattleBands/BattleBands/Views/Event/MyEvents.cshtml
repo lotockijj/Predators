@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<BattleBands.Models.ApplicationEvent>
 @{
-    ViewData["Title"] = "Мої події";
+    ViewData["Title"] = "My events";
 }
 
 <h3>@ViewData["Title"]</h3>
@@ -14,10 +14,10 @@
                     <tr>
                         <td>
                             <a asp-action="ProfilePerformer" asp-route-id="@evnt.EventId">@evnt.EventName</a><br />
-                            <b>Місце - @evnt.EventPlace</b><br />
-                            <b>Дата і час - @evnt.EventTime</b><br />
-                            <a asp-controller="Event" asp-action="UpdateEvent" asp-route-id="@evnt.EventId" class="btn btn-default">Редагувати подію</a>
-                            <a asp-controller="Event" asp-action="DeleteEvent" asp-route-id="@evnt.EventId" class="btn btn-default">Видалити подію</a>
+                            <b>Place - @evnt.EventPlace</b><br />
+                            <b>Date and time - @evnt.EventTime</b><br />
+                            <a asp-controller="Event" asp-action="UpdateEvent" asp-route-id="@evnt.EventId" class="btn btn-default">Edit</a>
+                            <a asp-controller="Event" asp-action="DeleteEvent" asp-route-id="@evnt.EventId" class="btn btn-default">Delete</a>
                         </td>
                     </tr>
                 }

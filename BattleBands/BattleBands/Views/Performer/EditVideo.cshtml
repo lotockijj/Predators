@@ -12,15 +12,15 @@
             <input type="hidden" asp-for="@Model.OwnerID" />
             <input type="hidden" asp-for="@Model.VideoId" />
             <p>
-                <label for="VideoName">Назва відео:</label><br />
+                <label for="VideoName">Name:</label><br />
                 <input type="text" asp-for="VideoName" size="30" required>
             </p>
             <p>
-                <label for="VideoReference">Посилання на відео:</label><br />
+                <label for="VideoReference">Link:</label><br />
                 <input type="text" asp-for="VideoReference" size="30" required>
             </p>
             <p>
-                <label for="VideoDescription">Опис</label><br />
+                <label for="VideoDescription">Description</label><br />
                 <textarea asp-for="VideoDescription" size="30" rows="5" cols="30"></textarea>
             </p>
             <p>

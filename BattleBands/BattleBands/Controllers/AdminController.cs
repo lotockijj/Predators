@@ -19,14 +19,12 @@ namespace BattleBands.Controllers
     public class AdminController : Controller
     {
         ApplicationDbContext _context;
-        //UnitOfWork _unitOfWork;
         UserManager<ApplicationUser> _userManager;
         RoleManager<IdentityRole> _roleManager;
 
         public AdminController(UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
             ApplicationDbContext context
-            //UnitOfWork unitOfWork
             )
         {
             _context = context;
@@ -210,11 +208,9 @@ namespace BattleBands.Controllers
 
         public async Task<IActionResult> EditUserRole(string userId)
         {
-            // получаем пользователя
             ApplicationUser user = await _userManager.FindByIdAsync(userId);
             if (user != null)
             {
-                // получем список ролей пользователя
                 var userRoles = await _userManager.GetRolesAsync(user);
                 var allRoles = _roleManager.Roles.ToList();
                 ChangeRoleViewModel model = new ChangeRoleViewModel
@@ -233,23 +229,15 @@ namespace BattleBands.Controllers
         [HttpPost]
         public async Task<IActionResult> EditUserRole(string userId, List<string> roles)
         {
-            // получаем пользователя
             ApplicationUser user = await _userManager.FindByIdAsync(userId);
             if (user != null)
             {
-                // получем список ролей пользователя
                 var userRoles = await _userManager.GetRolesAsync(user);
-                // получаем все роли
                 var allRoles = _roleManager.Roles.ToList();
-                // получаем список ролей, которые были добавлены
                 var addedRoles = roles.Except(userRoles);
-                // получаем роли, которые были удалены
                 var removedRoles = userRoles.Except(roles);
-
                 await _userManager.AddToRolesAsync(user, addedRoles);
-
                 await _userManager.RemoveFromRolesAsync(user, removedRoles);
-
                 return RedirectToAction("UserRoles");
             }
 

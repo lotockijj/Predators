@@ -1,7 +1,7 @@
 ﻿@{
-    ViewData["Title"] = "Відео";
+    ViewData["Title"] = "Video";
 }
-@model BattleBands.Models.PerformerViewModels.GetVideoAndInfoViewModel
+@model BattleBands.Models.ApplicationVideo
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,15 +14,15 @@
         <br />
         <br />
        <br />
-        <b>@Model.video.VideoName</b><br />
+        <b>@Model.VideoName</b><br />
         
         <figure>
-            <iframe src="https://www.youtube.com/embed/@Model.reference.Query.Substring(3)" frameborder="0" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/@Model.VideoReference" frameborder="0" allowfullscreen></iframe>
         </figure>
-        <b>Description:</b> @Model.video.VideoDescription<br />
+        <b>Description:</b> @Model.VideoDescription<br />
         
-        <a asp-action="EditVideo" asp-route-id="@Model.video.VideoId">Edit</a>
-        <a asp-action="DeleteVideo" asp-route-id="@Model.video.VideoId">Delete</a>
+        <a asp-action="EditVideo" asp-route-id="@Model.VideoId">Edit</a>
+        <a asp-action="DeleteVideo" asp-route-id="@Model.VideoId">Delete</a>
 
 
     </div>

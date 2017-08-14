@@ -12,6 +12,10 @@
     <UserSecretsId>aspnet-WebApplication1-336b3b5f-4461-4d9d-b922-e1019c8519ae</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>3</WarningLevel>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="Models\AccountViewModels\ExternalLoginConfirmationViewModel.cs" />
     <Compile Remove="Models\AccountViewModels\SendCodeViewModel.cs" />

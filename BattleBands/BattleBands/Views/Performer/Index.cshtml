@@ -3,17 +3,17 @@
     ViewBag.Title = "List of performers";
 }
 @{
-    ViewData["Title"] = "Виконавці";
+    ViewData["Title"] = "Performers";
 }
-<h3>Наші виконавці!</h3>
+<h3>Our performers!</h3>
 @using (Html.BeginForm("SearchByName", "Performer"))
 {
-    <input type="text" placeholder="Iм’я виконавця" name="@Html.Raw("name")">
-    <input type="submit" value="Пошук">
+    <input type="text" placeholder="Performer's name'" name="@Html.Raw("name")">
+    <input type="submit" value="Search">
 }
 <br />
-<a asp-controller="Performer" asp-action="CreatePerformer" class="btn btn-default">Новий виконавець</a>
-<a asp-controller="Performer" asp-action="MyPerformers" class="btn btn-default">Мої виконавці</a>
+<a asp-controller="Performer" asp-action="CreatePerformer" class="btn btn-default">New performeer</a>
+<a asp-controller="Performer" asp-action="MyPerformers" class="btn btn-default">My performers</a>
 <div class="row">
     <div class="col-md-8">
         <section>
@@ -24,10 +24,10 @@
                         <td>
                             <a asp-action="ProfilePerformer" asp-route-id="@band.PerformerId">@band.PerformerName</a><br />
                             <b>Email - @band.PerformerEmail</b><br />
-                            <b>Телефон - @band.PerformerPhone</b><br />
+                            <b>Phone - @band.PerformerPhone</b><br />
                             @if (User.IsInRole("admin"))
                             {
-                                <a asp-controller="Performer" asp-action="DeletePerformer" asp-route-id="@band.PerformerId"class="btn btn-default">Видалити</a>
+                                <a asp-controller="Performer" asp-action="DeletePerformer" asp-route-id="@band.PerformerId"class="btn btn-default">Delete</a>
                             }
                         </td>
                     </tr>

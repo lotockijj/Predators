@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<BattleBands.Models.ApplicationPerformer>
 @{
-    ViewBag.Title = "Мої виконавці";
+    ViewBag.Title = "My performers";
 }
 <h3>@ViewData["Title"]</h3>
 <div class="row">
@@ -13,9 +13,9 @@
                         <td>
                             <a asp-action="ProfilePerformer" asp-route-id="@perf.PerformerId">@perf.PerformerName</a><br />
                             <b>Email - @perf.PerformerEmail</b><br />
-                            <b>Телефон - @perf.PerformerPhone</b><br />
-                            <a asp-controller="Performer" asp-action="UpdatePerformer" asp-route-id="@perf.PerformerId" class="btn btn-default">Редагувати виконавця</a>
-                            <a asp-controller="Performer" asp-action="DeletePerformer" asp-route-id="@perf.PerformerId" class="btn btn-default">Видалити виконавця</a>
+                            <b>Phone - @perf.PerformerPhone</b><br />
+                            <a asp-controller="Performer" asp-action="UpdatePerformer" asp-route-id="@perf.PerformerId" class="btn btn-default">Edit</a>
+                            <a asp-controller="Performer" asp-action="DeletePerformer" asp-route-id="@perf.PerformerId" class="btn btn-default">Delete</a>
                         </td>
                     </tr>
                 }
