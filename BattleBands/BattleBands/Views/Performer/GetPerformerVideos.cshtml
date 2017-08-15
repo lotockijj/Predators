@@ -3,16 +3,17 @@
 *@
 @{
 }
-@model IEnumerable<BattleBands.Models.ApplicationVideo>
-
-@if (Model.Count() == 0)
+@model BattleBands.Models.PerformerViewModels.PerformerGetVideosModelView
+@if (Model.Video.Count() == 0)
 {
     <p>No videos added.</p>
 }
 else
 {
-    @foreach (var video in Model)
+    @foreach (var video in Model.Video)
     {
         <a asp-action="ViewPerformerVideo" asp-route-id="@video.VideoId">@video.VideoName</a><br />
     }
 }
+<p></p>
+<a asp-action="ProfilePerformer" asp-route-id="@Model.ID" class="btn btn-default">Back</a>

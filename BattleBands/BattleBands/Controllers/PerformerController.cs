@@ -59,6 +59,7 @@ namespace BattleBands.Controllers
             var prf = unitOfWork.Performers.Get(id);
             return View(prf);
         }
+
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> MyPerformers()
@@ -72,7 +73,7 @@ namespace BattleBands.Controllers
         {
             unitOfWork.Performers.Delete(id);
             unitOfWork.Save();
-            if (User.IsInRole("admin")) return RedirectToAction("Index");
+            if (User.IsInRole("admin")) return RedirectToAction("Index"); //TODO: confirm removing page
             else return RedirectToAction("MyPerformers");
         }
 
@@ -102,22 +103,28 @@ namespace BattleBands.Controllers
         public IActionResult AddVideo(string id)
         {
             var perf = unitOfWork.Performers.Get(id);
-            var item = new ApplicationVideo();
-            item.OwnerID = perf.PerformerId;
+            var item = new PerformerAddVideoModelView
+            {
+                ID = id,
+                Video = new ApplicationVideo
+                {
+                    OwnerID = perf.PerformerId
+                }
+            };
             return View(item);
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult AddVideo(ApplicationVideo item)
+        public IActionResult AddVideo(PerformerAddVideoModelView item)
         {
-            if (item.OwnerID == null) return RedirectToAction("Error");
+            if (item.Video.OwnerID == null) return RedirectToAction("Error");
             try
             {
-                item.VideoReference = ExtractVideoIdFromUri(new Uri(item.VideoReference));
-                unitOfWork.Videos.Create(item);
+                item.Video.VideoReference = ExtractVideoIdFromUri(new Uri(item.Video.VideoReference));
+                unitOfWork.Videos.Create(item.Video);
                 unitOfWork.Save();
-                return RedirectToAction("Index");
+                return RedirectToAction("ViewPerformerVideo", new { id= item.Video.VideoId});
             }
             catch (UriFormatException)
             {
@@ -134,7 +141,12 @@ namespace BattleBands.Controllers
         public IActionResult GetPerformerVideos(string id)
         {
             var list = unitOfWork.Videos.GetAllByAuthor(id);
-            return View(list);
+            var item = new PerformerGetVideosModelView
+            {
+                ID = id,
+                Video = list
+            };
+            return View(item);
         }
 
         [Authorize]
@@ -155,22 +167,35 @@ namespace BattleBands.Controllers
         {
             try
             {
+                video.VideoReference = ExtractVideoIdFromUri(new Uri(video.VideoReference));
                 unitOfWork.Videos.Update(video);
                 unitOfWork.Save();
-                return RedirectToAction("MyPerformers");
+                return RedirectToAction("ViewPerformerVideo", new { id = video.VideoId });
+                //return RedirectToAction("MyPerformers");
             }
             catch
             {
-                return Redirect("Index"); //need right redirect
+                try
+                {
+                    unitOfWork.Videos.Update(video);
+                    unitOfWork.Save();
+                    return RedirectToAction("ViewPerformerVideo", new { id = video.VideoId });
+                }
+                catch
+                { 
+                return Redirect("Error"); //need right redirect
+                }
             }
         }
         [Authorize]
         public IActionResult DeleteVideo(string id)
         {
+            var tmp = unitOfWork.Videos.Get(id);
             unitOfWork.Videos.Delete(id);
             unitOfWork.Save();
-            return RedirectToAction("MyPerformers");
+            return RedirectToAction("GetPerformerVideos", new { id = tmp.OwnerID });
         }
+
 
         #region [Helpers]
         private const string YoutubeLinkRegex = "(?:.+?)?(?:\\/v\\/|watch\\/|\\?v=|\\&v=|youtu\\.be\\/|\\/v=|^youtu\\.be\\/)([a-zA-Z0-9_-]{11})+";
@@ -199,6 +224,15 @@ namespace BattleBands.Controllers
 
             return null;
         }
-#endregion
+
+        public IActionResult ConfirmPerformerDelete(string id)
+        {
+            var tmp = new PerformerDeleteConfirmModelView
+            {
+                ID = id
+            };
+            return View(tmp);
+        }
+        #endregion
     }
 }

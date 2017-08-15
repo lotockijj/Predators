@@ -12,9 +12,14 @@
 <p>@Model.PerformerPhone</p><br />
 <label>Description:</label><br />
 <p>@Model.PerformerDescription</p><br />
-<a asp-action="AddVideo" asp-route-id="@Model.PerformerId">Add video</a>
+<p><a asp-action="AddVideo" asp-route-id="@Model.PerformerId" class="btn btn-default">Add video</a></p>
 <p>
-    <a asp-action="GetPerformerVideos" asp-route-id="@Model.PerformerId">"@Model.PerformerName" Videos</a>
+    <a asp-controller="Performer" asp-action="UpdatePerformer" asp-route-id="@Model.PerformerId" class="btn btn-default">Edit performer</a>
 </p>
+<p>
+    <a asp-action="GetPerformerVideos" asp-route-id="@Model.PerformerId"class="btn btn-default">"@Model.PerformerName" Videos</a>
+</p>
+
+<a asp-action="Index" class="btn btn-default"> Back to All performers</a>
 
 

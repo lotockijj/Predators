@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BattleBands.Controllers
 {
+    
     public class EventController : Controller
     {
         ApplicationDbContext _context;

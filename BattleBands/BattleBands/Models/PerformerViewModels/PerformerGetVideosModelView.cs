@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace BattleBands.Models.PerformerViewModels
 {
-    public class GetVideoAndInfoViewModel
+    public class PerformerGetVideosModelView
     {
-        public ApplicationVideo video { get; set; }
-        public Uri reference { get; set; }
+        public string ID { get; set; }
+        public IEnumerable<ApplicationVideo> Video { get; set; }
     }
 }

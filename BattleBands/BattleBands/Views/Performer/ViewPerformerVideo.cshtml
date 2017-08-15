@@ -20,11 +20,18 @@
             <iframe src="https://www.youtube.com/embed/@Model.VideoReference" frameborder="0" allowfullscreen></iframe>
         </figure>
         <b>Description:</b> @Model.VideoDescription<br />
-        
-        <a asp-action="EditVideo" asp-route-id="@Model.VideoId">Edit</a>
-        <a asp-action="DeleteVideo" asp-route-id="@Model.VideoId">Delete</a>
-
-
+        <p>
+            <a asp-action="EditVideo" asp-route-id="@Model.VideoId" class="btn btn-default">Edit</a>
+            <a asp-action="DeleteVideo" asp-route-id="@Model.VideoId" class="btn btn-default">Delete</a>
+        </p>
+        <p>
+            <a asp-action="GetPerformerVideos" asp-route-id="@Model.OwnerID" class="btn btn-default">Back to performer videos</a>
+        </p>
+        <p>
+            <a asp-action="ProfilePerformer" asp-route-id="@Model.OwnerID" class="btn btn-default">Back to profile</a>
+        </p>
     </div>
+
+    
 </body>
 </html>

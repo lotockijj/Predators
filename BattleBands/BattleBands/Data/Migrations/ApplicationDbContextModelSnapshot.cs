@@ -62,6 +62,20 @@ namespace BattleBands.Data.Migrations
                     b.ToTable("Performers");
                 });
 
+            modelBuilder.Entity("BattleBands.Models.ApplicationPhoto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Path");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Photos");
+                });
+
             modelBuilder.Entity("BattleBands.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
