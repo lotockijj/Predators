@@ -1,14 +1,8 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-@model BattleBands.Models.ApplicationVideo
+﻿@model BattleBands.Models.ApplicationVideo
 
 <div class="container">
     <div class="col-md-6">
         <form class="registration" asp-action="EditVideo" method="post">
-            <!--NEED CHANGE ACTION PAGE-->
             <input type="hidden" asp-for="@Model.OwnerID" />
             <input type="hidden" asp-for="@Model.VideoId" />
             <p>

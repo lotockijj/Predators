@@ -3,10 +3,10 @@
     ViewBag.Title = "Оновлення виконавця";
 }
 <h3>@ViewData["Title"]</h3>
+
 <div class="container">
     <div class="col-md-6">
         <form class="registration" asp-action="UpdatePerformer" asp-route-id="@Model.PerformerId" method="post">
-            <!--NEED CHANGE ACTION PAGE-->
             <p>
                 <label for="PerformerName">Ім'я виконавця (Назва групи):</label><br />
                 <input type="text" asp-for="PerformerName" size="30" required>

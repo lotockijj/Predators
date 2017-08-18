@@ -1,11 +1,15 @@
 ﻿@model IEnumerable<BattleBands.Models.ApplicationPerformer>
+
 @{
     ViewBag.Title = "List of performers";
 }
+
 @{
     ViewData["Title"] = "Виконавці";
 }
+
 <h3>Наші виконавці!</h3>
+
 @using (Html.BeginForm("SearchByName", "Performer"))
 {
     <input type="text" placeholder="Iм’я виконавця" name="@Html.Raw("name")">
