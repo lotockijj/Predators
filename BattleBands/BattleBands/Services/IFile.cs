@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 
 namespace BattleBands.Services
 {
-    public interface IEmailSender
+    interface IFile
     {
-        Task SendEmailAsync(string email, string subject, string message);
+         int Id { get; set; }
+         string Name { get; set; }
+         string Path { get; set; }
     }
 }

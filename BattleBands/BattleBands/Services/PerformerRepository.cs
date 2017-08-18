@@ -50,7 +50,6 @@ namespace BattleBands.Services
 
         public void Update(string id, ApplicationPerformer item)
         {
-            //_context.Entry(item).State = EntityState.Modified;
             var tmp = _context.Performers.Find(id);
             item.PerformerIsBand = tmp.PerformerIsBand;
             _context.Performers.Remove(_context.Performers.Find(id));

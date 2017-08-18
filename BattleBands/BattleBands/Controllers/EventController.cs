@@ -4,18 +4,16 @@ using Microsoft.AspNetCore.Identity;
 using BattleBands.Models;
 using BattleBands.Services;
 using BattleBands.Data;
-//using BattleBands.Models.PerformerViewModels;
 using Microsoft.AspNetCore.Authorization;
 
 namespace BattleBands.Controllers
 {
+    
     public class EventController : Controller
     {
         ApplicationDbContext _context;
         UserManager<ApplicationUser> _userManager;
-
         UnitOfWork unitOfWork;
-        //RoleManager<IdentityRole> _roleManager;
         public EventController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
             unitOfWork = new UnitOfWork(context);
@@ -48,8 +46,6 @@ namespace BattleBands.Controllers
         {
             var usr = await GetCurrentUserAsync();
             item.E_UserId = usr.Id;
-            item.EventDescription = "dhsfkjdsfhdsjkkjfhkjfhdsjkfhdsjkfhsdkjfhdskjfdshkfjdshkfjhdskfjdshkfjhdhsfkjdsfhdsjkkjfhkjfhdsjkfhdsjkfhsdkjfhdskjfdshkfjdshkfjhdskfjdshkfjh";
-
             unitOfWork.Events.Create(item);
             unitOfWork.Save();
             return RedirectToAction("Index");

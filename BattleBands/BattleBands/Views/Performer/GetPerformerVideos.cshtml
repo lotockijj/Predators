@@ -1,6 +1,0 @@
-﻿@model IEnumerable<BattleBands.Models.ApplicationVideo>
-
-@foreach (var video in Model)
-{
-    <a asp-action="ViewPerformerVideo" asp-route-id="@video.VideoId">@video.VideoName</a><br />
-}

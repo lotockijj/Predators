@@ -13,11 +13,11 @@
 
     <div class="bg-1">
         <div class="container">
-            <a asp-controller="Event" asp-action="CreateEvent" class="btn btn-default">Нова подія</a>
-            <a asp-controller="Event" asp-action="MyEvents" class="btn btn-default">Мої події</a>
+            <a asp-controller="Event" asp-action="CreateEvent" class="btn btn-default">Add event</a>
+            <a asp-controller="Event" asp-action="MyEvents" class="btn btn-default">My events</a>
 
-            <h3 class="text-center">Дати фестивалів</h3>
-            <p class="text-center">Не пропустіть!</p>
+            <h3 class="text-center">Festival's date</h3>
+            <p class="text-center">Do not miss!</p>
 
             <ul class="list-group">
                 <li class="list-group-item">March 12, Zavantazhennya 2017!<span class="label label-danger">Сompleted!</span></li>
@@ -39,7 +39,7 @@
                         <button class="btn">Buy Tickets</button>
                         @if (User.IsInRole("admin"))
                         {
-                            <a asp-controller="Event" asp-action="DeleteEvent" class="btn btn-default">Видалити</a><br />
+                            <a asp-controller="Event" asp-action="DeleteEvent" class="btn btn-default">Delete</a><br />
                         }
                     </div>
                 </div>

@@ -7,7 +7,6 @@
                 @foreach (var video in Model)
                 {
                     <a asp-action="" asp-route-id="@video.VideoId">@video.VideoName</a>
-                    <!-- href до конкретної сторінки групи-->
                     <div class="block">
                         <img src="~/images/Events/faine.jpg" class="img-thumbnail" alt="Faine">
                         <p>@video.VideoDescription</p>

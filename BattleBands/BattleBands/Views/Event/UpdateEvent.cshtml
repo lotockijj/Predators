@@ -18,24 +18,24 @@
             <form class="registration" asp-action="UpdateEvent" asp-route-id="@Model.EventId" method="post">
                 <!--NEED CHANGE ACTION PAGE-->
                 <p>
-                    <label for="EventName">Назва заходу:</label><br />
+                    <label for="EventName">Event name:</label><br />
                     <input type="text" asp-for="EventName" size="30" required>
                 </p>
                 <p>
-                    <label for="EventPlace">Місце:</label><br />
+                    <label for="EventPlace">Place:</label><br />
                     <input type="text" asp-for="EventPlace" size="30" required>
                 </p>
                 <p>
-                    <label for="EventTime">Час:</label><br />
+                    <label for="EventTime">Date and time:</label><br />
                     <input type="text" asp-for="EventTime" size="30" required>
                 </p>
                 <p>
-                    <label for="EventDescription">Біо:</label><br />
+                    <label for="EventDescription">Description:</label><br />
                     <textarea name="comment" asp-for="EventDescription" cols="50" rows="5"></textarea>
                 </p>
                 <p>
                     <input type="submit" class="button" value="Send" width="200">
-                    <input type="reset" class="button" value="Clear">
+                    @*<input type="reset" class="button" value="Clear">*@
                 </p>
             </form>
         </div>

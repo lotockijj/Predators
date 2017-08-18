@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<BattleBands.Models.ApplicationPerformer>
 
 @{
-    ViewData["Title"] = "List of my performers";
+    ViewData["Title"] = "My performers";
 }
-<h3>Мої виконавці!</h3>
-<a asp-controller="Performer" asp-action="Index" class="btn btn-default">Повернутися до виконавців</a>
+<h3>My performers</h3>
+<a asp-controller="Performer" asp-action="Index" class="btn btn-default">Back to all performers</a>
 <div class="row">
     <div class="col-md-8">
         <section>
@@ -15,10 +15,10 @@
                         <td>
                             <a asp-action="ProfilePerformer" asp-route-id="@band.PerformerId">@band.PerformerName</a><br />
                             <b>Email - @band.PerformerEmail</b><br />
-                            <b>Телефон - @band.PerformerPhone</b><br />
+                            <b>Phone - @band.PerformerPhone</b><br />
                             @if (User.IsInRole("admin"))
                             {
-                                <a asp-controller="Performer" asp-action="DeletePerformer" asp-route-id="@band.PerformerId" class="btn btn-default">Видалити</a>
+                                <a asp-controller="Performer" asp-action="DeletePerformer" asp-route-id="@band.PerformerId" class="btn btn-default">Delete</a>
                             }
                         </td>
                     </tr>

@@ -2,18 +2,24 @@
 
 <h3>@Model.PerformerName</h3><br />
 
-<label>Жанр/стиль:</label><br />
+<label>Genre/style:</label><br />
 <p>@Model.PerformerGenre</p><br />
 <label>Emali:</label><br />
 <p>@Model.PerformerEmail</p><br />
-<label>Країна:</label><br />
+<label>Country:</label><br />
 <p>@Model.PerformerCountry</p><br />
-<label>Телефон:</label><br />
+<label>Phone:</label><br />
 <p>@Model.PerformerPhone</p><br />
-<label>Опис:</label><br />
+<label>Description:</label><br />
 <p>@Model.PerformerDescription</p><br />
-<a asp-action="AddVideo" asp-route-id="@Model.PerformerId">Add video</a>
-<a asp-action="GetPerformerVideos" asp-route-id="@Model.PerformerId">Videos</a>
+<p><a asp-action="AddVideo" asp-route-id="@Model.PerformerId" class="btn btn-default">Add video</a></p>
+<p>
+    <a asp-controller="Performer" asp-action="UpdatePerformer" asp-route-id="@Model.PerformerId" class="btn btn-default">Edit performer</a>
+</p>
+<p>
+    <a asp-action="GetPerformerVideos" asp-route-id="@Model.PerformerId"class="btn btn-default">"@Model.PerformerName" Videos</a>
+</p>
 
+<a asp-action="Index" class="btn btn-default"> Back to All performers</a>
 
 

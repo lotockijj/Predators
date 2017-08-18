@@ -50,7 +50,6 @@ namespace BattleBands.Services
 
         public void Update(string id, ApplicationEvent item)
         {
-            //_context.Entry(item).State = EntityState.Modified;
             _context.Events.Remove(_context.Events.Find(id));
             _context.Events.Add(item);
         }

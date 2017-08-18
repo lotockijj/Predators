@@ -1,6 +1,6 @@
 ﻿@model BattleBands.Models.ApplicationPerformer
 @{
-    ViewBag.Title = "Оновлення виконавця";
+    ViewBag.Title = "Edit performer";
 }
 <h3>@ViewData["Title"]</h3>
 
@@ -8,19 +8,19 @@
     <div class="col-md-6">
         <form class="registration" asp-action="UpdatePerformer" asp-route-id="@Model.PerformerId" method="post">
             <p>
-                <label for="PerformerName">Ім'я виконавця (Назва групи):</label><br />
+                <label for="PerformerName">Performer's name:</label><br />
                 <input type="text" asp-for="PerformerName" size="30" required>
             </p>
             <p>
-                <label for="PerformerGenre">Стиль/жанр:</label><br />
+                <label for="PerformerGenre">Style/genre:</label><br />
                 <input type="text" asp-for="PerformerGenre" size="30" required>
             </p>
             <p>
-                <label for="PerformerCountry">Країна:</label><br />
+                <label for="PerformerCountry">Country:</label><br />
                 <input type="text" asp-for="PerformerCountry" placeholder="Ukraine" size="30" required>
             </p>
             <p>
-                <label for="PerformerPhone">Контактний телефон:</label><br />
+                <label for="PerformerPhone">Phone:</label><br />
                 <input type="text" asp-for="PerformerPhone" placeholder="0936912791" size="30" required>
             </p>
             <p>
@@ -28,7 +28,7 @@
                 <input type="email" asp-for="PerformerEmail" placeholder="example@gmail.com" size="30" required>
             </p>
             <p>
-                <b>Load your Artist image or logo of the band:</b><br>
+                <b>Logo:</b><br>
                 <input type="file" id="imageFile" accept="image/*">
             </p>
             <p>
@@ -43,8 +43,8 @@
             </p>
 
             <p>
-                <label for="PerformerDescription">Біо:</label><br />
-                <textarea name="comment" asp-for="PerformerDescription" cols="50" rows="5"></textarea>
+                <label for="PerformerDescription">Description:</label><br />
+                <textarea asp-for="PerformerDescription" cols="50" rows="5"></textarea>
             </p>
             <p>
                 <input type="submit" class="button" value="Send" width="200">

@@ -5,14 +5,14 @@
 @inject SignInManager<ApplicationUser> SignInManager
 
 @{
-    ViewData["Title"] = "Увійти";
+    ViewData["Title"] = "Log in";
 }
 <h3>@ViewData["Title"].</h3>
 <div class="row">
     <div class="col-md-8">
         <section>
             <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
-                <h4>Використовуйте локальний обліковий запис, щоб увійти</h4>
+                <h4>Use a local account to log in</h4>
                 <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
@@ -45,10 +45,10 @@
                     </div>
                 </div>
                 <p>
-                    <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Зареєструвати нового користувача?</a>
+                    <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Don't have an account? Click here to registration</a>
                 </p>
                 <p>
-                    <a asp-action="ForgotPassword">Забули пароль?</a>
+                    <a asp-action="ForgotPassword">Forgot your password?</a>
 
                 </p>
             </form>
