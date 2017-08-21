@@ -5,10 +5,14 @@
 
 <h3>@ViewData["Title"].</h3>
 <p class="text-success">@ViewData["StatusMessage"]</p>
-
 <div>
     <h4>Manage your profile</h4>
     <hr />
+    <a asp-controller="Picture" asp-action="AddAvatar" asp-route-id="@Model.ID" class="btn btn-default">Upload logo</a><br />
+    @if(Model.Avatar.Path !=null)
+    {
+        <p><img src="@Url.Content(Model.Avatar.Path)" height="100" width="100"></p>
+    }
     <dl class="dl-horizontal">
         <dt>Password:</dt>
         <dd>

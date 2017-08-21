@@ -1,0 +1,8 @@
+﻿@model BattleBands.Models.PictureViewModels.AddPictureViewModel
+
+<h3>Choose picture for logo to upload</h3>
+<form asp-action="AddLogo" asp-controller="Picture" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="@Model.ID" />
+    <input type="file" asp-for="@Model.Photo" /><br>
+    <input type="submit" value="Upload" />
+</form>

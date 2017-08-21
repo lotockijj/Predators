@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using BattleBands.Models;
 using BattleBands.Models.ManageViewModels;
 using BattleBands.Services;
+using BattleBands.Data;
 
 namespace BattleBands.Controllers
 {
@@ -20,17 +21,22 @@ namespace BattleBands.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly string _externalCookieScheme;
         private readonly ILogger _logger;
+        private readonly ApplicationDbContext _context;
+        private UnitOfWork unitOfWork;
 
         public ManageController(
           UserManager<ApplicationUser> userManager,
           SignInManager<ApplicationUser> signInManager,
           IOptions<IdentityCookieOptions> identityCookieOptions,
-          ILoggerFactory loggerFactory)
+          ILoggerFactory loggerFactory,
+          ApplicationDbContext context)
         {
             _userManager = userManager;
+            _context = context;
             _signInManager = signInManager;
             _externalCookieScheme = identityCookieOptions.Value.ExternalCookieAuthenticationScheme;
             _logger = loggerFactory.CreateLogger<ManageController>();
+            unitOfWork = new UnitOfWork(context);
         }
 
         //
@@ -58,7 +64,9 @@ namespace BattleBands.Controllers
                 PhoneNumber = await _userManager.GetPhoneNumberAsync(user),
                 TwoFactor = await _userManager.GetTwoFactorEnabledAsync(user),
                 Logins = await _userManager.GetLoginsAsync(user),
-                BrowserRemembered = await _signInManager.IsTwoFactorClientRememberedAsync(user)
+                BrowserRemembered = await _signInManager.IsTwoFactorClientRememberedAsync(user),
+                ID = user.Id,
+                Avatar = unitOfWork.Picture.GetLastByOwner(user.Id)
             };
             return View(model);
         }

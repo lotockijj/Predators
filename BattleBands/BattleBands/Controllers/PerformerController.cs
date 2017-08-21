@@ -56,8 +56,12 @@ namespace BattleBands.Controllers
         [Authorize]
         public IActionResult ProfilePerformer(string id)
         {
-            var prf = unitOfWork.Performers.Get(id);
-            return View(prf);
+            var item = new PerformerProfileViewModel
+            {
+                Performer = unitOfWork.Performers.Get(id),
+                Picture = unitOfWork.Picture.GetLastByOwner(id)
+            };
+            return View(item);
         }
 
         [HttpGet]

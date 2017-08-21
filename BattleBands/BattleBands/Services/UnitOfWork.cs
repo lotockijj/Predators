@@ -12,6 +12,7 @@ namespace BattleBands.Services
         private PerformerRepository performerRepository;
         private EventRepository eventRepository;
         private VideoRepository videoRepository;
+        private PictureRepository photoRepository;
 
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -26,6 +27,14 @@ namespace BattleBands.Services
                     performerRepository = new PerformerRepository(_context);
                 }
                 return performerRepository;
+            }
+        }
+        public PictureRepository Picture
+        {
+            get
+            {
+                if (photoRepository == null) photoRepository = new PictureRepository(_context);
+                return photoRepository;
             }
         }
 

@@ -10,8 +10,10 @@ namespace BattleBands.Models
     public class ApplicationPhoto : IFile
     {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get ; set; }
         public string Path { get ; set; }
+        public DateTimeOffset UploadTime { get; set; }
+        public string IdOwner { get; set; }
     }
 }

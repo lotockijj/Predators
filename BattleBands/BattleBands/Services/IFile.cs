@@ -7,8 +7,9 @@ namespace BattleBands.Services
 {
     interface IFile
     {
-         int Id { get; set; }
+         string Id { get; set; }
          string Name { get; set; }
          string Path { get; set; }
+         string IdOwner { get; set; }
     }
 }

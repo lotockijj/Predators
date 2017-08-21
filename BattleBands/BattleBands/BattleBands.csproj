@@ -44,6 +44,7 @@
     <Content Remove="Views\Manage\ManageLogins.cshtml" />
     <Content Remove="Views\Manage\SetPassword.cshtml" />
     <Content Remove="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Remove="wwwroot/content\так-блэт.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -76,6 +77,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\AdminViewModels\" />
+    <Folder Include="wwwroot\content\" />
+    <Folder Include="wwwroot\content\" />
+    <Folder Include="wwwroot\content\" />
   </ItemGroup>
 
 </Project>

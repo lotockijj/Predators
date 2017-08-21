@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 
 namespace BattleBands.Models.ManageViewModels
 {
@@ -14,8 +15,12 @@ namespace BattleBands.Models.ManageViewModels
 
         public string PhoneNumber { get; set; }
 
+        public string ID { get; set; }
+
         public bool TwoFactor { get; set; }
 
         public bool BrowserRemembered { get; set; }
+
+        public ApplicationPhoto Avatar { get; set; }
     }
 }
