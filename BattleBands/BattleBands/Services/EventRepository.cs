@@ -48,15 +48,17 @@ namespace BattleBands.Services
             return result;
         }
 
-        public void Update(string id, ApplicationEvent item)
-        {
-            _context.Events.Remove(_context.Events.Find(id));
-            _context.Events.Add(item);
-        }
-
         public void Update(ApplicationEvent item)
         {
-            throw new NotImplementedException();
+            var tmp = _context.Events.Find(item.EventId);
+            tmp.EventDescription = item.EventDescription;
+            tmp.EventName = item.EventName;
+            tmp.EventPlace = item.EventPlace;
+            tmp.EventTime = item.EventTime;
+            tmp.E_UserId = item.E_UserId;
+            
+            _context.Entry(tmp).State = EntityState.Modified;
+            _context.SaveChanges();
         }
     }
 }

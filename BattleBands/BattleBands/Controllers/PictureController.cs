@@ -33,7 +33,12 @@ namespace BattleBands.Controllers
             unitOfWork = new UnitOfWork(context);
         }
 
-        public IActionResult Index() => View( unitOfWork.Picture.GetAll());
+        [HttpGet]
+        public IActionResult Index() => View(unitOfWork.Picture.GetAll());
+
+        [HttpGet]
+        public JsonResult AllPictures()
+        { return Json(unitOfWork.Picture.GetAll()); }
 
         public IActionResult AddLogo(string id) => View();
 
@@ -42,7 +47,7 @@ namespace BattleBands.Controllers
         {
             if (item.Photo != null)
             {
-                string path = "/content/" + item.Photo.FileName;
+                string path = "/content/pictures/" + item.Photo.FileName;
 
                 using (var fileStream = new FileStream(appEnvironment.WebRootPath + path, FileMode.Create))
                 {
@@ -62,7 +67,7 @@ namespace BattleBands.Controllers
         {
             if (item.Photo != null)
             {
-                string path = "/content/" + item.Photo.FileName;
+                string path = "/content/pictures/" + item.Photo.FileName;
 
                 using (var fileStream = new FileStream(appEnvironment.WebRootPath + path, FileMode.Create))
                 {
@@ -74,13 +79,25 @@ namespace BattleBands.Controllers
             }
             return Redirect($"~/Manage");
         }
-        //[HttpPost]
-        //public async Task<IActionResult> AddAvatar(AddPictureViewModel item)
-        //{
-        //    await AddPicture(item);
 
-        //    return Redirect($"/Manage");
-        //}
+        public IActionResult AddEventLogo(string id) => View();
 
+        [HttpPost]
+        public async Task<IActionResult> AddEventLogo(AddPictureViewModel item)
+        {
+            if (item.Photo != null)
+            {
+                string path = "/content/pictures/" + item.Photo.FileName;
+
+                using (var fileStream = new FileStream(appEnvironment.WebRootPath + path, FileMode.Create))
+                {
+                    await item.Photo.CopyToAsync(fileStream);
+                }
+                var file = new ApplicationPhoto { Name = item.Photo.FileName, Path = path, IdOwner = item.ID, UploadTime = DateTimeOffset.Now };
+                unitOfWork.Picture.Create(file);
+                unitOfWork.Save();
+            }
+            return Redirect($"~/Event/EventPage/{item.ID}");
+        }
     }
 }

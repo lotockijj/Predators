@@ -10,10 +10,12 @@ namespace BattleBands.Services
     public class VideoRepository : IRepository<ApplicationVideo>
     {
         ApplicationDbContext _context;
+
         public VideoRepository(ApplicationDbContext context)
         {
             _context = context;
         }
+
         public void Create(ApplicationVideo item)
         {
             _context.Videos.Add(item);
@@ -49,9 +51,13 @@ namespace BattleBands.Services
         public void Update(ApplicationVideo item)
         {
             var tmp = _context.Videos.Find(item.VideoId);
-            _context.Videos.Remove(_context.Videos.Find(tmp.VideoId));
-            item.VideoId = null;
-            _context.Videos.Add(item);
+            tmp.VideoDescription = item.VideoDescription;
+            tmp.VideoName = item.VideoName;
+            tmp.VideoReference = item.VideoReference;
+            tmp.OwnerID = item.OwnerID;
+
+            _context.Entry(tmp).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.SaveChanges();
         }
     }
 }

@@ -13,7 +13,7 @@
                 {
                     <tr>
                         <td>
-                            <a asp-action="ProfilePerformer" asp-route-id="@evnt.EventId">@evnt.EventName</a><br />
+                            <a asp-action="EventPage" asp-route-id="@evnt.EventId">@evnt.EventName</a><br />
                             <b>Place - @evnt.EventPlace</b><br />
                             <b>Date and time - @evnt.EventTime</b><br />
                             <a asp-controller="Event" asp-action="UpdateEvent" asp-route-id="@evnt.EventId" class="btn btn-default">Edit</a>

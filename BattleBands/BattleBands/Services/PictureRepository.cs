@@ -55,9 +55,14 @@ namespace BattleBands.Services
         public void Update(ApplicationPhoto item)
         {
             var tmp = context.Photo.Find(item.Id);
-            context.Photo.Remove(context.Photo.Find(tmp.Id));
-            item.Id = null;
-            context.Photo.Add(item);
+            tmp.IdOwner = item.IdOwner;
+            tmp.Name = item.Name;
+            tmp.Path = item.Path;
+            tmp.UploadTime = DateTimeOffset.Now;
+
+            context.Entry(tmp).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            context.SaveChanges();
+
         }
     }
 }

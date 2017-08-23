@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Найближчі події";
 }
-@model IEnumerable<BattleBands.Models.ApplicationEvent>
+@model IEnumerable<BattleBands.Models.EventViewModels.EventPageViewModel>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,103 +16,24 @@
             <a asp-controller="Event" asp-action="CreateEvent" class="btn btn-default">Add event</a>
             <a asp-controller="Event" asp-action="MyEvents" class="btn btn-default">My events</a>
 
-            <h3 class="text-center">Festival's date</h3>
-            <p class="text-center">Do not miss!</p>
-
-            <ul class="list-group">
-                <li class="list-group-item">March 12, Zavantazhennya 2017!<span class="label label-danger">Сompleted!</span></li>
-                <li class="list-group-item">April 22-23, Razomfest 2017!<span class="label label-danger">Сompleted!</span></li>
-                <li class="list-group-item">June 14, Taras Bulba Festival 2017!</li>
-                <li class="list-group-item">June 20-23, FaineMisto 2017!</li>
-                <li class="list-group-item">August 5-7, Banderstadt 2017!</li>
-                <li class="list-group-item">August 18-20, ZahidFest 2017!</li>
-            </ul>
             @foreach (var evnt in Model)
             {
                 <br />
             <div class="row">
                 <div class="container text-center">
                     <div class="thumbnail">
-                        <p><strong>@evnt.EventName</strong></p>
-                        <p style="font-style: italic;">@evnt.EventPlace @evnt.EventTime </p>
-                        <img src="~/images/Events/faine.jpg" class="img-thumbnail" alt="Faine" width="330"><br />
+                        <a asp-action="EventPage" asp-route-id="@evnt.Event.EventId"><strong>@evnt.Event.EventName</strong></a>
+                        <p style="font-style: italic;">@evnt.Event.EventPlace @evnt.Event.EventTime </p>
+                        <p><img src="@Url.Content(evnt.Logo.Path)" height="320" width="320"></p>
                         <button class="btn">Buy Tickets</button>
                         @if (User.IsInRole("admin"))
                         {
-                            <a asp-controller="Event" asp-action="DeleteEvent" class="btn btn-default">Delete</a><br />
+                            <a asp-controller="Event" asp-action="DeleteEvent" asp-route-id ="@evnt.Event.EventId" class="btn btn-default">Delete</a><br />
                         }
                     </div>
                 </div>
-                <div class="container">
-                    @evnt.EventDescription
-                </div>
             </div>
             }
-            @*<div class="row">
-        <div class="container text-center">
-            <div class="thumbnail">
-                <p><strong>ZAHID FEST 2017</strong></p>
-                <p style="font-style: italic;">Lviv August 18-20 </p>
-                <img src="~/images/Events/zahid.jpg" class="img-thumbnail" alt="Faine" width="450">
-                <button class="btn">Buy Tickets</button>
-            </div>
-        </div>
-        <div class="container">
-            <strong>«За́хідфест»</strong> — великий український щорічний музичний фестиваль, що відбувається з 2009 року на Львівщині.
-            З 2011 року проходить біля села Родатичі Городоцького району. Напрямки музики: рок та етно та інші. З 2012 року у фестивалі регулярно беруть участь іноземні виконавці.
-            Мета фестивалю:
-            <ol>
-                <li>Популяризація української культури.</li>
-                <li>Популяризація серед молоді активного відпочинку та розвиток фестивального руху в Україні.</li>
-            </ol>
-            Основною відмінністю від всіх інших фестивалів є те, що фестиваль «Захід» проводиться без підтримки спонсорів та політичних, чи будь-яких організацій.
-            Організаторами фестивалю є група молодих ініціативних людей, головний організатор та засновник — Яків Матвійчук.
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="container text-center">
-            <div class="thumbnail">
-                <p><strong>BANDERSTADT 2017</strong></p>
-                <p style="font-style: italic;">Lutsk August 5-7 </p>
-                <img src="~/images/Events/bander.jpg" class="img-thumbnail" alt="Faine" width="410">
-                <button class="btn">Buy Tickets</button>
-            </div>
-        </div>
-        <div class="container">
-            <br />
-            <strong>Всеукраїнський фестиваль «Бандерштат»</strong> — вперше проведений 2007 року й відтоді став щорічним.
-            Проходить на Волині, у місті Луцьку. Він є арт-візитівкою цього краю.
-            Найосновніші цінності:
-            <ol>
-                <li>Безалкогольний формат</li>
-                <li>Гутірки (зустрічі дискусії) з відомими людьми</li>
-                <li>6 музичних сцен і 30 різнотематичних локацій</li>
-            </ol>
-            За 10 років фестиваль відвідало більше 100 тис. чоловік.
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="container text-center">
-            <div class="thumbnail">
-                <p><strong>Atlas Weekend 2017</strong></p>
-                <p style="font-style: italic;">Kiev July 28-02 June </p>
-                <img src="~/images/Events/atlas.jpg" class="img-thumbnail" alt="Faine" width="420">
-                <button class="btn">Buy Tickets</button>
-            </div>
-        </div>
-        <div class="container">
-            <br />
-            <strong>Atlas Weekend</strong> — один з найбільших музичних фестивалів України.
-            2017 року захід набирає обертів та стає масштабніший: на фестивалі буде працювати шість денних сцен та дві нічні.
-            На території буде ще більше активностей, а лайн-ап стає різноманітніший!
-            <strong>Хто буде на фестивалі цього року?</strong>
-            The Prodigy, John Newman, Three Days Grace, Alex Clare, Nothing But Thieves, The Hardkiss, Бумбокс, Therr Maitz, Monatik, Pianoбой та ще більше 200 артистів.
-            Повний список артистів можна подивитися на сторінці atlasweekend.com/lineup.
-        </div>
-    </div>*@
-
         </div>
     </div>
 </body>

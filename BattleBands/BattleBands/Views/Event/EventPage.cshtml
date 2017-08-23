@@ -1,0 +1,20 @@
+﻿@model BattleBands.Models.EventViewModels.EventPageViewModel
+
+<h1>@Model.Event.EventName</h1><br />
+
+<a asp-controller="Picture" asp-action="AddEventLogo" asp-route-id="@Model.Event.EventId" class="btn btn-default">Upload logo</a><br />
+<p><img src="@Url.Content(Model.Logo.Path)" height="320" width="320"></p>
+
+
+<label>Place:</label><br />
+<p>@Model.Event.EventPlace</p><br />
+<label>Date and time:</label><br />
+<p>@Model.Event.EventTime</p><br />
+<label>Description:</label><br />
+<p>@Model.Event.EventDescription</p><br />
+<br />
+<br />
+<a asp-controller="Event" asp-action="UpdateEvent" asp-route-id="@Model.Event.EventId" class="btn btn-default">Update event</a><br />
+<a asp-action="Index" class="btn btn-default"> Back to All events</a><br />
+
+

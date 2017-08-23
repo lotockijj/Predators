@@ -48,17 +48,19 @@ namespace BattleBands.Services
             return result;
         }
 
-        public void Update(string id, ApplicationPerformer item)
-        {
-            var tmp = _context.Performers.Find(id);
-            item.PerformerIsBand = tmp.PerformerIsBand;
-            _context.Performers.Remove(_context.Performers.Find(id));
-            _context.Performers.Add(item);
-        }
-
         public void Update(ApplicationPerformer item)
         {
-            throw new NotImplementedException();
+            var tmp = _context.Performers.Find(item.PerformerId);
+            tmp.PerformerCountry = item.PerformerCountry;
+            tmp.PerformerDescription = item.PerformerDescription;
+            tmp.PerformerEmail = item.PerformerEmail;
+            tmp.PerformerGenre = item.PerformerGenre;
+            tmp.PerformerIsBand = item.PerformerIsBand;
+            tmp.PerformerName = item.PerformerName;
+            tmp.PerformerPhone = item.PerformerPhone;
+
+            _context.Entry(tmp).State = EntityState.Modified;
+            _context.SaveChanges();
         }
 
         public IEnumerable<ApplicationPerformer> SearchByName(string name)

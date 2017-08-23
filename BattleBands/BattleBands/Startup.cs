@@ -14,6 +14,7 @@ using BattleBands.Models;
 using BattleBands.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace BattleBands
 {

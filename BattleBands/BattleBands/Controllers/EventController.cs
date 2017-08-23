@@ -5,6 +5,8 @@ using BattleBands.Models;
 using BattleBands.Services;
 using BattleBands.Data;
 using Microsoft.AspNetCore.Authorization;
+using BattleBands.Models.EventViewModels;
+using System.Collections.Generic;
 
 namespace BattleBands.Controllers
 {
@@ -20,8 +22,8 @@ namespace BattleBands.Controllers
             _context = context;
             _userManager = userManager;
         }
-        [HttpGet]
 
+        [HttpGet]
         public async Task<string> GetCurrentUserId()
         {
             ApplicationUser usr = await GetCurrentUserAsync();
@@ -30,13 +32,36 @@ namespace BattleBands.Controllers
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
         // GET: /<controller>/
+        [HttpGet]
         public IActionResult Index()
         {
+            //var events = unitOfWork.Events.GetAll();
+            //var pics = new List<ApplicationPhoto>();
+            //foreach (var evnt in events)
+            //{
+            //    pics.Add(unitOfWork.Picture.GetLastByOwner(evnt.EventId));
+            //}
+            //var result = new IndexViewModel
+            //{
+            //    Events = events,
+            //    Logos = pics
+            //};
             var events = unitOfWork.Events.GetAll();
-            return View(events);
+            var result = new List<EventPageViewModel>();
+            foreach (var tmp in events)
+            {
+
+                result.Add(
+                    new EventPageViewModel
+                    {
+                        Event = tmp,
+                        Logo = unitOfWork.Picture.GetLastByOwner(tmp.EventId)
+                    }
+                );
+            }
+            return View(result);
         }
 
-        [HttpGet]
         [Authorize]
         public IActionResult CreateEvent() => View();
 
@@ -52,12 +77,18 @@ namespace BattleBands.Controllers
         }
 
         [Authorize]
-        public IActionResult DetailEvent(string id)
+        public IActionResult EventPage(string id)
         {
-            var events = unitOfWork.Events.Get(id);
-            return View(events);
-        }
+            var result = new EventPageViewModel
+            {
+                Event = unitOfWork.Events.Get(id),
+                Logo = unitOfWork.Picture.GetLastByOwner(id)
+            };
 
+            return View(result);
+        }
+        
+        
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> MyEvents()
@@ -84,7 +115,8 @@ namespace BattleBands.Controllers
         public async Task<IActionResult> UpdateEvent(string id, ApplicationEvent item)
         {
             item.E_UserId = await GetCurrentUserId();
-            unitOfWork.Events.Update(id, item);
+            item.EventId = id;
+            unitOfWork.Events.Update(item);
             unitOfWork.Save();
             if (User.IsInRole("admin")) return RedirectToAction("MyEvents");
             else return RedirectToAction("Index");

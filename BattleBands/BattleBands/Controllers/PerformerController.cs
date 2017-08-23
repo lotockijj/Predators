@@ -90,7 +90,8 @@ namespace BattleBands.Controllers
         public async Task<IActionResult> UpdatePerformer(string id, ApplicationPerformer item)
         {
             item.UserId = await GetCurrentUserId();
-            unitOfWork.Performers.Update(id, item);
+            item.PerformerId = id;
+            unitOfWork.Performers.Update(item);
             unitOfWork.Save();
             if (User.IsInRole("admin")) return RedirectToAction("Index");
             else return RedirectToAction("MyPerformers");
