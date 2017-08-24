@@ -1,0 +1,29 @@
+﻿html {
+    background: #e6e9e9;
+}
+body {
+    background: #fff;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.06);
+    color: #545454;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0 auto;
+    max-width: 1150px;
+    padding: 2em 2em 4em;
+}
+.btn-group .button {
+    background-color: #141f33;
+    border: 1px solid white;
+    color: white;
+    padding: 8px 18px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    float: left;
+}
+.btn-group .button:hover {
+    opacity: 0.8;
+}

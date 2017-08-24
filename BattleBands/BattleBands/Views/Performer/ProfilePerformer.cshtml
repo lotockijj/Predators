@@ -1,29 +1,50 @@
 ﻿@model BattleBands.Models.PerformerViewModels.PerformerProfileViewModel
+@{
+    ViewData["Title"] = Model.Performer.PerformerName;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <environment names="Development">
+        <link rel="stylesheet" href="~/css/Performer/ProfilePerformer.css" />
+    </environment>
+</head>
 
-<h1>@Model.Performer.PerformerName</h1><br />
+<body>
+    <h1>@Model.Performer.PerformerName</h1>
+    <br />
 
-<a asp-controller="Picture" asp-action="AddLogo" asp-route-id="@Model.Performer.PerformerId" class="btn btn-default">Upload logo</a><br />
-<p><img src="@Url.Content(Model.Picture.Path)" height="320" width="320"></p>
+    <a asp-controller="Picture" asp-action="AddLogo" asp-route-id="@Model.Performer.PerformerId" class="btn btn-default">Upload logo</a>
+    <br />
+    <p><img src="@Url.Content(Model.Picture.Path)" height="350" width="350"></p>
 
+    <label>Genre/style:</label>
+    <br />
+    <p class="text">@Model.Performer.PerformerGenre</p>
+    <br />
+    <label>Emali:</label>
+    <br />
+    <p class="text">@Model.Performer.PerformerEmail</p>
+    <br />
+    <label>Country:</label>
+    <br />
+    <p class="text">@Model.Performer.PerformerCountry</p>
+    <br />
+    <label>Phone:</label>
+    <br />
+    <p class="text">@Model.Performer.PerformerPhone</p>
+    <br />
+    <label>Description:</label>
+    <br />
+    <p class="text">@Model.Performer.PerformerDescription</p>
+    <br />
 
-<label>Genre/style:</label><br />
-<p>@Model.Performer.PerformerGenre</p><br />
-<label>Emali:</label><br />
-<p>@Model.Performer.PerformerEmail</p><br />
-<label>Country:</label><br />
-<p>@Model.Performer.PerformerCountry</p><br />
-<label>Phone:</label><br />
-<p>@Model.Performer.PerformerPhone</p><br />
-<label>Description:</label><br />
-<p>@Model.Performer.PerformerDescription</p><br />
-<p><a asp-action="AddVideo" asp-route-id="@Model.Performer.PerformerId" class="btn btn-default">Add video</a></p>
-<p>
-    <a asp-controller="Performer" asp-action="UpdatePerformer" asp-route-id="@Model.Performer.PerformerId" class="btn btn-default">Edit performer</a>
-</p>
-<p>
-    <a asp-action="GetPerformerVideos" asp-route-id="@Model.Performer.PerformerId"class="btn btn-default">"@Model.Performer.PerformerName" Videos</a>
-</p>
-
-<a asp-action="Index" class="btn btn-default"> Back to All performers</a>
-
+    <div class="btn-group">
+        <a asp-action="AddVideo" asp-route-id="@Model.Performer.PerformerId" class="button">Add video</a>
+        <a asp-controller="Performer" asp-action="UpdatePerformer" asp-route-id="@Model.Performer.PerformerId" class="button">Edit performer</a>
+        <a asp-action="GetPerformerVideos" asp-route-id="@Model.Performer.PerformerId" class="button">"@Model.Performer.PerformerName" Videos</a>
+        <a asp-action="Index" class="button"> Back to All performers</a>
+    </div>
+</body>
+</html>
 

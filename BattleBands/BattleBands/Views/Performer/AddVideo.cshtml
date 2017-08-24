@@ -1,34 +1,41 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model BattleBands.Models.PerformerViewModels.PerformerAddVideoModelView
 @{
+    ViewData["Title"] = Model.ToString();
 }
-@model BattleBands.Models.PerformerViewModels.PerformerAddVideoModelView
+<!DOCTYPE html>
+<html>
+<head>
+    <environment names="Development">
+        <link rel="stylesheet" href="~/css/Performer/AddVideo.css" />
+    </environment>
+</head>
+<body>
+    <h3>Add a video</h3>
+    <div class="container">
+        <div class="col-md-6">
+            <form class="registration" asp-action="AddVideo" method="post">
+                <input type="hidden" asp-for="@Model.Video.OwnerID" />
+                <input type="hidden" asp-for="@Model.Video.VideoId" />
 
-<div class="container">
-    <div class="col-md-6">
-        <form class="registration" asp-action="AddVideo" method="post">
-            <!--NEED CHANGE ACTION PAGE-->
-            <input type="hidden" asp-for="@Model.Video.OwnerID" />
-            <input type="hidden" asp-for="@Model.Video.VideoId" />
-
-            <p>
-                <label for="VideoName">Name:</label><br />
-                <input type="text" asp-for="@Model.Video.VideoName" size="30" required>
-            </p>
-            <p>
-                <label for="VideoReference">Link (youtube.com):</label><br />
-                <input type="text" asp-for="@Model.Video.VideoReference" size="30" required>
-            </p>
-            <p>
-                <label for="VideoDescription">Description:</label><br />
-                <textarea asp-for="@Model.Video.VideoDescription" size="30" rows="5" cols="30"></textarea>
-            </p>
-            <p>
-                <input type="submit" class="button" value="Send" width="200">
-                <input type="reset" class="button" value="Clear">
-            </p>
-        </form>
-    </div>
-</div>
-<a asp-action="ProfilePerformer" asp-route-id="@Model.ID" class="btn btn-default">Back to profile</a>
+                <p>
+                    <label for="VideoName">Name:</label><br />
+                    <input type="text" asp-for="@Model.Video.VideoName" size="30" required>
+                </p>
+                <p>
+                    <label for="VideoReference">Link (youtube.com):</label><br />
+                    <input type="text" asp-for="@Model.Video.VideoReference" size="30" required>
+                </p>
+                <p>
+                    <label for="VideoDescription">Description:</label><br />
+                    <textarea asp-for="@Model.Video.VideoDescription" size="30" rows="5" cols="30"></textarea>
+                </p>
+                <div class="btn-group">
+                    <input type="submit" class="button" value="Send" width="200">
+                    <input type="reset" class="button" value="Clear">
+                </div>
+            </form>
+            <br><a asp-action="ProfilePerformer" asp-route-id="@Model.ID" class="btn btn-default">Back to profile</a>
+        </div>
+    </div>    
+</body>
+</html>

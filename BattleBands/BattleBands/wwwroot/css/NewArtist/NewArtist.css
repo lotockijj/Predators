@@ -1,4 +1,7 @@
-﻿.band {
+﻿body {
+    max-width: 1150px;
+}
+.band {
     float: right;
 }
 
