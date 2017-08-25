@@ -5,34 +5,48 @@
 @{
     ViewData["Title"] = "Performers";
 }
-<h3>Our performers!</h3>
-@using (Html.BeginForm("SearchByName", "Performer"))
-{
-    <input type="text" placeholder="Performer's name'" name="@Html.Raw("name")">
-    <input type="submit" value="Search">
-}
-<br />
-<a asp-controller="Performer" asp-action="CreatePerformer" class="btn btn-default">New performeer</a>
-<a asp-controller="Performer" asp-action="MyPerformers" class="btn btn-default">My performers</a>
-<div class="row">
-    <div class="col-md-8">
-        <section>
-            <table class="table">
-                @foreach (var band in Model)
-                {
-                    <tr>
-                        <td>
-                            <a asp-action="ProfilePerformer" asp-route-id="@band.PerformerId">@band.PerformerName</a><br />
-                            <b>Email - @band.PerformerEmail</b><br />
-                            <b>Phone - @band.PerformerPhone</b><br />
-                            @if (User.IsInRole("admin"))
-                            {
-                                <a asp-controller="Performer" asp-action="DeletePerformer" asp-route-id="@band.PerformerId"class="btn btn-default">Delete</a>
-                            }
-                        </td>
-                    </tr>
-                }
-            </table>
-        </section>
+<!DOCTYPE html>
+<html>
+<head>
+    <environment names="Development">
+        <link rel="stylesheet" href="~/css/Performer/Performer.css" />
+    </environment>
+</head>
+
+<body>
+    <h3>Our performers:</h3>
+    @using (Html.BeginForm("SearchByName", "Performer"))
+    {
+        <input type="text" placeholder="Performer's name" name="@Html.Raw("name")">
+        <input type="submit" class="search_btn" value="Search">
+    }
+    <br />
+    <div class="btn-group">
+        <a asp-controller="Performer" asp-action="CreatePerformer" class="button">New performer</a>
+        <a asp-controller="Performer" asp-action="MyPerformers" class="button">My performers</a>
     </div>
-</div>
+        <br />
+        <div class="row">
+            <div class="col-md-11">
+                <section>
+                    <table class="table">
+                        @foreach (var band in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <a asp-action="ProfilePerformer" asp-route-id="@band.PerformerId"><b>@band.PerformerName</b></a><br />
+                                    <b>Email - @band.PerformerEmail</b><br />
+                                    <b>Phone - @band.PerformerPhone</b><br />
+                                    @if (User.IsInRole("admin"))
+                                    {
+                                        <a asp-controller="Performer" asp-action="DeletePerformer" asp-route-id="@band.PerformerId" class="btn btn-default">Delete</a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </section>
+            </div>
+        </div>
+</body>
+</html>

@@ -1,18 +1,25 @@
 ﻿@model IEnumerable<BattleBands.Models.ApplicationVideo>
-
-<section class="content container-fluid">
-    <div class="row">
-        <div class="col-sm-8 col-sm-offset-2">
-            <div class="blocks">
-                @foreach (var video in Model)
-                {
-                    <a asp-action="" asp-route-id="@video.VideoId">@video.VideoName</a>
-                    <div class="block">
-                        <img src="~/images/Events/faine.jpg" class="img-thumbnail" alt="Faine">
-                        <p>@video.VideoDescription</p>
-                    </div>
-                }
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <h3>@ViewData["Title"]</h3>
+    <section class="content container-fluid">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="blocks">
+                    @foreach (var video in Model)
+                    {
+                        <a asp-action="" asp-route-id="@video.VideoId">@video.VideoName</a>
+                        <div class="block">
+                            <img src="~/images/Events/faine.jpg" class="img-thumbnail" alt="Faine">
+                            <p>@video.VideoDescription</p>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</body>
+</html>
