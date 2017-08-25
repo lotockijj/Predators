@@ -43,14 +43,26 @@ namespace BattleBands.Controllers
             return View();
         }
 
+        #region [Login]
         //
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
         //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> LoginMobile([FromBody] LoginViewModel model, string returnUrl = null)
+        {
+            return await MakeLogin(model, returnUrl);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
-             
+            return await MakeLogin(model, returnUrl);
+        }
+        
+        public async Task<IActionResult> MakeLogin(LoginViewModel model, string returnUrl = null)
+        {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
@@ -72,7 +84,7 @@ namespace BattleBands.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-
+#endregion
         //
         // GET: /Account/Register
         [HttpGet]
@@ -87,7 +99,7 @@ namespace BattleBands.Controllers
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
@@ -111,6 +123,26 @@ namespace BattleBands.Controllers
                 return View();
             }
             return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> RegisterMobile([FromBody] RegisterViewModel model, string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    user.EmailConfirmed = true;
+                    return Ok();
+                }
+                AddErrors(result);
+                return BadRequest("already exists");
+            }
+            return Unauthorized();
         }
 
         public async Task<IActionResult> SendMessage(string email, string subj, string txt)

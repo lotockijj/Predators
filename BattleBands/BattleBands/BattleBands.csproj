@@ -79,6 +79,7 @@
     <Folder Include="Models\AdminViewModels\" />
     <Folder Include="wwwroot\content\pictures\" />
     <Folder Include="wwwroot\content\pictures\" />
+    <Folder Include="wwwroot\content\" />
   </ItemGroup>
 
 </Project>
