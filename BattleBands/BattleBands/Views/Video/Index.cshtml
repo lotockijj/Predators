@@ -1,3 +1,4 @@
+
 ﻿@{
     ViewData["Title"] = "Videos";
 }
@@ -22,9 +23,18 @@
             <div class="clear"></div>
         </div>
     </div>
-    @foreach (var video in Model)
+
+    @foreach (var video in Model.Video)
     {
-        <p><a asp-controller="Video" asp-action="ViewVideo" asp-route-id="@video.VideoId">@video.VideoName</a></p>
+        <br />
+        <b>@video.VideoName</b><br />
+
+        <figure>
+            <iframe src="https://www.youtube.com/embed/@video.VideoReference" frameborder="0" allowfullscreen></iframe>
+        </figure>
+        <b>Description:</b> @video.VideoDescription<br />
+        <br />
     }
+    <p></p>
 </body>
 </html>
