@@ -10,6 +10,8 @@ namespace BattleBands.Data
         public DbSet<ApplicationEvent> Events { get; set; }
         public DbSet<ApplicationVideo> Videos { get; set; }
         public DbSet<ApplicationPhoto> Photo { get; set; }
+        public DbSet<ApplicationMusic> Music { get; set; }
+
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

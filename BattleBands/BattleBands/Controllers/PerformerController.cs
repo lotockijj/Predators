@@ -53,6 +53,8 @@ namespace BattleBands.Controllers
             unitOfWork.Save();
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
         [Authorize]
         public IActionResult ProfilePerformer(string id)
         {
@@ -62,6 +64,17 @@ namespace BattleBands.Controllers
                 Picture = unitOfWork.Picture.GetLastByOwner(id)
             };
             return View(item);
+        }
+        [HttpGet]
+        [Authorize]
+        public IActionResult ProfilePerformerMobile(string id)
+        {
+            var item = new PerformerProfileViewModel
+            {
+                Performer = unitOfWork.Performers.Get(id),
+                Picture = unitOfWork.Picture.GetLastByOwner(id)
+            };
+            return Json(item);
         }
 
         [HttpGet]
@@ -103,105 +116,6 @@ namespace BattleBands.Controllers
             return View(unitOfWork.Performers.SearchByName(name));
         }
 
-        [HttpGet]
-        [Authorize]
-        public IActionResult AddVideo(string id)
-        {
-            var perf = unitOfWork.Performers.Get(id);
-            var item = new PerformerAddVideoModelView
-            {
-                ID = id,
-                Video = new ApplicationVideo
-                {
-                    OwnerID = perf.PerformerId
-                }
-            };
-            return View(item);
-        }
-
-        [Authorize]
-        [HttpPost]
-        public IActionResult AddVideo(PerformerAddVideoModelView item)
-        {
-            if (item.Video.OwnerID == null) return RedirectToAction("Error");
-            try
-            {
-                item.Video.VideoReference = ExtractVideoIdFromUri(new Uri(item.Video.VideoReference));
-                unitOfWork.Videos.Create(item.Video);
-                unitOfWork.Save();
-                return RedirectToAction("ViewPerformerVideo", new { id= item.Video.VideoId});
-            }
-            catch (UriFormatException)
-            {
-                return RedirectToAction("AddVideo");
-            }
-            catch (NullReferenceException)
-            {
-                return RedirectToAction("AddVideo");
-            }
-
-        }
-        [Authorize]
-        [HttpGet]
-        public IActionResult GetPerformerVideos(string id)
-        {
-            var list = unitOfWork.Videos.GetAllByAuthor(id);
-            var item = new PerformerGetVideosModelView
-            {
-                ID = id,
-                Video = list
-            };
-            return View(item);
-        }
-
-        [Authorize]
-        [HttpGet]
-        public IActionResult ViewPerformerVideo(string id)
-        {
-            var item = new ApplicationVideo();
-            item = unitOfWork.Videos.Get(id);
-            return View(item);
-        }
-        [Authorize]
-        [HttpGet]
-        public IActionResult EditVideo(string id) => View(unitOfWork.Videos.Get(id));
-
-        [Authorize]
-        [HttpPost]
-        public IActionResult EditVideo(ApplicationVideo video)
-        {
-            try
-            {
-                video.VideoReference = ExtractVideoIdFromUri(new Uri(video.VideoReference));
-                unitOfWork.Videos.Update(video);
-                unitOfWork.Save();
-                return RedirectToAction("ViewPerformerVideo", new { id = video.VideoId });
-                //return RedirectToAction("MyPerformers");
-            }
-            catch
-            {
-                try
-                {
-                    unitOfWork.Videos.Update(video);
-                    unitOfWork.Save();
-                    return RedirectToAction("ViewPerformerVideo", new { id = video.VideoId });
-                }
-                catch
-                { 
-                return Redirect("Error"); //need right redirect
-                }
-            }
-        }
-        [Authorize]
-        public IActionResult DeleteVideo(string id)
-        {
-            var tmp = unitOfWork.Videos.Get(id);
-            unitOfWork.Videos.Delete(id);
-            unitOfWork.Save();
-            return RedirectToAction("GetPerformerVideos", new { id = tmp.OwnerID });
-        }
-
-
         #region [Helpers]
         private const string YoutubeLinkRegex = "(?:.+?)?(?:\\/v\\/|watch\\/|\\?v=|\\&v=|youtu\\.be\\/|\\/v=|^youtu\\.be\\/)([a-zA-Z0-9_-]{11})+";
         private static Regex regexExtractId = new Regex(YoutubeLinkRegex, RegexOptions.Compiled);
@@ -232,7 +146,7 @@ namespace BattleBands.Controllers
 
         public IActionResult ConfirmPerformerDelete(string id)
         {
-            var tmp = new PerformerDeleteConfirmModelView
+            var tmp = new PerformerDeleteConfirmViewModel
             {
                 ID = id
             };

@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Video";
+}
+@model BattleBands.Models.ApplicationVideo
+<!DOCTYPE html>
+<html>
+<head>
+    <environment names="Development">
+        <link rel="stylesheet" href="~/css/Media/Video.css" />
+    </environment>
+</head>
+<body>
+    <div class="row">
+        <br />
+        <b>@Model.VideoName</b><br />
+
+        <figure>
+            <iframe src="https://www.youtube.com/embed/@Model.VideoReference" frameborder="0" allowfullscreen></iframe>
+        </figure>
+        <b>Description:</b> @Model.VideoDescription<br />
+        <br />
+
+        <a asp-action="EditVideo" asp-route-id="@Model.VideoId" class="btn btn-default">Edit video</a>
+        <a asp-action="DeleteVideo" asp-route-id="@Model.VideoId" class="btn btn-default">Delete video</a>
+        <a asp-controller="Video" asp-action="GetVideo" asp-route-id="@Model.OwnerID" class="btn btn-default">Back to performer videos</a>
+        <a asp-controller="Performer" asp-action="ProfilePerformer" asp-route-id="@Model.OwnerID" class="btn btn-default">Back to profile</a>
+    </div>
+</body>
+</html>

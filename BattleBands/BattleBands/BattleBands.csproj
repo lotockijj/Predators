@@ -81,9 +81,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\AdminViewModels\" />
+    <Folder Include="wwwroot\content\music\" />
     <Folder Include="wwwroot\content\pictures\" />
     <Folder Include="wwwroot\content\pictures\" />
-    <Folder Include="wwwroot\content\" />
+    <Folder Include="wwwroot\content\music\" />
   </ItemGroup>
 
 </Project>

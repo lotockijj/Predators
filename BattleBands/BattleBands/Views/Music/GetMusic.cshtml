@@ -1,0 +1,22 @@
+﻿@model BattleBands.Models.MusicViewModels.GetMusicViewModel
+
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <div class="blocks">
+                @foreach (var item in Model.Music)
+                {
+                    <p>@item.Name</p>
+                    <audio controls>
+                        <source src="@item.Path" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <a asp-controller="Music" asp-action="DeleteMusic" asp-route-id="@item.Id">Delete</a>
+                }
+                <br />
+                <a asp-controller="Performer" asp-action="ProfilePerformer" asp-route-id="@Model.ID" class="btn btn-default">Back to profile</a>
+
+            </div>
+        </div>
+    </div>
+</section>

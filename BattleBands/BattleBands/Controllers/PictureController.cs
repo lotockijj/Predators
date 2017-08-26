@@ -99,5 +99,19 @@ namespace BattleBands.Controllers
             }
             return Redirect($"~/Event/EventPage/{item.ID}");
         }
+        public IActionResult RemoveLogo(string id)
+        {
+            var item = unitOfWork.Picture.Get(id);
+            unitOfWork.Picture.Delete(id);
+            unitOfWork.Save();
+            return Redirect($"~/Performer/ProfilePerformer/{item.IdOwner}");
+        }
+        public IActionResult RemoveEventLogo(string id)
+        {
+            var item = unitOfWork.Picture.Get(id);
+            unitOfWork.Picture.Delete(id);
+            unitOfWork.Save();
+            return Redirect($"~/Event/EventPage/{item.IdOwner}");
+        }
     }
 }

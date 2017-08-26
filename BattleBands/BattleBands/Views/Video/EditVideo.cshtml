@@ -1,0 +1,27 @@
+﻿@model BattleBands.Models.ApplicationVideo
+
+<div class="container">
+    <div class="col-md-6">
+        <form class="registration" asp-action="EditVideo" method="post">
+            <input type="hidden" asp-for="@Model.OwnerID" />
+            <input type="hidden" asp-for="@Model.VideoId" />
+            <p>
+                <label for="VideoName">Name:</label><br />
+                <input type="text" asp-for="VideoName" size="30" required>
+            </p>
+            <p>
+                <label for="VideoReference">Link:</label><br />
+                <input type="text" asp-for="VideoReference" size="30" required>
+            </p>
+            <p>
+                <label for="VideoDescription">Description</label><br />
+                <textarea asp-for="VideoDescription" size="30" rows="5" cols="30"></textarea>
+            </p>
+            <p>
+                <input type="submit" class="button" value="Send" width="200">
+                <input type="reset" class="button" value="Clear">
+            </p>
+        </form>
+        <a asp-action="ViewPerformerVideo" asp-route-id="@Model.VideoId" class="btn btn-default">Back to video</a>
+    </div>
+</div>

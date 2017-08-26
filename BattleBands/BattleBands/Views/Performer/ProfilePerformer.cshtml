@@ -16,7 +16,12 @@
 
     <a asp-controller="Picture" asp-action="AddLogo" asp-route-id="@Model.Performer.PerformerId" class="btn btn-default">Upload logo</a>
     <br />
-    <p><img src="@Url.Content(Model.Picture.Path)" height="350" width="350"></p>
+    @if (Url.Content(Model.Picture.Path) != null)
+    {
+        <p><img src="@Url.Content(Model.Picture.Path)" height="350" width="350"></p><br />
+        <a asp-controller="Picture" asp-action="RemoveLogo" asp-route-id="@Model.Picture.Id" class="btn btn-default">Remove logo</a><br />
+
+    }
 
     <label>Genre/style:</label>
     <br />
@@ -40,9 +45,11 @@
     <br />
 
     <div class="btn-group">
-        <a asp-action="AddVideo" asp-route-id="@Model.Performer.PerformerId" class="button">Add video</a>
+        <a asp-action="GetMusic" asp-controller="Music" asp-route-id="@Model.Performer.PerformerId" class="button">"@Model.Performer.PerformerName" Music</a>
+        <a asp-action="AddMusic" asp-controller="Music" asp-route-id="@Model.Performer.PerformerId" class="button">Add music</a>
+        <a asp-action="AddVideo" asp-controller="Video" asp-route-id="@Model.Performer.PerformerId" class="button">Add video</a>
         <a asp-controller="Performer" asp-action="UpdatePerformer" asp-route-id="@Model.Performer.PerformerId" class="button">Edit performer</a>
-        <a asp-action="GetPerformerVideos" asp-route-id="@Model.Performer.PerformerId" class="button">"@Model.Performer.PerformerName" Videos</a>
+        <a asp-action="GetVideo" asp-controller="Video" asp-route-id="@Model.Performer.PerformerId" class="button">"@Model.Performer.PerformerName" Videos</a>
         <a asp-action="Index" class="button"> Back to All performers</a>
     </div>
 </body>

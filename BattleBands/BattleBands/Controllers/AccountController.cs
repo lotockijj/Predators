@@ -142,7 +142,7 @@ namespace BattleBands.Controllers
                 AddErrors(result);
                 return BadRequest("already exists");
             }
-            return Unauthorized();
+            return BadRequest("not valid");
         }
 
         public async Task<IActionResult> SendMessage(string email, string subj, string txt)

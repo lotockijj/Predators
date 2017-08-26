@@ -47,15 +47,17 @@ namespace BattleBands.Controllers
             //    Logos = pics
             //};
             var events = unitOfWork.Events.GetAll();
+            var logo = new ApplicationPhoto();
+
             var result = new List<EventPageViewModel>();
             foreach (var tmp in events)
             {
-
+                logo = unitOfWork.Picture.GetLastByOwner(tmp.EventId);
                 result.Add(
                     new EventPageViewModel
                     {
                         Event = tmp,
-                        Logo = unitOfWork.Picture.GetLastByOwner(tmp.EventId)
+                        Logo = logo,
                     }
                 );
             }

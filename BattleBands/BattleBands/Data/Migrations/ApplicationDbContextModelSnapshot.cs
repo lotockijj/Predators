@@ -36,6 +36,24 @@ namespace BattleBands.Data.Migrations
                     b.ToTable("Events");
                 });
 
+            modelBuilder.Entity("BattleBands.Models.ApplicationMusic", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("IdOwner");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Path");
+
+                    b.Property<DateTimeOffset>("UploadTime");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Music");
+                });
+
             modelBuilder.Entity("BattleBands.Models.ApplicationPerformer", b =>
                 {
                     b.Property<string>("PerformerId")
