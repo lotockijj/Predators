@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using BattleBands.Models;
-using BattleBands.Models.ManageViewModels;
+using BattleBands.Models.ApplicationModels;
+using BattleBands.Models.ViewModels.ManageViewModels;
 using BattleBands.Services;
 using BattleBands.Data;
 

@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BattleBands.Data;
 using Microsoft.AspNetCore.Identity;
-using BattleBands.Models;
+using BattleBands.Models.ApplicationModels;
 using BattleBands.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Authorization;
-using BattleBands.Models.PictureViewModels;
+using BattleBands.Models.ViewModels.PictureViewModels;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 

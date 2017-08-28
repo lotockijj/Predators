@@ -1,5 +1,5 @@
 ﻿using BattleBands.Data;
-using BattleBands.Models.VideoViewModels;
+using BattleBands.Models.ViewModels.VideoViewModels;
 using BattleBands.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,7 +25,7 @@ namespace BattleBands.Controllers
         public IActionResult Video()
         {
             var videos = unitOfWork.Videos.GetAll();
-            var items = new VideoView
+            var items = new VideoViewModel
             {
                 Video = videos
             };

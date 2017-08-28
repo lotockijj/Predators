@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using BattleBands.Services;
 using BattleBands.Data;
-using BattleBands.Models.PerformerViewModels;
+using BattleBands.Models.ViewModels.PerformerViewModels;
 using Microsoft.AspNetCore.Identity;
-using BattleBands.Models;
+using BattleBands.Models.ApplicationModels;
 using Microsoft.AspNetCore.Hosting;
-using BattleBands.Models.MusicViewModels;
+using BattleBands.Models.ViewModels.MusicViewModels;
 using System.IO;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860

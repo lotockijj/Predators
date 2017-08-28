@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using BattleBands.Models;
-using BattleBands.Models.AccountViewModels;
+using BattleBands.Models.ApplicationModels;
+using BattleBands.Models.ViewModels.AccountViewModels;
 using BattleBands.Services;
 
 namespace BattleBands.Controllers

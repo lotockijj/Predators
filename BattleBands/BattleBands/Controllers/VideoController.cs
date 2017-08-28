@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using BattleBands.Data;
 using Microsoft.AspNetCore.Identity;
-using BattleBands.Models;
+using BattleBands.Models.ApplicationModels;
 using BattleBands.Services;
 using System.Text.RegularExpressions;
-using BattleBands.Models.VideoViewModels;
+using BattleBands.Models.ViewModels.VideoViewModels;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 

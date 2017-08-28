@@ -2,11 +2,11 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
-using BattleBands.Models;
+using BattleBands.Models.ApplicationModels;
 using BattleBands.Services;
 using BattleBands.Data;
 using Microsoft.AspNetCore.Authorization;
-using BattleBands.Models.PerformerViewModels;
+using BattleBands.Models.ViewModels.PerformerViewModels;
 using System.Text.RegularExpressions;
 using System.Linq;
 
