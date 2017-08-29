@@ -42,13 +42,17 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
-            setTimeout(function () {
-                console.info('go')
-                $('#fullpage').fullpage({
-                    sectionsColor: ['#7BAABE', '#7BAABE', '#7BAABE', '#7BAABE']
-                });
-            }, 1000);
+            $('#fullpage').fullpage({
+                sectionsColor: ['#7BAABE', '#7BAABE', '#7BAABE', '#7BAABE']
+            });
         });
+
+        $(document).ready(function () {
+            var w = $(window).width();
+            $(".body-content").css("width", w);
+            $(".body-content").css("padding", 0);
+        });
+
     </script>
 </body>
 </html>
