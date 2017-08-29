@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Authorization;
 using BattleBands.Models.ViewModels.PerformerViewModels;
 using System.Text.RegularExpressions;
 using System.Linq;
+using BattleBands.Models.ViewModels.PerformerViewModels.Mobile;
+using System.Collections.Generic;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -65,18 +67,7 @@ namespace BattleBands.Controllers
             };
             return View(item);
         }
-        [HttpGet]
-        [Authorize]
-        public IActionResult ProfilePerformerMobile(string id)
-        {
-            var item = new PerformerProfileViewModel
-            {
-                Performer = unitOfWork.Performers.Get(id),
-                Picture = unitOfWork.Picture.GetLastByOwner(id)
-            };
-            return Json(item);
-        }
-
+        
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> MyPerformers()
@@ -98,7 +89,6 @@ namespace BattleBands.Controllers
         [Authorize]
         public IActionResult UpdatePerformer(string id) => View(unitOfWork.Performers.Get(id));
 
-
         [Authorize]
         public async Task<IActionResult> UpdatePerformer(string id, ApplicationPerformer item)
         {
@@ -115,7 +105,92 @@ namespace BattleBands.Controllers
         {
             return View(unitOfWork.Performers.SearchByName(name));
         }
+        
+        #region [Mobile]
 
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult GetAllPerformersMobile()
+        {
+            var result = new List<GetAllPerformersMobileViewModel>();
+            var prf = unitOfWork.Performers.GetAll();
+            foreach (var item in prf)
+            {
+                result.Add(new GetAllPerformersMobileViewModel
+                {
+                    Id = item.PerformerId,
+                    Name = item.PerformerName,
+                    PicPath = unitOfWork.Picture.GetLastByOwner(item.PerformerId).Path
+                });
+            }
+            return Json(result);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult ProfilePerformerMobile(string id)
+        {
+            var item = new PerformerProfileViewModel
+            {
+                Performer = unitOfWork.Performers.Get(id),
+                Picture = unitOfWork.Picture.GetLastByOwner(id)
+            };
+            return Json(item);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> CreatePerformerMobile([FromBody] ApplicationPerformer item)
+        {
+            if (item.isValid())
+            {
+                var usr = await GetCurrentUserAsync();
+                item.UserId = usr.Id;
+                unitOfWork.Performers.Create(item);
+                unitOfWork.Save();
+                return Ok();
+            }
+            else return BadRequest("wrong data");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> MyPerformersMobile()
+        {
+            var usr = await GetCurrentUserAsync();
+            return Json(unitOfWork.Performers.GetAll(usr.Id));
+        }
+
+        [Authorize]
+        [HttpDelete]
+        public IActionResult DeletePerformerMobile(string id)
+        {
+            if (id != null)
+            {
+                unitOfWork.Performers.Delete(id);
+                unitOfWork.Save();
+                return Ok();
+            }
+            else return BadRequest("Null ID");
+        }
+
+        [Authorize]
+        [HttpPut]
+        public async Task<IActionResult> UpdatePerformerMobile(string id, [FromBody] ApplicationPerformer item)
+        {
+            if (id != null && item != null)
+            {
+                item.UserId = await GetCurrentUserId();
+                item.PerformerId = id;
+                unitOfWork.Performers.Update(item);
+                unitOfWork.Save();
+                return Ok();
+            }
+            else return BadRequest("bad data");
+        }
+
+        #endregion
         #region [Helpers]
         private const string YoutubeLinkRegex = "(?:.+?)?(?:\\/v\\/|watch\\/|\\?v=|\\&v=|youtu\\.be\\/|\\/v=|^youtu\\.be\\/)([a-zA-Z0-9_-]{11})+";
         private static Regex regexExtractId = new Regex(YoutubeLinkRegex, RegexOptions.Compiled);

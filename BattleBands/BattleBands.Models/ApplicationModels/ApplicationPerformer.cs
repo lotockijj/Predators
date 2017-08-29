@@ -14,5 +14,16 @@ namespace BattleBands.Models.ApplicationModels
         public string PerformerPhone { get; set; }
         public string PerformerCountry { get; set; }
         public string UserId { get; set; }
+
+        public bool isValid()
+        {
+            if (PerformerName != null &&
+                PerformerGenre != null &&
+                PerformerPhone != null &&
+                PerformerEmail != null &&
+                PerformerCountry != null)
+                return true;
+            else return false;
+        }
     }
 }

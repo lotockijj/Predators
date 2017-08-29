@@ -35,17 +35,6 @@ namespace BattleBands.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            //var events = unitOfWork.Events.GetAll();
-            //var pics = new List<ApplicationPhoto>();
-            //foreach (var evnt in events)
-            //{
-            //    pics.Add(unitOfWork.Picture.GetLastByOwner(evnt.EventId));
-            //}
-            //var result = new IndexViewModel
-            //{
-            //    Events = events,
-            //    Logos = pics
-            //};
             var events = unitOfWork.Events.GetAll();
             var logo = new ApplicationPhoto();
 
