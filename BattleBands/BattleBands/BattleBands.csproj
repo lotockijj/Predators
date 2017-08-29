@@ -17,19 +17,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Models\AccountViewModels\ExternalLoginConfirmationViewModel.cs" />
-    <Compile Remove="Models\AccountViewModels\SendCodeViewModel.cs" />
-    <Compile Remove="Models\AccountViewModels\VerifyCodeViewModel.cs" />
-    <Compile Remove="Models\ManageViewModels\ConfigureTwoFactorViewModel.cs" />
-    <Compile Remove="Models\ManageViewModels\FactorViewModel.cs" />
-    <Compile Remove="Models\ManageViewModels\ManageLoginsViewModel.cs" />
-    <Compile Remove="Models\ManageViewModels\RemoveLoginViewModel.cs" />
-    <Compile Remove="Models\ManageViewModels\SetPasswordViewModel.cs" />
-    <Compile Remove="Models\ManageViewModels\VerifyPhoneNumberViewModel.cs" />
-    <Compile Remove="Models\PerformerViewModels\CreatePerformerViewModel.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Remove="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Remove="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Remove="Views\Account\Lockout.cshtml" />
@@ -46,7 +33,7 @@
     <Content Remove="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Remove="wwwroot/content\так-блэт.jpg" />
   </ItemGroup>
-
+  <!--
   <ItemGroup>
     <Content Include="wwwroot\content\pictures\logo.jpg" />
     <Content Include="wwwroot\css\Home\Home.css" />
@@ -61,8 +48,9 @@
     <Content Include="wwwroot\lib\jquery-fullPage\jquery.fullPage.css" />
     <Content Include="wwwroot\lib\jquery-fullPage\jquery.fullPage.min.js" />
   </ItemGroup>
+  -->
   <ItemGroup>
-    <PackageReference Include="MailKit" Version="1.16.2" />
+    <PackageReference Include="MailKit" Version="1.16.1" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.2" />
@@ -85,7 +73,16 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\AdminViewModels\" />
+    <Folder Include="wwwroot\content\music\" />
+    <Folder Include="wwwroot\content\pictures\" />
+    <Folder Include="wwwroot\content\pictures\" />
+    <Folder Include="wwwroot\content\music\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BattleBands.Data\BattleBands.Data.csproj" />
+    <ProjectReference Include="..\BattleBands.Interfaces\BattleBands.Interfaces.csproj" />
+    <ProjectReference Include="..\BattleBands.Models\BattleBands.Models.csproj" />
+    <ProjectReference Include="..\BattleBands.Services\BattleBands.Services.csproj" />
   </ItemGroup>
 
 </Project>

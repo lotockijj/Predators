@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MailKit" Version="1.16.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BattleBands.Data\BattleBands.Data.csproj" />
+    <ProjectReference Include="..\BattleBands.Interfaces\BattleBands.Interfaces.csproj" />
+    <ProjectReference Include="..\BattleBands.Models\BattleBands.Models.csproj" />
+  </ItemGroup>
+
+</Project>

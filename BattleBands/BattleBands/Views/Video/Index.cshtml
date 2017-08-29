@@ -1,0 +1,40 @@
+
+﻿@{
+    ViewData["Title"] = "Videos";
+}
+@model IEnumerable<BattleBands.Models.ApplicationModels.ApplicationVideo>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <environment names="Development">
+        <link rel="stylesheet" href="~/css/Media/Video.css"/>
+    </environment>
+</head>
+<body>
+    <div class="row">
+        <h4>Your favorite video only in one our place!</h4>
+
+        <div id="header">
+            <form id="new_search" method="get" action="http://www.google.com"> <!--action треба поміняти-->
+                <input type="text" id="tfq" class="text_input" size="40" maxlength="100" value="Alice in Chains Nutshell">
+                <input type="submit" value="Find" class="search_btn">
+            </form>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    @foreach (var video in Model)
+    {
+        <br />
+        <b>@video.VideoName</b><br />
+
+        <figure>
+            <iframe src="https://www.youtube.com/embed/@video.VideoReference" frameborder="0" allowfullscreen></iframe>
+        </figure>
+        <b>Description:</b> @video.VideoDescription<br />
+        <br />
+    }
+    <p></p>
+</body>
+</html>

@@ -9,6 +9,12 @@
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/Home/Home.css" />
+        <link rel="stylesheet" href="~/css/Media/Music.css" />
+        <link rel="stylesheet" href="~/css/Media/Video.css" />
+        <link rel="stylesheet" href="~/css/Performer/AddVideo.css" />
+        <link rel="stylesheet" href="~/css/Performer/Performer.css" />
+        <link rel="stylesheet" href="~/css/Performer/ProfilePerformer.css" />
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -34,8 +40,8 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Performer" asp-action="Index">Performers</a></li>
                     <li><a asp-area="" asp-controller="Event" asp-action="Index">Events</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Music">Music</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Video">Video</a></li>
+                    <li><a asp-area="" asp-controller="Music" asp-action="Index">Music</a></li>
+                    <li><a asp-area="" asp-controller="Video" asp-action="Index">Video</a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

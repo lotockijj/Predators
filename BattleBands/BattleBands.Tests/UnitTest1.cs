@@ -1,5 +1,5 @@
 using BattleBands.Data;
-using BattleBands.Models;
+using BattleBands.Models.ApplicationModels;
 using System;
 using Xunit;
 using Moq;
@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features.Authentication;
 using BattleBands.Controllers;
-using BattleBands.Models.AdminViewModels;
+using BattleBands.Models.ViewModels.AdminViewModels;
 
 namespace BattleBands.Tests
 {

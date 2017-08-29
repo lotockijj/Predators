@@ -1,10 +1,14 @@
-﻿@model BattleBands.Models.EventViewModels.EventPageViewModel
+﻿@model BattleBands.Models.ViewModels.EventViewModels.EventPageViewModel
 
 <h1>@Model.Event.EventName</h1><br />
 
 <a asp-controller="Picture" asp-action="AddEventLogo" asp-route-id="@Model.Event.EventId" class="btn btn-default">Upload logo</a><br />
-<p><img src="@Url.Content(Model.Logo.Path)" height="320" width="320"></p>
+@if (Url.Content(Model.Logo.Path) != null)
+{
+    <p><img src="@Url.Content(Model.Logo.Path)" height="350" width="350"></p><br />
+        <a asp-controller="Picture" asp-action="RemoveEventLogo" asp-route-id="@Model.Logo.Id" class="btn btn-default">Remove logo</a><br />
 
+}
 
 <label>Place:</label><br />
 <p>@Model.Event.EventPlace</p><br />

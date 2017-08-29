@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using BattleBands.Data;
 using Microsoft.AspNetCore.Identity;
-using BattleBands.Models;
+using BattleBands.Models.ApplicationModels;
 using BattleBands.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Authorization;
-using BattleBands.Models.PictureViewModels;
+using BattleBands.Models.ViewModels.PictureViewModels;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -98,6 +98,20 @@ namespace BattleBands.Controllers
                 unitOfWork.Save();
             }
             return Redirect($"~/Event/EventPage/{item.ID}");
+        }
+        public IActionResult RemoveLogo(string id)
+        {
+            var item = unitOfWork.Picture.Get(id);
+            unitOfWork.Picture.Delete(id);
+            unitOfWork.Save();
+            return Redirect($"~/Performer/ProfilePerformer/{item.IdOwner}");
+        }
+        public IActionResult RemoveEventLogo(string id)
+        {
+            var item = unitOfWork.Picture.Get(id);
+            unitOfWork.Picture.Delete(id);
+            unitOfWork.Save();
+            return Redirect($"~/Event/EventPage/{item.IdOwner}");
         }
     }
 }

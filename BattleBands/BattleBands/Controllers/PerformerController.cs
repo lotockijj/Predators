@@ -2,13 +2,15 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
-using BattleBands.Models;
+using BattleBands.Models.ApplicationModels;
 using BattleBands.Services;
 using BattleBands.Data;
 using Microsoft.AspNetCore.Authorization;
-using BattleBands.Models.PerformerViewModels;
+using BattleBands.Models.ViewModels.PerformerViewModels;
 using System.Text.RegularExpressions;
 using System.Linq;
+using BattleBands.Models.ViewModels.PerformerViewModels.Mobile;
+using System.Collections.Generic;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -53,6 +55,8 @@ namespace BattleBands.Controllers
             unitOfWork.Save();
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
         [Authorize]
         public IActionResult ProfilePerformer(string id)
         {
@@ -63,7 +67,7 @@ namespace BattleBands.Controllers
             };
             return View(item);
         }
-
+        
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> MyPerformers()
@@ -85,7 +89,6 @@ namespace BattleBands.Controllers
         [Authorize]
         public IActionResult UpdatePerformer(string id) => View(unitOfWork.Performers.Get(id));
 
-
         [Authorize]
         public async Task<IActionResult> UpdatePerformer(string id, ApplicationPerformer item)
         {
@@ -102,106 +105,92 @@ namespace BattleBands.Controllers
         {
             return View(unitOfWork.Performers.SearchByName(name));
         }
+        
+        #region [Mobile]
+
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult GetAllPerformersMobile()
+        {
+            var result = new List<GetAllPerformersMobileViewModel>();
+            var prf = unitOfWork.Performers.GetAll();
+            foreach (var item in prf)
+            {
+                result.Add(new GetAllPerformersMobileViewModel
+                {
+                    Id = item.PerformerId,
+                    Name = item.PerformerName,
+                    PicPath = unitOfWork.Picture.GetLastByOwner(item.PerformerId).Path
+                });
+            }
+            return Json(result);
+        }
 
         [HttpGet]
         [Authorize]
-        public IActionResult AddVideo(string id)
+        public IActionResult ProfilePerformerMobile(string id)
         {
-            var perf = unitOfWork.Performers.Get(id);
-            var item = new PerformerAddVideoModelView
+            var item = new PerformerProfileViewModel
             {
-                ID = id,
-                Video = new ApplicationVideo
-                {
-                    OwnerID = perf.PerformerId
-                }
+                Performer = unitOfWork.Performers.Get(id),
+                Picture = unitOfWork.Picture.GetLastByOwner(id)
             };
-            return View(item);
+            return Json(item);
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult AddVideo(PerformerAddVideoModelView item)
+        public async Task<IActionResult> CreatePerformerMobile([FromBody] ApplicationPerformer item)
         {
-            if (item.Video.OwnerID == null) return RedirectToAction("Error");
-            try
+            if (item.isValid())
             {
-                item.Video.VideoReference = ExtractVideoIdFromUri(new Uri(item.Video.VideoReference));
-                unitOfWork.Videos.Create(item.Video);
+                var usr = await GetCurrentUserAsync();
+                item.UserId = usr.Id;
+                unitOfWork.Performers.Create(item);
                 unitOfWork.Save();
-                return RedirectToAction("ViewPerformerVideo", new { id= item.Video.VideoId});
+                return Ok();
             }
-            catch (UriFormatException)
-            {
-                return RedirectToAction("AddVideo");
-            }
-            catch (NullReferenceException)
-            {
-                return RedirectToAction("AddVideo");
-            }
-
+            else return BadRequest("wrong data");
         }
-        [Authorize]
+
         [HttpGet]
-        public IActionResult GetPerformerVideos(string id)
+        [Authorize]
+        public async Task<IActionResult> MyPerformersMobile()
         {
-            var list = unitOfWork.Videos.GetAllByAuthor(id);
-            var item = new PerformerGetVideosModelView
-            {
-                ID = id,
-                Video = list
-            };
-            return View(item);
+            var usr = await GetCurrentUserAsync();
+            return Json(unitOfWork.Performers.GetAll(usr.Id));
         }
 
         [Authorize]
-        [HttpGet]
-        public IActionResult ViewPerformerVideo(string id)
+        [HttpDelete]
+        public IActionResult DeletePerformerMobile(string id)
         {
-            var item = new ApplicationVideo();
-            item = unitOfWork.Videos.Get(id);
-            return View(item);
-        }
-        [Authorize]
-        [HttpGet]
-        public IActionResult EditVideo(string id) => View(unitOfWork.Videos.Get(id));
-
-        [Authorize]
-        [HttpPost]
-        public IActionResult EditVideo(ApplicationVideo video)
-        {
-            try
+            if (id != null)
             {
-                video.VideoReference = ExtractVideoIdFromUri(new Uri(video.VideoReference));
-                unitOfWork.Videos.Update(video);
+                unitOfWork.Performers.Delete(id);
                 unitOfWork.Save();
-                return RedirectToAction("ViewPerformerVideo", new { id = video.VideoId });
-                //return RedirectToAction("MyPerformers");
+                return Ok();
             }
-            catch
-            {
-                try
-                {
-                    unitOfWork.Videos.Update(video);
-                    unitOfWork.Save();
-                    return RedirectToAction("ViewPerformerVideo", new { id = video.VideoId });
-                }
-                catch
-                { 
-                return Redirect("Error"); //need right redirect
-                }
-            }
+            else return BadRequest("Null ID");
         }
+
         [Authorize]
-        public IActionResult DeleteVideo(string id)
+        [HttpPut]
+        public async Task<IActionResult> UpdatePerformerMobile(string id, [FromBody] ApplicationPerformer item)
         {
-            var tmp = unitOfWork.Videos.Get(id);
-            unitOfWork.Videos.Delete(id);
-            unitOfWork.Save();
-            return RedirectToAction("GetPerformerVideos", new { id = tmp.OwnerID });
+            if (id != null && item != null)
+            {
+                item.UserId = await GetCurrentUserId();
+                item.PerformerId = id;
+                unitOfWork.Performers.Update(item);
+                unitOfWork.Save();
+                return Ok();
+            }
+            else return BadRequest("bad data");
         }
 
-
+        #endregion
         #region [Helpers]
         private const string YoutubeLinkRegex = "(?:.+?)?(?:\\/v\\/|watch\\/|\\?v=|\\&v=|youtu\\.be\\/|\\/v=|^youtu\\.be\\/)([a-zA-Z0-9_-]{11})+";
         private static Regex regexExtractId = new Regex(YoutubeLinkRegex, RegexOptions.Compiled);
@@ -232,7 +221,7 @@ namespace BattleBands.Controllers
 
         public IActionResult ConfirmPerformerDelete(string id)
         {
-            var tmp = new PerformerDeleteConfirmModelView
+            var tmp = new PerformerDeleteConfirmViewModel
             {
                 ID = id
             };

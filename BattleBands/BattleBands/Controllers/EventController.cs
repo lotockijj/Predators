@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
-using BattleBands.Models;
+using BattleBands.Models.ApplicationModels;
+using BattleBands.Models.ViewModels.EventViewModels;
 using BattleBands.Services;
 using BattleBands.Data;
 using Microsoft.AspNetCore.Authorization;
-using BattleBands.Models.EventViewModels;
 using System.Collections.Generic;
 
 namespace BattleBands.Controllers
@@ -35,27 +35,18 @@ namespace BattleBands.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            //var events = unitOfWork.Events.GetAll();
-            //var pics = new List<ApplicationPhoto>();
-            //foreach (var evnt in events)
-            //{
-            //    pics.Add(unitOfWork.Picture.GetLastByOwner(evnt.EventId));
-            //}
-            //var result = new IndexViewModel
-            //{
-            //    Events = events,
-            //    Logos = pics
-            //};
             var events = unitOfWork.Events.GetAll();
+            var logo = new ApplicationPhoto();
+
             var result = new List<EventPageViewModel>();
             foreach (var tmp in events)
             {
-
+                logo = unitOfWork.Picture.GetLastByOwner(tmp.EventId);
                 result.Add(
                     new EventPageViewModel
                     {
                         Event = tmp,
-                        Logo = unitOfWork.Picture.GetLastByOwner(tmp.EventId)
+                        Logo = logo,
                     }
                 );
             }
