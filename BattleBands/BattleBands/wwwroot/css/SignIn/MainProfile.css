@@ -17,7 +17,6 @@ p.text {
     border: 1px solid #000000;
     word-wrap: break-word;
 }
-
 .btn-group .button, .myButton {
     background-color: #141f33;
     border: 1px solid white;
@@ -28,9 +27,9 @@ p.text {
     display: inline-block;
     font-size: 16px;
     cursor: pointer;
-    width: 350px;
+    width: 280px;
     display: block;
 }
-.btn-group .button:hover {
+.btn-group .button:hover, .myButton:hover {
     opacity: 0.8;
 }

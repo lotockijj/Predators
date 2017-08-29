@@ -55,6 +55,11 @@
     <Content Include="wwwroot\css\Performer\AddVideo.css" />
     <Content Include="wwwroot\css\Performer\Performer.css" />
     <Content Include="wwwroot\css\Performer\ProfilePerformer.css" />
+    <Content Include="wwwroot\css\SignIn\MainProfile.css" />
+    <Content Include="wwwroot\images\Home\down_arrow.png" />
+    <Content Include="wwwroot\images\Home\logo.png" />
+    <Content Include="wwwroot\lib\jquery-fullPage\jquery.fullPage.css" />
+    <Content Include="wwwroot\lib\jquery-fullPage\jquery.fullPage.min.js" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MailKit" Version="1.16.2" />
