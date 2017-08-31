@@ -38,11 +38,46 @@
         </div>
         <div class="section content events" id="section2">
             <h1>If you want find music events, such as concert or festival, or just add your personal event, you can do this now.</h1>
+            <!--
             <div class="text-center">
                 <img src="~/images/Home/events.jpg">
             </div>
+            -->
             <span>Click the arrow to visit page with events</span>
             <a asp-controller="Event" asp-action="Index"><img class="arrow_right" src="~/images/Home/down_arrow.png"></a>
+            <div class="last">
+                <h1>Last Event</h1>
+                <span>Performer: @Model.Performer.PerformerName</span><br>
+                <span>Event: <a asp-controller="Event" asp-action="EventPage" asp-route-id="@Model.Event.EventId">@Model.Event.EventName</a></span><br>
+                <span>Place: @Model.Event.EventPlace</span><br>
+                <span>Time: @Model.Event.EventTime</span><br>
+                <div class="navigation">
+                    <div class="div-nav">
+                        <img src="~/images/Home/down_arrow.png" class="pre" />
+                    </div>
+                    <div id="first" class="active">
+                        <span class="description">Description: @Model.Event.EventDescription</span>
+                    </div>
+                    <div id="second" class="dis">
+                        <b>@Model.Video.VideoName</b><br />
+
+                        <figure>
+                            <iframe src="https://www.youtube.com/embed/@Model.Video.VideoReference" frameborder="0" allowfullscreen></iframe>
+                        </figure>
+                        <b>Description:</b> @Model.Video.VideoDescription<br />
+                    </div>
+                    <div id="third" class="dis">
+                        <p>@Model.Music.Name</p>
+                        <audio controls>
+                            <source src="@Model.Music.Path" type="audio/mp3">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                    <div class="div-nav">
+                        <img src="~/images/Home/down_arrow.png" class="nex" />
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="section content music" id="section3">
             <h1>Also you can listen <a asp-area="" asp-controller="Music" asp-action="Index">audio</a> 
@@ -63,6 +98,64 @@
             var w = $(window).width();
             $(".body-content").css("width", w);
             $(".body-content").css("padding", 0);
+        });
+        var id = 1;
+        $(".pre").click(function () {
+            if (id == 1) {
+                $("#first").removeClass("active");
+                $("#first").addClass("dis");
+                $("#third").addClass("active");
+                $("#third").removeClass("dis");
+                id = 3;
+                return;
+            }
+            if (id == 3) {
+                console.log(id);
+                $("#third").removeClass("active");
+                $("#third").addClass("dis");
+                $("#second").addClass("active");
+                $("#second").removeClass("dis");
+                id = 2;
+                return;
+            }
+            if (id == 2) {
+                console.log(id);
+                $("#second").removeClass("active");
+                $("#second").addClass("dis");
+                $("#first").addClass("active");
+                $("#first").removeClass("dis");
+                id = 1;
+                return;
+            }
+        });
+
+        $(".nex").click(function () {
+            
+            if (id == 1) {
+                $("#first").removeClass("active");
+                $("#first").addClass("dis");
+                $("#second").addClass("active");
+                $("#second").removeClass("dis");
+                id = 2;
+                return;
+            }
+            if (id == 3) {
+                $("#third").removeClass("active");
+                $("#third").addClass("dis");
+                $("#first").addClass("active");
+                $("#first").removeClass("dis");
+                id = 1;
+                return;
+            }
+            if (id == 2) {
+                console.log(id);
+                $("#second").removeClass("active");
+                $("#second").addClass("dis");
+                $("#third").addClass("active");
+                $("#third").removeClass("dis");
+                id = 3;
+                return;
+            }
         });
     </script>
 </body>

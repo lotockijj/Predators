@@ -8,3 +8,52 @@
     width: 100px;
     transform: rotate(270deg);
 }
+
+.last {
+    width: 70%;
+    text-align: center;
+    margin: 0 15%;
+}
+
+.last .navigation{
+    display: flex;
+    justify-content: center;
+}
+
+.last .navigation img{
+    width: 50px;
+}
+
+.last .navigation .pre {
+    transform: rotate(90deg);
+}
+
+.last .navigation .nex {
+    transform: rotate(270deg);
+}
+
+.last span {
+    font-size: 18px;
+}
+
+.last .description{
+    text-align: justify;
+    font-size: 16px;
+}
+
+.active{
+    display: block;
+    width: 80%;
+}
+
+.dis{
+    display: none;
+}
+
+.div-nav{
+    width: 9%;
+}
+iframe{
+    width: 100%;
+    height: 300px;
+}
