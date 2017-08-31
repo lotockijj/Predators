@@ -19,6 +19,7 @@ namespace BattleBands.Services
 
         public void Create(ApplicationMusic item)
         {
+            item.UploadTime = DateTimeOffset.Now;
             _context.Music.Add(item);
             _context.SaveChanges();
         }
@@ -37,7 +38,7 @@ namespace BattleBands.Services
 
         public IEnumerable<ApplicationMusic> GetAll()
         {
-            return _context.Music;
+            return _context.Music.OrderByDescending(x => x.UploadTime).AsEnumerable();
         }
 
         public void Update(ApplicationMusic item)
@@ -52,11 +53,16 @@ namespace BattleBands.Services
         public IEnumerable<ApplicationMusic> GetByAuthor(string id)
         {
             var result = new List<ApplicationMusic>();
-            foreach (var item in _context.Music)
+            foreach (var item in _context.Music.OrderByDescending(x => x.UploadTime).AsEnumerable())
             {
                 if (item.IdOwner == id) result.Add(item);
             }
             return result;
+        }
+
+        public ApplicationMusic GetLast()
+        {
+            return _context.Music.OrderBy(x => x.UploadTime).Last();
         }
     }
 }

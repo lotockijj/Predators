@@ -19,6 +19,7 @@ namespace BattleBands.Services
 
         public void Create(ApplicationVideo item)
         {
+            item.AddTime = DateTimeOffset.Now;
             _context.Videos.Add(item);
         }
 
@@ -37,7 +38,7 @@ namespace BattleBands.Services
         public IEnumerable<ApplicationVideo> GetAllByAuthor(string id)
         {
             var AuthorVideos = new List<ApplicationVideo>();
-            foreach (var item in _context.Videos)
+            foreach (var item in _context.Videos.OrderByDescending(x => x.AddTime).AsEnumerable())
             {
                 if (item.OwnerID == id) AuthorVideos.Add(item);
             }
@@ -46,7 +47,7 @@ namespace BattleBands.Services
 
         public IEnumerable<ApplicationVideo> GetAll()
         {
-            return _context.Videos;
+            return _context.Videos.OrderByDescending(x => x.AddTime).AsEnumerable();
         }
 
         public void Update(ApplicationVideo item)
@@ -59,6 +60,11 @@ namespace BattleBands.Services
 
             _context.Entry(tmp).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             _context.SaveChanges();
+        }
+
+        public ApplicationVideo GetLast()
+        {
+            return _context.Videos.OrderBy(x => x.AddTime).Last();
         }
     }
 }

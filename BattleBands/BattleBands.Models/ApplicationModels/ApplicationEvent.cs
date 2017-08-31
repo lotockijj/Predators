@@ -14,5 +14,7 @@ namespace BattleBands.Models.ApplicationModels
         [DataType(DataType.DateTime)]
         public DateTimeOffset EventTime {get; set; }
         public string E_UserId { get; set; }
+        public DateTimeOffset CreateTime { get; set; }
+
     }
 }

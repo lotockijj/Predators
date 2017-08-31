@@ -35,9 +35,7 @@ namespace BattleBands.Controllers
         [Authorize]
         public IActionResult Index() => View(unitOfWork.Music.GetAll());
 
-        [HttpGet]
-        [Authorize]
-        public JsonResult GetMusicListMobile() => Json(unitOfWork.Music.GetAll()); 
+       
 
         public IActionResult AddMusic(string id) => View();
 
@@ -70,5 +68,20 @@ namespace BattleBands.Controllers
             unitOfWork.Music.Delete(id);
             return Redirect($"~/Music/GetMusic/{item.IdOwner}");
         }
+
+        #region [Mobile]
+        [HttpGet]
+        [Authorize]
+        public JsonResult GetMusicListMobile() => Json(unitOfWork.Music.GetAll()); 
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetMusicMobile(string id) => Json(new GetMusicViewModel
+        {
+            Music = unitOfWork.Music.GetByAuthor(id),
+            ID = id
+        });
+
+        #endregion
     }
 }

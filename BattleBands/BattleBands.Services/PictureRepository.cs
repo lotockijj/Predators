@@ -18,6 +18,7 @@ namespace BattleBands.Services
 
         public void Create(ApplicationPhoto item)
         {
+            item.UploadTime = DateTimeOffset.Now;
             context.Photo.Add(item);
         }
 
@@ -45,12 +46,13 @@ namespace BattleBands.Services
 
         public IEnumerable<ApplicationPhoto> GetAll()
         {
-            var lst = new List<ApplicationPhoto>();
-            foreach (var item in context.Photo)
-            {
-                lst.Add(item);
-            }
-            return lst;
+            return context.Photo.OrderByDescending(x => x.UploadTime).AsEnumerable();
+            //var lst = new List<ApplicationPhoto>();
+            //foreach (var item in context.Photo)
+            //{
+            //    lst.Add(item);
+            //}
+            //return lst;
         }
 
         public void Update(ApplicationPhoto item)
@@ -64,6 +66,10 @@ namespace BattleBands.Services
             context.Entry(tmp).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             context.SaveChanges();
 
+        }
+        public ApplicationPhoto GetLast()
+        {
+            return context.Photo.OrderBy(x => x.UploadTime).Last();
         }
     }
 }

@@ -8,6 +8,8 @@ namespace BattleBands.Models.ViewModels.PerformerViewModels.Mobile
     {
         public string Id { get; set; }
         public string Name { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
         public string PicPath { get; set; }
     }
 }

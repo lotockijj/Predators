@@ -105,9 +105,8 @@ namespace BattleBands.Controllers
         {
             return View(unitOfWork.Performers.SearchByName(name));
         }
-        
-        #region [Mobile]
 
+        #region [Mobile]
 
         [Authorize]
         [HttpGet]
@@ -120,6 +119,8 @@ namespace BattleBands.Controllers
                 result.Add(new GetAllPerformersMobileViewModel
                 {
                     Id = item.PerformerId,
+                    Phone = item.PerformerPhone,
+                    Email = item.PerformerEmail,
                     Name = item.PerformerName,
                     PicPath = unitOfWork.Picture.GetLastByOwner(item.PerformerId).Path
                 });

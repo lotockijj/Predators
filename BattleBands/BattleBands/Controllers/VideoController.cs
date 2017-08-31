@@ -30,8 +30,7 @@ namespace BattleBands.Controllers
         [HttpGet]
         public IActionResult Index() => View(unitOfWork.Videos.GetAll());
 
-        [HttpGet]
-        public IActionResult GetVideos() => Json(unitOfWork.Videos.GetAll());  //mobile
+        
 
         [HttpGet]
         [Authorize]
@@ -71,6 +70,7 @@ namespace BattleBands.Controllers
             }
 
         }
+
         [Authorize]
         [HttpGet]
         public IActionResult GetVideo(string id)
@@ -131,6 +131,27 @@ namespace BattleBands.Controllers
             unitOfWork.Save();
             return RedirectToAction("GetPerformerVideos", new { id = tmp.OwnerID });
         }
+
+
+        #region [Mobile]
+
+        [HttpGet]
+        public IActionResult GetVideos() => Json(unitOfWork.Videos.GetAll());
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult GetVideoMobile(string id)
+        {
+            var list = unitOfWork.Videos.GetAllByAuthor(id);
+            var item = new PerformerGetVideosViewModel
+            {
+                ID = id,
+                Video = list
+            };
+            return Json(item);
+        }
+
+        #endregion
 
         #region [Helpers]
         private const string YoutubeLinkRegex = "(?:.+?)?(?:\\/v\\/|watch\\/|\\?v=|\\&v=|youtu\\.be\\/|\\/v=|^youtu\\.be\\/)([a-zA-Z0-9_-]{11})+";

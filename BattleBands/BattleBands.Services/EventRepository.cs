@@ -20,6 +20,7 @@ namespace BattleBands.Services
 
         public void Create(ApplicationEvent item)
         {
+            item.CreateTime = DateTimeOffset.Now;
             _context.Events.Add(item);
         }
 
@@ -36,17 +37,22 @@ namespace BattleBands.Services
 
         public IEnumerable<ApplicationEvent> GetAll()
         {
-            return _context.Events;
+            return _context.Events.OrderByDescending(x => x.CreateTime).AsEnumerable();
         }
 
         public IEnumerable<ApplicationEvent> GetAll(string id)
         {
             var result = new List<ApplicationEvent>();
-            foreach (var events in this._context.Events)
+            foreach (var events in this._context.Events.OrderByDescending(x => x.CreateTime).AsEnumerable())
             {
                 if (events.E_UserId == id) result.Add(events);
             }
             return result;
+        }
+
+        public ApplicationEvent GetLast()
+        {
+            return _context.Events.OrderBy(x=>x.CreateTime).Last();
         }
 
         public void Update(ApplicationEvent item)

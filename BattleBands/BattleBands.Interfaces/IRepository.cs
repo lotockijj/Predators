@@ -12,5 +12,6 @@ namespace BattleBands.Interfaces
         void Create(T item);
         void Update(T item);
         void Delete(string id);
+        T GetLast();
     }
 }

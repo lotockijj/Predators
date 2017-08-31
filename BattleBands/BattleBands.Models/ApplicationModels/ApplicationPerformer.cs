@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace BattleBands.Models.ApplicationModels
 {
@@ -14,6 +15,8 @@ namespace BattleBands.Models.ApplicationModels
         public string PerformerPhone { get; set; }
         public string PerformerCountry { get; set; }
         public string UserId { get; set; }
+        public DateTimeOffset CreateTime { get; set; }
+
 
         public bool isValid()
         {

@@ -21,6 +21,7 @@ namespace BattleBands.Services
 
         public void Create(ApplicationPerformer item)
         {
+            item.CreateTime = DateTimeOffset.Now;
             _context.Performers.Add(item);
         }
 
@@ -37,13 +38,13 @@ namespace BattleBands.Services
 
         public IEnumerable<ApplicationPerformer> GetAll()
         {
-            return _context.Performers;
+            return _context.Performers.OrderByDescending(x => x.CreateTime).AsEnumerable();
         }
 
         public IEnumerable<ApplicationPerformer> GetAll(string id)
         {
             var result = new List<ApplicationPerformer>();
-            foreach (var perf in this._context.Performers)
+            foreach (var perf in this._context.Performers.OrderByDescending(x => x.CreateTime).AsEnumerable())
             {
                 if (perf.UserId == id) result.Add(perf);
             }
@@ -73,6 +74,11 @@ namespace BattleBands.Services
                 if (perf.PerformerName == name) result.Add(perf);
             }
             return result;
+        }
+
+        public ApplicationPerformer GetLast()
+        {
+            return _context.Performers.OrderBy(x => x.CreateTime).Last();
         }
     }
 }

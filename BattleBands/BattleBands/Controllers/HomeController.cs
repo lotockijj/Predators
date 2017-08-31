@@ -8,15 +8,19 @@ namespace BattleBands.Controllers
     public class HomeController : Controller
     {
         ApplicationDbContext _context;
+        LastItemService lastitem;
         UnitOfWork unitOfWork;
         public HomeController(ApplicationDbContext context)
         {
             unitOfWork = new UnitOfWork(context);
+            lastitem = new LastItemService(context);
             _context = context;
         }
+
         public IActionResult Index()
         {
-            return View();
+            var result = lastitem.GetLast();
+            return View(result);
         }
         public IActionResult Performers() => View();
 
