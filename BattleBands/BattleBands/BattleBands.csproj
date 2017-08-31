@@ -33,6 +33,14 @@
     <Content Remove="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Remove="wwwroot/content\так-блэт.jpg" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\images\Home\band.jpg" />
+    <Content Include="wwwroot\images\Home\events.jpg" />
+    <Content Include="wwwroot\images\Home\LiveEvents01.jpg" />
+    <Content Include="wwwroot\images\Home\music.jpg" />
+    <Content Include="wwwroot\images\Home\performers.jpg" />
+  </ItemGroup>
   <!--
   <ItemGroup>
     <Content Include="wwwroot\content\pictures\logo.jpg" />
@@ -42,6 +50,11 @@
     <Content Include="wwwroot\css\Performer\AddVideo.css" />
     <Content Include="wwwroot\css\Performer\Performer.css" />
     <Content Include="wwwroot\css\Performer\ProfilePerformer.css" />
+    <Content Include="wwwroot\css\SignIn\MainProfile.css" />
+    <Content Include="wwwroot\images\Home\down_arrow.png" />
+    <Content Include="wwwroot\images\Home\logo.png" />
+    <Content Include="wwwroot\lib\jquery-fullPage\jquery.fullPage.css" />
+    <Content Include="wwwroot\lib\jquery-fullPage\jquery.fullPage.min.js" />
   </ItemGroup>
   -->
   <ItemGroup>

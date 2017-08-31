@@ -14,7 +14,7 @@
     <h1>@Model.Performer.PerformerName</h1>
     <br />
 
-    <a asp-controller="Picture" asp-action="AddLogo" asp-route-id="@Model.Performer.PerformerId" class="btn btn-default">Upload logo</a>
+    <a asp-controller="Picture" asp-action="AddLogo" asp-route-id="@Model.Performer.PerformerId" class="myButton">Upload logo</a>
     <br />
     @if (Url.Content(Model.Picture.Path) != null)
     {

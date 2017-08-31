@@ -1,5 +1,9 @@
 ﻿@model BattleBands.Models.ViewModels.MusicViewModels.AddMusicViewModel
 
+<environment names="Development">
+    <link rel="stylesheet" href="~/css/Media/Music.css" />
+</environment>
+
 <h3>Choose file to upload</h3>
 <form asp-action="AddMusic" asp-controller="Music" method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="@Model.ID" />

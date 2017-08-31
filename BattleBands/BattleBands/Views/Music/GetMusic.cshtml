@@ -1,9 +1,14 @@
 ﻿@model BattleBands.Models.ViewModels.MusicViewModels.GetMusicViewModel
 
+<environment names="Development">
+    <link rel="stylesheet" href="~/css/Media/Music.css" />
+</environment>
+
 <section class="content container-fluid">
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
             <div class="blocks">
+                <br />
                 @if (Model.Music.Count() == 0)
                 { 
                     <br /> 

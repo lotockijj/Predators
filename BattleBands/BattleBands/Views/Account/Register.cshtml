@@ -2,9 +2,10 @@
 @{
     ViewData["Title"] = "Registration";
 }
-<h3>@ViewData["Title"].</h3>
+<h3>@ViewData["Title"]</h3>
 <environment names="Development">
     <link rel="stylesheet" href="~/css/SignIn/SignIn.css" />
+    <link rel="stylesheet" href="~/css/SignIn/MainProfile.css" />
 </environment>
 
 <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
@@ -37,7 +38,7 @@
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <button type="submit" class="btn btn-default">Send</button>
+            <button type="submit" class="myButton">Send</button>
         </div>
     </div>
 </form>

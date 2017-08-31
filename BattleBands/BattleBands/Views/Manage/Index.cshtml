@@ -2,7 +2,9 @@
 @{
     ViewData["Title"] = "Manage your profile";
 }
-
+<environment names="Development">
+    <link rel="stylesheet" href="~/css/SignIn/MainProfile.css" />
+</environment>
 <h3>@ViewData["Title"].</h3>
 <p class="text-success">@ViewData["StatusMessage"]</p>
 <div>

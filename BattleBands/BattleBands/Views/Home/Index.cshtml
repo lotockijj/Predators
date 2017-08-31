@@ -6,115 +6,64 @@
 <html>
 <head>
     <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/jquery-fullPage/jquery.fullPage.css" />
         <link rel="stylesheet" href="~/css/Home/Home.css" />
     </environment>
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/jquery-fullPage/jquery.fullPage.min.js"></script>
 </head>
 <body>
-    <section class="content container-fluid">
-        <div class="row">
-            <div class="col-sm-8 col-sm-offset-2">
-                <div class="blocks">
-                    <a asp-controller="Performer" asp-action="ProfilePerformer" asp-route-id="@Model.Performer.PerformerId">
-                        <div class="block">
-                            <img src="@Model.PerformerPath" class="img-thumbnail">
-                            <p><b>@Model.Performer.PerformerName</b></p>
-                            <p>@Model.Performer.PerformerGenre</p>
-                            <p>@Model.Performer.PerformerPhone</p>
-                        </div>
-                    </a>
-                    <a asp-controller="Event" asp-action="EventPage" asp-route-id="@Model.Event.EventId">
-                        href до конкретної сторінки групи
-                        <div class="block">
-                            <img src="@Model.EventPath" class="img-thumbnail">
-                            <p><b>@Model.Event.EventName</b></p>
-                            <p>@Model.Event.EventPlace</p>
-                            <p>@Model.Event.EventTime</p>
-                        </div>
-                    </a>
-                    <div class="block">
-                        <audio controls>
-                            <source src="@Model.Music.Path" type="audio/mp3">
-                            Your browser does not support the audio element.
-                        </audio>
-                    </div>
-                        <figure>
-                            <iframe src="https://www.youtube.com/embed/@Model.Video.VideoReference" frameborder="0" allowfullscreen></iframe>
-                        </figure>
-                    @*<a href=""> href до конкретної сторінки групи
-                        <div class="block">
-                            <img src="~/images/Events/faine.jpg" class="img-thumbnail" alt="Faine" >
-                            <p><b>Назва групи</b></p>
-                            <p>Жанр групи</p>
-                            <p>Країна</p>
-                        </div>
-                    </a>
-                    <a href="">
-                        <div class="block">
-                            <img src="~/images/Events/faine.jpg" class="img-thumbnail" alt="Faine">
-                            <p><b>Назва групи</b></p>
-                            <p>Жанр групи</p>
-                            <p>Країна</p>
-                        </div>
-                    </a>
-                    <a href="">
-                        <div class="block">
-                            <img src="~/images/Events/faine.jpg" class="img-thumbnail" alt="Faine">
-                            <p><b>Назва групи</b></p>
-                            <p>Жанр групи</p>
-                            <p>Країна</p>
-                        </div>
-                    </a>
-                    <a href="">
-                        <div class="block">
-                            <img src="~/images/Events/faine.jpg" class="img-thumbnail" alt="Faine">
-                            <p><b>Назва групи</b></p>
-                            <p>Жанр групи</p>
-                            <p>Країна</p>
-                        </div>
-                    </a>
-                    <a href="">
-                        <div class="block">
-                            <img src="~/images/Events/faine.jpg" class="img-thumbnail" alt="Faine">
-                            <p><b>Назва групи</b></p>
-                            <p>Жанр групи</p>
-                            <p>Країна</p>
-                        </div>
-                    </a>
-                    <a href="">
-                        <div class="block">
-                            <img src="~/images/Events/faine.jpg" class="img-thumbnail" alt="Faine">
-                            <p><b>Назва групи</b></p>
-                            <p>Жанр групи</p>
-                            <p>Країна</p>
-                        </div>
-                    </a>
-                    <a href="">
-                        <div class="block">
-                            <img src="~/images/Events/faine.jpg" class="img-thumbnail" alt="Faine">
-                            <p><b>Назва групи</b></p>
-                            <p>Жанр групи</p>
-                            <p>Країна</p>
-                        </div>
-                    </a>
-                    <a href="">
-                        <div class="block">
-                            <img src="~/images/Events/faine.jpg" class="img-thumbnail" alt="Faine">
-                            <p><b>Назва групи</b></p>
-                            <p>Жанр групи</p>
-                            <p>Країна</p>
-                        </div>
-                    </a>
-                    <a href="">
-                        <div class="block">
-                            <img src="~/images/Events/faine.jpg" class="img-thumbnail" alt="Faine">
-                            <p><b>Назва групи</b></p>
-                            <p>Жанр групи</p>
-                            <p>Країна</p>
-                        </div>
-                    </a>*@
-                </div>
+
+    <div id="fullpage" class="contents">
+        <div class="section active" id="section0">
+            <img src="~/images/Home/logo.png">
+            <h1>
+                Our project was created to help you find a lot of beautiful music.<br>
+                Also you can find and created your personal events.
+            </h1>
+            <div>
+                Scroll down to see more :) <img class="arrow_down" src="~/images/Home/down_arrow.png">
             </div>
         </div>
-    </section>
+        <div class="section content performers" id="section1">
+            <h1>In our site you can find or add a new performer. </h1>
+            <div class="text-center">
+                <img src="~/images/Home/band.jpg">
+            </div>
+            <span>You can go over to page with performers if you click on arrow</span>
+            <a asp-controller="Performer" asp-action="Index"><img class="arrow_right" src="~/images/Home/down_arrow.png"></a>
+        </div>
+        <div class="section content events" id="section2">
+            <h1>If you want find music events, such as concert or festival, or just add your personal event, you can do this now.</h1>
+            <div class="text-center">
+                <img src="~/images/Home/events.jpg">
+            </div>
+            <span>Click the arrow to visit page with events</span>
+            <a asp-controller="Event" asp-action="Index"><img class="arrow_right" src="~/images/Home/down_arrow.png"></a>
+        </div>
+        <div class="section content music" id="section3">
+            <h1>Also you can listen <a asp-area="" asp-controller="Music" asp-action="Index">audio</a> 
+            and watching <a asp-controller="Video" asp-action="Index">video</a>, that performers have added.</h1>
+            <div class="text-center">
+                <img src="~/images/Home/music.jpg">
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#fullpage').fullpage({
+                sectionsColor: ['#7BAABE', '#7BAABE', '#7BAABE', '#7BAABE']
+            });
+        });
+
+        $(document).ready(function () {
+            var w = $(window).width();
+            $(".body-content").css("width", w);
+            $(".body-content").css("padding", 0);
+        });
+    </script>
 </body>
 </html>
