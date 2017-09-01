@@ -47,7 +47,8 @@
             <a asp-controller="Event" asp-action="Index"><img class="arrow_right" src="~/images/Home/down_arrow.png"></a>
             <div class="last">
                 <h1>Last Event</h1>
-                <span>Performer: @Model.Performer.PerformerName</span><br>
+                <span>Performer: <a asp-controller="Performer" asp-action="ProfilePerformer" asp-route-id="@Model.Performer.PerformerId">@Model.Performer.PerformerName</a></span><br>
+                <span>Contact: <a href="tel:@Model.Performer.PerformerPhone">@Model.Performer.PerformerPhone</a> | <a href="mailto:@Model.Performer.PerformerEmail">@Model.Performer.PerformerEmail</a></span><br />
                 <span>Event: <a asp-controller="Event" asp-action="EventPage" asp-route-id="@Model.Event.EventId">@Model.Event.EventName</a></span><br>
                 <span>Place: @Model.Event.EventPlace</span><br>
                 <span>Time: @Model.Event.EventTime</span><br>
@@ -56,7 +57,7 @@
                         <img src="~/images/Home/down_arrow.png" class="pre" />
                     </div>
                     <div id="first" class="active">
-                        <span class="description">Description: @Model.Event.EventDescription</span>
+                        <span class="description">@Model.Event.EventDescription</span>
                     </div>
                     <div id="second" class="dis">
                         <b>@Model.Video.VideoName</b><br />
