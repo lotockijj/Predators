@@ -21,8 +21,9 @@ namespace BattleBands.Controllers
         {
             var result = lastitem.GetLast();
             return View(result);
-        }
-        public IActionResult Performers() => View();
+        }  
+     
+      public IActionResult Performers() => View();
 
         public IActionResult Music() => View();
         

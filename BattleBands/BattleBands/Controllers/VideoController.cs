@@ -135,7 +135,7 @@ namespace BattleBands.Controllers
 
         #region [Mobile]
 
-        [HttpGet]
+       // [HttpGet]
         public IActionResult GetVideos() => Json(unitOfWork.Videos.GetAll());
 
         [Authorize]
@@ -151,10 +151,15 @@ namespace BattleBands.Controllers
             return Json(item);
         }
 
-        #endregion
+      //[Authorize]
+      [HttpGet]
+      public IActionResult GetLastVideoMobile() => Json(unitOfWork.Videos.GetLast());
+      
 
-        #region [Helpers]
-        private const string YoutubeLinkRegex = "(?:.+?)?(?:\\/v\\/|watch\\/|\\?v=|\\&v=|youtu\\.be\\/|\\/v=|^youtu\\.be\\/)([a-zA-Z0-9_-]{11})+";
+      #endregion
+
+      #region [Helpers]
+      private const string YoutubeLinkRegex = "(?:.+?)?(?:\\/v\\/|watch\\/|\\?v=|\\&v=|youtu\\.be\\/|\\/v=|^youtu\\.be\\/)([a-zA-Z0-9_-]{11})+";
         private static Regex regexExtractId = new Regex(YoutubeLinkRegex, RegexOptions.Compiled);
         private static string[] validAuthorities = { "youtube.com", "www.youtube.com", "youtu.be", "www.youtu.be" };
 

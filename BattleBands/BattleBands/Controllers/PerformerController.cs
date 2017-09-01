@@ -108,7 +108,7 @@ namespace BattleBands.Controllers
 
         #region [Mobile]
 
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         public IActionResult GetAllPerformersMobile()
         {
@@ -129,7 +129,7 @@ namespace BattleBands.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         public IActionResult ProfilePerformerMobile(string id)
         {
             var item = new PerformerProfileViewModel
@@ -140,7 +140,23 @@ namespace BattleBands.Controllers
             return Json(item);
         }
 
-        [Authorize]
+      [HttpGet]
+      [Authorize]
+      public IActionResult GetLastPerformerMobile()
+      {
+         var prf = unitOfWork.Performers.GetLast();
+         var result = new GetAllPerformersMobileViewModel
+         {
+            Id = prf.PerformerId,
+            Email = prf.PerformerEmail,
+            Phone = prf.PerformerPhone,
+            Name = prf.PerformerName,
+            PicPath = unitOfWork.Picture.GetLastByOwner(prf.PerformerId).Path
+         };
+         return Json(result);
+      }
+
+      [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreatePerformerMobile([FromBody] ApplicationPerformer item)
         {

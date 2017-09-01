@@ -71,7 +71,7 @@ namespace BattleBands.Controllers
 
         #region [Mobile]
         [HttpGet]
-        [Authorize]
+       // [Authorize]
         public JsonResult GetMusicListMobile() => Json(unitOfWork.Music.GetAll()); 
 
         [HttpGet]
@@ -82,6 +82,10 @@ namespace BattleBands.Controllers
             ID = id
         });
 
-        #endregion
-    }
+      //[Authorize]
+      [HttpGet]
+      public IActionResult GetLastMusicMobile() => Json(unitOfWork.Music.GetLast());
+
+      #endregion
+   }
 }

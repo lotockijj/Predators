@@ -118,7 +118,7 @@ namespace BattleBands.Controllers
 
         #region [Test Method]
         [HttpGet]
-        public IActionResult GetAllEventsMobile()
+        public IActionResult GetAllEvents()
         {
             var result = new List<GetAllEventTemp>();
             var evnt = unitOfWork.Events.GetAll();
@@ -132,10 +132,11 @@ namespace BattleBands.Controllers
             }
             return Json(result);
         }
-#endregion
+      #endregion
 
-        [HttpGet]
-        public IActionResult GetAllEvents() 
+      // [Authorize]
+      [HttpGet]
+        public IActionResult GetAllEventsMobile() 
         {
             var result = new List<GetAllEventsMobileViewModel>();
             var evnt = unitOfWork.Events.GetAll();
@@ -154,7 +155,7 @@ namespace BattleBands.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+       // [Authorize]
         public IActionResult EventPageMobile(string id)
         {
             var item = new EventPageViewModel
@@ -165,7 +166,23 @@ namespace BattleBands.Controllers
             return Json(item);
         }
 
-        [Authorize]
+      [HttpGet]
+     // [Authorize]
+      public IActionResult GetLastEventMobile()
+      {
+         var evnt = unitOfWork.Events.GetLast();
+         var result = new GetAllEventsMobileViewModel
+         {
+            Id = evnt.EventId,
+            Name = evnt.EventName,
+            Place = evnt.EventPlace,
+            Time = evnt.EventTime,
+            LogoPath = unitOfWork.Picture.GetLastByOwner(evnt.EventId).Path
+         };
+         return Json(result);
+      }
+
+      [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateEventMobile([FromBody] ApplicationEvent item)
         {
