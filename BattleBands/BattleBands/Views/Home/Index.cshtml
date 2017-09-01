@@ -8,6 +8,7 @@
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/lib/jquery-fullPage/jquery.fullPage.css" />
+        <link rel="stylesheet" href="~/lib/Animate/animate.css" />
         <link rel="stylesheet" href="~/css/Home/Home.css" />
     </environment>
 
@@ -38,36 +39,41 @@
         </div>
         <div class="section content events" id="section2">
             <h1>If you want find music events, such as concert or festival, or just add your personal event, you can do this now.</h1>
-            <!--
             <div class="text-center">
                 <img src="~/images/Home/events.jpg">
             </div>
-            -->
             <span>Click the arrow to visit page with events</span>
             <a asp-controller="Event" asp-action="Index"><img class="arrow_right" src="~/images/Home/down_arrow.png"></a>
+        </div>
+        <div class="section content info" id="section3">
             <div class="last">
-                <h1>Last Event</h1>
-                <span>Performer: <a asp-controller="Performer" asp-action="ProfilePerformer" asp-route-id="@Model.Performer.PerformerId">@Model.Performer.PerformerName</a></span><br>
-                <span>Contact: <a href="tel:@Model.Performer.PerformerPhone">@Model.Performer.PerformerPhone</a> | <a href="mailto:@Model.Performer.PerformerEmail">@Model.Performer.PerformerEmail</a></span><br />
-                <span>Event: <a asp-controller="Event" asp-action="EventPage" asp-route-id="@Model.Event.EventId">@Model.Event.EventName</a></span><br>
-                <span>Place: @Model.Event.EventPlace</span><br>
-                <span>Time: @Model.Event.EventTime</span><br>
                 <div class="navigation">
                     <div class="div-nav">
                         <img src="~/images/Home/down_arrow.png" class="pre" />
                     </div>
-                    <div id="first" class="active">
+                    <div class="active" id="first">
+                        <h1>Last Event</h1>
+                        <span><a asp-controller="Event" asp-action="EventPage" asp-route-id="@Model.Event.EventId">@Model.Event.EventName</a></span><br>
+                        <span>Place: @Model.Event.EventPlace</span><br>
+                        <span>Time: @Model.Event.EventTime</span><br>
                         <span class="description">@Model.Event.EventDescription</span>
                     </div>
-                    <div id="second" class="dis">
+                    <div class="dis" id="second">
+                        <h1>Performer</h1>
+                        <span><a asp-controller="Performer" asp-action="ProfilePerformer" asp-route-id="@Model.Performer.PerformerId">@Model.Performer.PerformerName</a></span><br>
+                        <span>Contact: <a href="tel:@Model.Performer.PerformerPhone">@Model.Performer.PerformerPhone</a> | <a href="mailto:@Model.Performer.PerformerEmail">@Model.Performer.PerformerEmail</a></span><br />
+                        <span class="description">Genre: @Model.Performer.PerformerGenre</span>
+                        <span class="description">Country: @Model.Performer.PerformerCountry</span>
+                        <span class="description">@Model.Performer.PerformerDescription</span>
+                    </div>
+                    <div id="third" class="dis">
                         <b>@Model.Video.VideoName</b><br />
-
                         <figure>
                             <iframe src="https://www.youtube.com/embed/@Model.Video.VideoReference" frameborder="0" allowfullscreen></iframe>
                         </figure>
                         <b>Description:</b> @Model.Video.VideoDescription<br />
                     </div>
-                    <div id="third" class="dis">
+                    <div id="fourth" class="dis">
                         <p>@Model.Music.Name</p>
                         <audio controls>
                             <source src="@Model.Music.Path" type="audio/mp3">
@@ -80,7 +86,7 @@
                 </div>
             </div>
         </div>
-        <div class="section content music" id="section3">
+        <div class="section content music" id="section4">
             <h1>Also you can listen <a asp-area="" asp-controller="Music" asp-action="Index">audio</a> 
             and watching <a asp-controller="Video" asp-action="Index">video</a>, that performers have added.</h1>
             <div class="text-center">
@@ -91,7 +97,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#fullpage').fullpage({
-                sectionsColor: ['#7BAABE', '#7BAABE', '#7BAABE', '#7BAABE']
+                sectionsColor: ['#7BAABE', '#7BAABE', '#7BAABE', '#7BAABE', '#7BAABE']
             });
         });
 
@@ -105,26 +111,38 @@
             if (id == 1) {
                 $("#first").removeClass("active");
                 $("#first").addClass("dis");
+                $("#fourth").addClass("active");
+                $("#fourth").removeClass("dis");
+                $("#first").removeClass("animated bounceInLeft");
+                $("#fourth").addClass("animated bounceInLeft");
+                id = 4;
+                return;
+            }if (id == 4) {
+                $("#fourth").removeClass("active");
+                $("#fourth").addClass("dis");
                 $("#third").addClass("active");
                 $("#third").removeClass("dis");
+                $("#fourth").removeClass("animated bounceInLeft");
+                $("#third").addClass("animated bounceInLeft");
                 id = 3;
                 return;
-            }
-            if (id == 3) {
-                console.log(id);
+            }if (id == 3) {
                 $("#third").removeClass("active");
                 $("#third").addClass("dis");
                 $("#second").addClass("active");
                 $("#second").removeClass("dis");
+                $("#third").removeClass("animated bounceInLeft");
+                $("#second").addClass("animated bounceInLeft");
                 id = 2;
                 return;
             }
             if (id == 2) {
-                console.log(id);
                 $("#second").removeClass("active");
                 $("#second").addClass("dis");
                 $("#first").addClass("active");
                 $("#first").removeClass("dis");
+                $("#second").removeClass("animated bounceInLeft");
+                $("#first").addClass("animated bounceInLeft");
                 id = 1;
                 return;
             }
@@ -134,27 +152,43 @@
             
             if (id == 1) {
                 $("#first").removeClass("active");
-                $("#first").addClass("dis");
                 $("#second").addClass("active");
                 $("#second").removeClass("dis");
+                $("#first").removeClass("animated bounceInRight");
+                $("#second").addClass("animated bounceInRight");
+                $("#first").addClass("dis");
+                
                 id = 2;
                 return;
             }
             if (id == 3) {
                 $("#third").removeClass("active");
+                $("#fourth").addClass("active");
+                $("#fourth").removeClass("dis");
+                $("#third").removeClass("animated bounceInRight");
+                $("#fourth").addClass("animated bounceInRight");
                 $("#third").addClass("dis");
-                $("#first").addClass("active");
-                $("#first").removeClass("dis");
-                id = 1;
+                id = 4;
                 return;
             }
             if (id == 2) {
-                console.log(id);
                 $("#second").removeClass("active");
-                $("#second").addClass("dis");
                 $("#third").addClass("active");
                 $("#third").removeClass("dis");
+                $("#second").removeClass("animated bounceInRight");
+                $("#third").addClass("animated bounceInRight");
+                $("#second").addClass("dis");
                 id = 3;
+                return;
+            }
+            if (id == 4) {
+                $("#fourth").removeClass("active");
+                $("#first").addClass("active");
+                $("#first").removeClass("dis");
+                $("#fourth").removeClass("animated bounceInRight");
+                $("#first").addClass("animated bounceInRight");
+                $("#fourth").addClass("dis");
+                id = 1;
                 return;
             }
         });
