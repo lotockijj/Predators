@@ -1,18 +1,5 @@
 ﻿@model IEnumerable<BattleBands.Models.ApplicationModels.ApplicationPerformer>
-@{
-    ViewBag.Title = "List of performers";
-}
-@{
-    ViewData["Title"] = "Performers";
-}
-<h3>Performers!</h3>
-@using (Html.BeginForm("SearchWithCriteria", "Performer"))
-{
-    <input type="text" placeholder="Performer's name" name="@Html.Raw("name")">
-    <input type="text" placeholder="Country" name="@Html.Raw("country")">
-    <input type="text" placeholder="Genre" name="@Html.Raw("genre")">
-    <input type="submit" value="Search">
-}
+<h3>Found performers</h3>
 <br />
 <a asp-controller="Performer" asp-action="Index" class="btn btn-default">Back to all performers</a>
 <div class="row">
