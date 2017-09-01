@@ -133,28 +133,28 @@ namespace BattleBands.Controllers
         }
 
 
-        #region [Mobile]
+      #region [Mobile]
 
-       // [HttpGet]
-        public IActionResult GetVideos() => Json(unitOfWork.Videos.GetAll());
+         [Authorize]
+         [HttpGet]
+         public IActionResult GetVideos() => Json(unitOfWork.Videos.GetAll());
 
-        [Authorize]
-        [HttpGet]
-        public IActionResult GetVideoMobile(string id)
-        {
+         [Authorize]
+         [HttpGet]
+         public IActionResult GetVideoMobile(string id)
+         {
             var list = unitOfWork.Videos.GetAllByAuthor(id);
             var item = new PerformerGetVideosViewModel
             {
-                ID = id,
-                Video = list
+                  ID = id,
+                  Video = list
             };
             return Json(item);
-        }
+         }
 
-      //[Authorize]
-      [HttpGet]
-      public IActionResult GetLastVideoMobile() => Json(unitOfWork.Videos.GetLast());
-      
+         [Authorize]
+         [HttpGet]
+         public IActionResult GetLastVideoMobile() => Json(unitOfWork.Videos.GetLast());           
 
       #endregion
 

@@ -70,21 +70,21 @@ namespace BattleBands.Controllers
         }
 
         #region [Mobile]
-        [HttpGet]
-       // [Authorize]
-        public JsonResult GetMusicListMobile() => Json(unitOfWork.Music.GetAll()); 
+         [HttpGet]
+         [Authorize]
+         public JsonResult GetMusicListMobile() => Json(unitOfWork.Music.GetAll()); 
 
-        [HttpGet]
-        [Authorize]
-        public IActionResult GetMusicMobile(string id) => Json(new GetMusicViewModel
-        {
+         [HttpGet]
+         [Authorize]
+         public IActionResult GetMusicMobile(string id) => Json(new GetMusicViewModel
+         {
             Music = unitOfWork.Music.GetByAuthor(id),
             ID = id
-        });
+         });
 
-      //[Authorize]
-      [HttpGet]
-      public IActionResult GetLastMusicMobile() => Json(unitOfWork.Music.GetLast());
+         [Authorize]
+         [HttpGet]
+         public IActionResult GetLastMusicMobile() => Json(unitOfWork.Music.GetLast());
 
       #endregion
    }

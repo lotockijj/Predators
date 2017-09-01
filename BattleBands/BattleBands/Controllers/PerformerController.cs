@@ -106,16 +106,9 @@ namespace BattleBands.Controllers
             return View(unitOfWork.Performers.SearchByName(name));
         }
 
-        [Authorize]
-        [HttpPost]
-        public IActionResult SearchWithCriteria(string name, string country, string genre)
-        {
-            return View(unitOfWork.Performers.SearchWithCriteria(name, country, genre));
-        }
-
         #region [Mobile]
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         public IActionResult GetAllPerformersMobile()
         {
@@ -136,7 +129,7 @@ namespace BattleBands.Controllers
         }
 
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         public IActionResult ProfilePerformerMobile(string id)
         {
             var item = new PerformerProfileViewModel
@@ -147,23 +140,23 @@ namespace BattleBands.Controllers
             return Json(item);
         }
 
-      [HttpGet]
-      [Authorize]
-      public IActionResult GetLastPerformerMobile()
-      {
-         var prf = unitOfWork.Performers.GetLast();
-         var result = new GetAllPerformersMobileViewModel
+         [HttpGet]
+         [Authorize]
+         public IActionResult GetLastPerformerMobile()
          {
-            Id = prf.PerformerId,
-            Email = prf.PerformerEmail,
-            Phone = prf.PerformerPhone,
-            Name = prf.PerformerName,
-            PicPath = unitOfWork.Picture.GetLastByOwner(prf.PerformerId).Path
-         };
-         return Json(result);
-      }
+            var prf = unitOfWork.Performers.GetLast();
+            var result = new GetAllPerformersMobileViewModel
+            {
+               Id = prf.PerformerId,
+               Email = prf.PerformerEmail,
+               Phone = prf.PerformerPhone,
+               Name = prf.PerformerName,
+               PicPath = unitOfWork.Picture.GetLastByOwner(prf.PerformerId).Path
+            };
+            return Json(result);
+         }
 
-      [Authorize]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreatePerformerMobile([FromBody] ApplicationPerformer item)
         {
