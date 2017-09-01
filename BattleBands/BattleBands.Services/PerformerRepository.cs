@@ -76,6 +76,20 @@ namespace BattleBands.Services
             return result;
         }
 
+        public IEnumerable<ApplicationPerformer> SearchWithCriteria(string name, string country, string genre)
+        {
+            var result = new List<ApplicationPerformer>();
+            foreach (var perf in this._context.Performers)
+            {
+                if ((perf.PerformerName == name)
+                    && (perf.PerformerGenre == genre))
+                {
+                    result.Add(perf);
+                }
+            }
+            return result;
+        }
+
         public ApplicationPerformer GetLast()
         {
             return _context.Performers.OrderBy(x => x.CreateTime).Last();
