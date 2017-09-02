@@ -15,11 +15,16 @@
 
 <body>
     <h3>Our performers:</h3>
-    @using (Html.BeginForm("SearchByName", "Performer"))
+    @*@using (Html.BeginForm("SearchByName", "Performer"))
     {
         <input type="text" placeholder="Performer's name" name="@Html.Raw("name")">
         <input type="submit" class="search_btn" value="Search">
-    }
+    }*@
+    <form asp-action="SearchByName">
+        <input type="text" placeholder="Performer's name" name="name">
+        <input type="submit" class="search_btn" value="Search">
+    </form>
+
     <br />
     <div class="btn-group">
         <a asp-controller="Performer" asp-action="CreatePerformer" class="button">New performer</a>
