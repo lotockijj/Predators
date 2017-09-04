@@ -8,9 +8,10 @@ using BattleBands.Data;
 namespace BattleBands.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170903135847_Comments")]
+    partial class Comments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -26,10 +27,6 @@ namespace BattleBands.Data.Migrations
                     b.Property<string>("DestinationId");
 
                     b.Property<DateTimeOffset>("EditTime");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<bool>("IsEdited");
 
                     b.Property<string>("OwnerId");
 

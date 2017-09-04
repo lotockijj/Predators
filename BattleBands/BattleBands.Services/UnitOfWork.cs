@@ -15,6 +15,7 @@ namespace BattleBands.Services
         private VideoRepository videoRepository;
         private PictureRepository photoRepository;
         private MusicRepository musicRepository;
+        private CommentRepository commentRepository;
 
 
         public UnitOfWork(ApplicationDbContext context)
@@ -30,6 +31,17 @@ namespace BattleBands.Services
                     performerRepository = new PerformerRepository(_context);
                 }
                 return performerRepository;
+            }
+        }
+        public CommentRepository Comments
+        {
+            get
+            {
+                if (commentRepository == null)
+                {
+                    commentRepository = new CommentRepository(_context);
+                }
+                return commentRepository;
             }
         }
         public MusicRepository Music
