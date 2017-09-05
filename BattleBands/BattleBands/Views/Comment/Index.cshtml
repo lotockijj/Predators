@@ -1,0 +1,42 @@
+﻿@model BattleBands.Models.ViewModels.CommentViewModels.GetCommentsViewModel
+
+<environment names="Development">
+    <link rel="stylesheet" href="~/css/Comment/Index.css" />
+</environment>
+@inject UserManager<BattleBands.Models.ApplicationModels.ApplicationUser> _usrMng
+
+@foreach (var comment in Model.CommentsList)
+{
+    <div class="container">
+        <div class="dialogbox">
+            <div class="body">
+                <span class="tip tip-up">
+                    <a asp-action="RemoveComment" asp-route-id="@comment.Comment.Id">X</a>
+                </span>
+                <div class="message">
+                    @if ((User.IsInRole("admin") || comment.Comment.OwnerId == Model.Comment.OwnerId) && comment.Comment.IsDeleted != true)
+                    {
+                        <a asp-action="UserDeleteComment" asp-route-id="@comment.Comment.Id">Delete</a>
+                        <a asp-action="EditComment" asp-route-id="@comment.Comment.Id">Edit</a>
+
+                    }
+                    @if (comment.Comment.IsEdited == true)
+                    { 
+                        <i>(edited)</i><br />
+                    }
+                    <i>@comment.Comment.Time</i><br />
+                    <b>@comment.Name</b><br />
+                    <span>@comment.Comment.Body</span>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<form asp-controller="Comment" asp-action="MakeComment" method="post">
+    <label for="@Model.Comment.Body">Enter your comment</label> <br />
+    <textarea asp-for="@Model.Comment.Body"> </textarea>
+    <input type="hidden" asp-for="@Model.Comment.Id" value="null" />
+    <input type="hidden" asp-for="@Model.Comment.OwnerId" value="@Model.Comment.OwnerId" />
+    <input type="hidden" asp-for="@Model.Comment.DestinationId" value="@Model.Comment.DestinationId" />
+    <input type="submit" />
+</form>
