@@ -33,10 +33,6 @@
     <Content Remove="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Remove="wwwroot/content\так-блэт.jpg" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="wwwroot\css\Comment\Index.css" />
-  </ItemGroup>
   <!--
   <ItemGroup>
     <Content Include="wwwroot\images\Home\band.jpg" />
@@ -83,12 +79,6 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.1" />
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.1" />
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="wwwroot\content\music\" />
-    <Folder Include="wwwroot\content\pictures\" />
-    <Folder Include="wwwroot\content\pictures\" />
-    <Folder Include="wwwroot\content\music\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BattleBands.Data\BattleBands.Data.csproj" />
