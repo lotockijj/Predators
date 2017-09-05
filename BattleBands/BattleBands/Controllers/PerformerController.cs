@@ -106,6 +106,12 @@ namespace BattleBands.Controllers
             return View(unitOfWork.Performers.SearchByName(name));
         }
 
+        [Authorize]
+        public IActionResult SearchWithCriteria(string name, string country, string genre)
+        {
+            return View(unitOfWork.Performers.SearchWithCriteria(name, country, genre));
+        }
+
         #region [Mobile]
 
         [Authorize]
