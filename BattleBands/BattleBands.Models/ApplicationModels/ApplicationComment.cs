@@ -14,7 +14,5 @@ namespace BattleBands.Models.ApplicationModels
         public string Body { get; set; }
         public DateTimeOffset Time { get; set; }
         public DateTimeOffset EditTime { get; set; }
-        public bool IsDeleted { get; set; }
-        public bool IsEdited { get; set; }
     }
 }

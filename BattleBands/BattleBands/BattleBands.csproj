@@ -33,10 +33,6 @@
     <Content Remove="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Remove="wwwroot/content\так-блэт.jpg" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="wwwroot\css\Comment\Index.css" />
-  </ItemGroup>
   <!--
   <ItemGroup>
     <Content Include="wwwroot\images\Home\band.jpg" />

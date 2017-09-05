@@ -16,30 +16,6 @@ namespace BattleBands.Data.Migrations
                 .HasAnnotation("ProductVersion", "1.1.2")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("BattleBands.Models.ApplicationModels.ApplicationComment", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Body");
-
-                    b.Property<string>("DestinationId");
-
-                    b.Property<DateTimeOffset>("EditTime");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<bool>("IsEdited");
-
-                    b.Property<string>("OwnerId");
-
-                    b.Property<DateTimeOffset>("Time");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Comments");
-                });
-
             modelBuilder.Entity("BattleBands.Models.ApplicationModels.ApplicationEvent", b =>
                 {
                     b.Property<string>("EventId")

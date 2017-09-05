@@ -6,7 +6,6 @@ using BattleBands.Interfaces;
 using BattleBands.Models.ApplicationModels;
 using BattleBands.Data;
 
-
 namespace BattleBands.Services
 {
     public class CommentRepository : IRepository<ApplicationComment>
@@ -20,8 +19,6 @@ namespace BattleBands.Services
         public void Create(ApplicationComment item)
         {
             item.Time = DateTimeOffset.Now;
-            item.IsDeleted = item.IsEdited = false;
-            item.EditTime = item.Time;
             _context.Comments.Add(item);
             _context.SaveChanges();
         }
@@ -95,25 +92,12 @@ namespace BattleBands.Services
             {
                 Id = item.Id,
                 OwnerId = item.OwnerId,
-                IsDeleted = false,
-                IsEdited = true,
                 DestinationId = item.DestinationId,
                 Time = item.Time,
                 EditTime = DateTimeOffset.Now,
                 Body = item.Body
             };
             _context.Entry(tmp).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            _context.SaveChanges();
-        }
-
-        public void UserDeleteComment(string id)
-        {
-            var comment = _context.Comments.Find(id);
-            comment.Body = "(comment has been deleted)";
-            comment.EditTime = DateTimeOffset.Now;
-            comment.IsEdited = false;
-            comment.IsDeleted = true;
-            _context.Entry(comment).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             _context.SaveChanges();
         }
     }
