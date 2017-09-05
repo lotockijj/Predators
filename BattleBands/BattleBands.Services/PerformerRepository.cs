@@ -82,7 +82,8 @@ namespace BattleBands.Services
             foreach (var perf in this._context.Performers)
             {
                 if ((perf.PerformerName == name)
-                    && (perf.PerformerGenre == genre))
+                    && (perf.PerformerGenre == genre)
+                    && (perf.PerformerCountry == country))
                 {
                     result.Add(perf);
                 }
