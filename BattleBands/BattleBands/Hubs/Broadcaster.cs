@@ -30,6 +30,6 @@ namespace BattleBands.Hubs
     public interface IBroadcaster
     {
         Task SetConnectionId(string connectionId);
-        Task AddChatMessage(MessageViewModel message);
+        Task AddChatMessage(BattleBands.Models.ViewModels.MessageViewModels.MessageViewModel message);
     }
 }

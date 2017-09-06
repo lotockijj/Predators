@@ -9,18 +9,20 @@ namespace BattleBands.Models.ApplicationModels
     public class ApplicationMessage
     {
         [Key]
-        public string MessageID { get; set; }
+        public int MessageId { get; set; }
 
+        [Required]
         public string Content { get; set; }
 
-        [ForeignKeyAttribute("ApplicationUser")]
         [Required]
-        public string UserID { get; set; }
+        [ForeignKey("User")]
+        public string UserId { get; set; }
 
-        public string UserName { get; set; }
+        public ApplicationUser User { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
-        public DateTime Timestamp { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime DateCreated { get; set; }
     }
 }
