@@ -15,6 +15,7 @@ using BattleBands.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Newtonsoft.Json;
 
 namespace BattleBands
 {
@@ -57,6 +58,18 @@ namespace BattleBands
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
+            var settings = new JsonSerializerSettings();
+            settings.ContractResolver = new SignalRContractResolver();
+
+            var serializer = JsonSerializer.Create(settings);
+
+            services.Add(new ServiceDescriptor(typeof(JsonSerializer),
+                                            provider => serializer,
+                                            ServiceLifetime.Transient));
+
+
+            services.AddSignalR(options => options.Hubs.EnableDetailedErrors = true);
+
             services.AddMvc();
         }
 
@@ -89,6 +102,9 @@ namespace BattleBands
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.UseWebSockets();
+            app.UseSignalR();
 
             var DbAdmin = new DbAdminInit();
             DbAdmin.DatabaseInitialize(app.ApplicationServices).Wait();
