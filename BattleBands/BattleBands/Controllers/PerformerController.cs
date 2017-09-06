@@ -127,6 +127,8 @@ namespace BattleBands.Controllers
             return View(unitOfWork.Performers.SearchWithCriteria(name, country, genre));
         }
 
+        public IActionResult Message() => View();
+
         #region [Mobile]
 
         [Authorize]

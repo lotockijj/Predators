@@ -22,7 +22,6 @@ namespace BattleBands.Models.ApplicationModels
 
         [Required]
         [DataType(DataType.Date)]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime DateCreated { get; set; }
     }
 }

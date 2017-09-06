@@ -59,7 +59,8 @@ namespace BattleBands.Controllers
                 {
                     Content = message.Content,
                     UserId = user.Id,
-                    User = user
+                    User = user,
+                    DateCreated = DateTime.Now
                 };
 
                 // Save the new message
