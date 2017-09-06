@@ -1,6 +1,13 @@
 ﻿@model IEnumerable<BattleBands.Models.ApplicationModels.ApplicationPerformer>
 <h3>Found performers</h3>
 <br />
+<form asp-action="SearchWithCriteria">
+    <input type="text" placeholder="Performer's name" name="name">
+    <input type="text" placeholder="Country" name="country">
+    <input type="text" placeholder="Genre" name="genre">
+    <input type="submit" value="Search">
+</form>
+<br />
 <a asp-controller="Performer" asp-action="Index" class="btn btn-default">Back to all performers</a>
 <div class="row">
     <div class="col-md-8">
