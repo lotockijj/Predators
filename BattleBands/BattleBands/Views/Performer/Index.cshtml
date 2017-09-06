@@ -36,19 +36,19 @@
                 <section>
                     <table class="table">
                         @foreach (var band in Model)
-                        {
+                         {
                             <tr>
                                 <td>
                                     <a asp-action="ProfilePerformer" asp-route-id="@band.PerformerId"><b>@band.PerformerName</b></a><br />
                                     <b>Email - @band.PerformerEmail</b><br />
                                     <b>Phone - @band.PerformerPhone</b><br />
                                     @if (User.IsInRole("admin"))
-                                    {
+                                     {
                                         <a asp-controller="Performer" asp-action="DeletePerformer" asp-route-id="@band.PerformerId" class="btn btn-default">Delete</a>
-                                    }
+                                     }
                                 </td>
                             </tr>
-                        }
+                         }
                     </table>
                 </section>
             </div>

@@ -20,18 +20,22 @@ namespace BattleBands
 
             string adminEmail = "lekossum@10mail.org";
             string password = "A5W,L#5D.^Dx";
+
             if (await roleManager.FindByNameAsync("admin") == null)
             {
                 await roleManager.CreateAsync(new IdentityRole("admin"));
             }
+
             if (await roleManager.FindByNameAsync("user") == null)
             {
                 await roleManager.CreateAsync(new IdentityRole("user"));
             }
+
             if (await roleManager.FindByNameAsync("moder") == null)
             {
                 await roleManager.CreateAsync(new IdentityRole("moder"));
             }
+
             if (await userManager.FindByNameAsync(adminEmail) == null)
             {
                 ApplicationUser admin = new ApplicationUser { Email = adminEmail, UserName = adminEmail };

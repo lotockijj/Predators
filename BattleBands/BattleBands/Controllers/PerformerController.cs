@@ -21,27 +21,31 @@ namespace BattleBands.Controllers
         ApplicationDbContext _context;
         UserManager<ApplicationUser> _userManager;
         UnitOfWork unitOfWork;
+
         public PerformerController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
             unitOfWork = new UnitOfWork(context);
             _context = context;
             _userManager = userManager;
         }
+
         [HttpGet]
         public async Task<string> GetCurrentUserId()
         {
             ApplicationUser usr = await GetCurrentUserAsync();
             return usr?.Id;
         }
+
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+
         // GET: /<controller>/
+        [HttpGet]
         public IActionResult Index()
         {
             var users = unitOfWork.Performers.GetAll();
             return View(users);
         }
 
-        [HttpGet]
         [Authorize]
         public IActionResult CreatePerformer() => View();
 
@@ -49,11 +53,15 @@ namespace BattleBands.Controllers
         [HttpPost]
         public async Task<IActionResult> CreatePerformer(ApplicationPerformer item)
         {
-            var usr = await GetCurrentUserAsync();
-            item.UserId = usr.Id;
-            unitOfWork.Performers.Create(item);
-            unitOfWork.Save();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                var usr = await GetCurrentUserAsync();
+                item.UserId = usr.Id;
+                unitOfWork.Performers.Create(item);
+                unitOfWork.Save();
+                return RedirectToAction("Index");
+            }
+            else return Redirect("Error");
         }
 
         [HttpGet]
@@ -90,23 +98,30 @@ namespace BattleBands.Controllers
         public IActionResult UpdatePerformer(string id) => View(unitOfWork.Performers.Get(id));
 
         [Authorize]
+        [HttpPut]
         public async Task<IActionResult> UpdatePerformer(string id, ApplicationPerformer item)
         {
-            item.UserId = await GetCurrentUserId();
-            item.PerformerId = id;
-            unitOfWork.Performers.Update(item);
-            unitOfWork.Save();
-            if (User.IsInRole("admin")) return RedirectToAction("Index");
-            else return RedirectToAction("MyPerformers");
+            if (ModelState.IsValid)
+            {
+                item.UserId = await GetCurrentUserId();
+                item.PerformerId = id;
+                unitOfWork.Performers.Update(item);
+                unitOfWork.Save();
+                if (User.IsInRole("admin")) return RedirectToAction("Index");
+                else return RedirectToAction("MyPerformers");
+            }
+            else return RedirectToAction("Error");
         }
 
         [Authorize]
+        [HttpGet]
         public IActionResult SearchByName(string name)
         {
             return View(unitOfWork.Performers.SearchByName(name));
         }
 
         [Authorize]
+        [HttpGet]
         public IActionResult SearchWithCriteria(string name, string country, string genre)
         {
             return View(unitOfWork.Performers.SearchWithCriteria(name, country, genre));
@@ -166,7 +181,7 @@ namespace BattleBands.Controllers
         [HttpPost]
         public async Task<IActionResult> CreatePerformerMobile([FromBody] ApplicationPerformer item)
         {
-            if (item.isValid())
+            if (ModelState.IsValid)
             {
                 var usr = await GetCurrentUserAsync();
                 item.UserId = usr.Id;
@@ -214,6 +229,7 @@ namespace BattleBands.Controllers
         }
 
         #endregion
+
         #region [Helpers]
         private const string YoutubeLinkRegex = "(?:.+?)?(?:\\/v\\/|watch\\/|\\?v=|\\&v=|youtu\\.be\\/|\\/v=|^youtu\\.be\\/)([a-zA-Z0-9_-]{11})+";
         private static Regex regexExtractId = new Regex(YoutubeLinkRegex, RegexOptions.Compiled);

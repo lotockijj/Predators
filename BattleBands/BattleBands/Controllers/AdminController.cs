@@ -37,10 +37,13 @@ namespace BattleBands.Controllers
         }
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+
         [Authorize(Roles = "admin")]
         public IActionResult Index() => View(_userManager.Users.ToList());
+
         [Authorize(Roles = "admin")]
         public IActionResult CreateUser() => View();
+
         [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> CreateUser(CreateUserViewModel model)
@@ -64,24 +67,26 @@ namespace BattleBands.Controllers
             }
             return View(model);
         }
+
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> EditUser(string id)
         {
-            ApplicationUser user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
-            EditUserViewModel model = new EditUserViewModel { Id = user.Id, Email = user.Email};
+            var model = new EditUserViewModel { Id = user.Id, Email = user.Email};
             return View(model);
         }
+
         [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> EditUser(EditUserViewModel model)
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser user = await _userManager.FindByIdAsync(model.Id);
+                var user = await _userManager.FindByIdAsync(model.Id);
                 if (user != null)
                 {
                     user.Email = model.Email;
@@ -103,34 +108,37 @@ namespace BattleBands.Controllers
             }
             return View(model);
         }
+
         [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult> DeleteUser(string id)
         {
-            ApplicationUser user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(id);
             if (user != null)
             {
-                IdentityResult result = await _userManager.DeleteAsync(user);
+                var result = await _userManager.DeleteAsync(user);
             }
             return RedirectToAction("Index");
         }
+
         public async Task<IActionResult> ChangePassword(string id)
         {
-            ApplicationUser user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
-            ChangePasswordViewModel model = new ChangePasswordViewModel { Id = user.Id, Email = user.Email };
+            var model = new ChangePasswordViewModel { Id = user.Id, Email = user.Email };
             return View(model);
         }
+
         [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser user = await _userManager.FindByIdAsync(model.Id);
+                var user = await _userManager.FindByIdAsync(model.Id);
                 if (user != null)
                 {
                     var _passwordValidator =
@@ -138,7 +146,7 @@ namespace BattleBands.Controllers
                     var _passwordHasher =
                         HttpContext.RequestServices.GetService(typeof(IPasswordHasher<ApplicationUser>)) as IPasswordHasher<ApplicationUser>;
 
-                    IdentityResult result =
+                    var result =
                         await _passwordValidator.ValidateAsync(_userManager, user, model.NewPassword);
                     if (result.Succeeded)
                     {
@@ -168,12 +176,13 @@ namespace BattleBands.Controllers
         }
 
         public IActionResult CreateRole() => View();
+
         [HttpPost]
         public async Task<IActionResult> CreateRole(string name)
         {
             if (!string.IsNullOrEmpty(name))
             {
-                IdentityResult result = await _roleManager.CreateAsync(new IdentityRole(name));
+                var result = await _roleManager.CreateAsync(new IdentityRole(name));
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Roles");
@@ -192,10 +201,10 @@ namespace BattleBands.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteRole(string id)
         {
-            IdentityRole role = await _roleManager.FindByIdAsync(id);
+            var role = await _roleManager.FindByIdAsync(id);
             if (role != null)
             {
-                IdentityResult result = await _roleManager.DeleteAsync(role);
+                var result = await _roleManager.DeleteAsync(role);
             }
             return RedirectToAction("Roles");
         }
@@ -204,12 +213,12 @@ namespace BattleBands.Controllers
 
         public async Task<IActionResult> EditUserRole(string userId)
         {
-            ApplicationUser user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(userId);
             if (user != null)
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
                 var allRoles = _roleManager.Roles.ToList();
-                ChangeRoleViewModel model = new ChangeRoleViewModel
+                var model = new ChangeRoleViewModel
                 {
                     UserId = user.Id,
                     UserEmail = user.Email,
@@ -225,7 +234,7 @@ namespace BattleBands.Controllers
         [HttpPost]
         public async Task<IActionResult> EditUserRole(string userId, List<string> roles)
         {
-            ApplicationUser user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(userId);
             if (user != null)
             {
                 var userRoles = await _userManager.GetRolesAsync(user);

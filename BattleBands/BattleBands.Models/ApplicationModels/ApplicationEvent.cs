@@ -7,13 +7,22 @@ namespace BattleBands.Models.ApplicationModels
     {
         [Key]
         public string EventId {get; set;}
+
+        [Required]
         public string EventName {get; set;}
+
+        [Required]
         public string EventDescription {get; set;}
+
+        [Required]
         public string EventPlace {get; set;}
-        [Range(1,100)]
+
+        [Required]
         [DataType(DataType.DateTime)]
         public DateTimeOffset EventTime {get; set; }
+
         public string E_UserId { get; set; }
+
         public DateTimeOffset CreateTime { get; set; }
 
     }

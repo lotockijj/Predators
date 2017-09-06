@@ -58,7 +58,7 @@ namespace BattleBands.Controllers
                 item.Video.VideoReference = ExtractVideoIdFromUri(new Uri(item.Video.VideoReference));
                 unitOfWork.Videos.Create(item.Video);
                 unitOfWork.Save();
-                return RedirectToAction("ViewPerformerVideo", new { id = item.Video.VideoId });
+                return RedirectToAction("ViewVideo", new { id = item.Video.VideoId });
             }
             catch (UriFormatException)
             {
@@ -105,7 +105,7 @@ namespace BattleBands.Controllers
                 video.VideoReference = ExtractVideoIdFromUri(new Uri(video.VideoReference));
                 unitOfWork.Videos.Update(video);
                 unitOfWork.Save();
-                return RedirectToAction("ViewPerformerVideo", new { id = video.VideoId });
+                return RedirectToAction("ViewVideo", new { id = video.VideoId });
                 //return RedirectToAction("MyPerformers");
             }
             catch
@@ -114,7 +114,7 @@ namespace BattleBands.Controllers
                 {
                     unitOfWork.Videos.Update(video);
                     unitOfWork.Save();
-                    return RedirectToAction("ViewPerformerVideo", new { id = video.VideoId });
+                    return RedirectToAction("ViewVideo", new { id = video.VideoId });
                 }
                 catch
                 {
@@ -129,7 +129,7 @@ namespace BattleBands.Controllers
             var tmp = unitOfWork.Videos.Get(id);
             unitOfWork.Videos.Delete(id);
             unitOfWork.Save();
-            return RedirectToAction("GetPerformerVideos", new { id = tmp.OwnerID });
+            return RedirectToAction("GetVideo", new { id = tmp.OwnerID });
         }
 
 

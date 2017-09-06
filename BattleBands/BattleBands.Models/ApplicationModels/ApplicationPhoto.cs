@@ -11,9 +11,15 @@ namespace BattleBands.Models.ApplicationModels
     {
         [Key]
         public string Id { get; set; }
+
+        [Required]
         public string Name { get ; set; }
+
+        [Required]
         public string Path { get ; set; }
+
         public DateTimeOffset UploadTime { get; set; }
+
         public string IdOwner { get; set; }
     }
 }

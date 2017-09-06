@@ -7,6 +7,18 @@
 <head>
     <environment names="Development">
         <link rel="stylesheet" href="~/css/Performer/AddVideo.css" />
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"
+                asp-fallback-src="~/lib/jquery-validation/dist/jquery.validate.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.validator">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"
+                asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.validator && window.jQuery.validator.unobtrusive">
+        </script>
     </environment>
 </head>
 <body>
@@ -14,30 +26,41 @@
 
     <div class="container">
         <div class="col-md-6">
-            <form class="registration" asp-action="UpdatePerformer" asp-route-id="@Model.PerformerId" method="post">
+            <form class="registration" asp-action="UpdatePerformer" asp-route-id="@Model.PerformerId" method="put">
                 <p>
                     <label for="PerformerName">Performer's name:</label><br />
                     <input type="text" asp-for="PerformerName" size="30" required>
+                    <span asp-validation-for="PerformerName"></span>
                 </p>
                 <p>
                     <label for="PerformerGenre">Style/genre:</label><br />
                     <input type="text" asp-for="PerformerGenre" size="30" required>
+                    <span asp-validation-for="PerformerGenre"></span>
+
                 </p>
                 <p>
                     <label for="PerformerCountry">Country:</label><br />
                     <input type="text" asp-for="PerformerCountry" placeholder="Ukraine" size="30" required>
+                    <span asp-validation-for="PerformerCountry"></span>
+
                 </p>
                 <p>
                     <label for="PerformerPhone">Phone:</label><br />
                     <input type="text" asp-for="PerformerPhone" placeholder="0936912791" size="30" required>
+                    <span asp-validation-for="PerformerPhone"></span>
+
                 </p>
                 <p>
                     <label for="PerformerEmail">Email:</label><br />
                     <input type="email" asp-for="PerformerEmail" placeholder="example@gmail.com" size="30" required>
+                    <span asp-validation-for="PerformerEmail"></span>
+
                 </p>
                 <p>
                     <label for="PerformerDescription">Description:</label><br />
                     <textarea asp-for="PerformerDescription" cols="50" rows="5"></textarea>
+                    <span asp-validation-for="PerformerDescription"></span>
+
                 </p>
                 <div class="btn-group">
                     <input type="submit" class="button" value="Send" width="200">
