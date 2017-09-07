@@ -44,8 +44,8 @@
     <p class="text">@Model.Performer.PerformerDescription</p>
     <br /> 
 
-    <a asp-controller="Comment" asp-action="Index" asp-route-id="@Model.Performer.PerformerId" class="button">Comments</a>
     <div class="btn-group">
+        <a asp-controller="Comment" asp-action="Index" asp-route-id="@Model.Performer.PerformerId" class="button">Go to the Band's comments</a>
         <a asp-action="GetMusic" asp-controller="Music" asp-route-id="@Model.Performer.PerformerId" class="button">"@Model.Performer.PerformerName" Music</a>
         <a asp-action="AddMusic" asp-controller="Music" asp-route-id="@Model.Performer.PerformerId" class="button">Add music</a>
         <a asp-action="AddVideo" asp-controller="Video" asp-route-id="@Model.Performer.PerformerId" class="button">Add video</a>

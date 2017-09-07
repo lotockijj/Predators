@@ -26,7 +26,7 @@
                         <p style="font-style: italic;">@evnt.Event.EventPlace @evnt.Event.EventTime </p>
                         @if (Url.Content(evnt.Logo.Path) != null)
                         { 
-                            <p><img src="@Url.Content(evnt.Logo.Path)" height="320" width="320"></p>
+                            <p><img src="@Url.Content(evnt.Logo.Path)" height="250" width="320"></p>
                         }
                         <button class="btn">Buy Tickets</button>
                         @if (User.IsInRole("admin"))
