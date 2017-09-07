@@ -114,14 +114,12 @@ namespace BattleBands.Controllers
         }
 
         [Authorize]
-        [HttpGet]
         public IActionResult SearchByName(string name)
         {
             return View(unitOfWork.Performers.SearchByName(name));
         }
 
         [Authorize]
-        [HttpGet]
         public IActionResult SearchWithCriteria(string name, string country, string genre)
         {
             return View(unitOfWork.Performers.SearchWithCriteria(name, country, genre));
