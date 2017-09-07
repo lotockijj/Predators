@@ -1,5 +1,13 @@
 ﻿@model BattleBands.Models.ApplicationModels.ApplicationComment
 
+@{
+    ViewData["Title"] = "Edit comment";
+}
+
+<environment names="Development">
+    <link rel="stylesheet" href="~/css/Comment/Index.css" />
+</environment>
+
 <form asp-controller="Comment" asp-action="EditComment" method="post">
     <label for="@Model.Body">Enter your comment</label> <br />
     <textarea asp-for="@Model.Body"> </textarea>
@@ -7,5 +15,5 @@
     <input type="hidden" asp-for="@Model.Time" value=@Model.Time />
     <input type="hidden" asp-for="@Model.OwnerId" value="@Model.OwnerId" />
     <input type="hidden" asp-for="@Model.DestinationId" value="@Model.DestinationId" />
-    <input type="submit" />
+    <input class="button" type="submit" value="Send">
 </form>

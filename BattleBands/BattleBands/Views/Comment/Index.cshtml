@@ -1,5 +1,9 @@
 ﻿@model BattleBands.Models.ViewModels.CommentViewModels.GetCommentsViewModel
 
+@{
+    ViewData["Title"] = "Comments";
+}
+
 <environment names="Development">
     <link rel="stylesheet" href="~/css/Comment/Index.css" />
 </environment>
@@ -11,7 +15,7 @@
         <div class="dialogbox">
             <div class="body">
                 <span class="tip tip-up">
-                    <a asp-action="RemoveComment" asp-route-id="@comment.Comment.Id">X</a>
+                    <a asp-action="RemoveComment" asp-route-id="@comment.Comment.Id"></a>
                 </span>
                 <div class="message">
                     @if ((User.IsInRole("admin") || comment.Comment.OwnerId == Model.Comment.OwnerId) && comment.Comment.IsDeleted != true)
@@ -33,10 +37,10 @@
     </div>
 }
 <form asp-controller="Comment" asp-action="MakeComment" method="post">
-    <label for="@Model.Comment.Body">Enter your comment</label> <br />
+    <label for="@Model.Comment.Body">Enter your comment:</label> <br />
     <textarea asp-for="@Model.Comment.Body"> </textarea>
     <input type="hidden" asp-for="@Model.Comment.Id" value="null" />
     <input type="hidden" asp-for="@Model.Comment.OwnerId" value="@Model.Comment.OwnerId" />
     <input type="hidden" asp-for="@Model.Comment.DestinationId" value="@Model.Comment.DestinationId" />
-    <input type="submit" />
+    <input class="button" type="submit" value="Send">
 </form>
