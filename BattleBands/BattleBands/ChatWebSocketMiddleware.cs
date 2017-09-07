@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BattleBands.Data;
+using BattleBands.Models.ApplicationModels;
+using BattleBands.Models.ViewModels.MessageViewModels;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -14,12 +19,18 @@ namespace BattleBands
     public class ChatWebSocketMiddleware
     {
         private static ConcurrentDictionary<string, WebSocket> _sockets = new ConcurrentDictionary<string, WebSocket>();
-
+        private ApplicationDbContext _context;
+        private UserManager<ApplicationUser> _userManager;
         private readonly RequestDelegate _next;
+        private static temp _temp;
 
-        public ChatWebSocketMiddleware(RequestDelegate next)
+        public ChatWebSocketMiddleware(RequestDelegate next, ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
+            _context = context;
+            
+            _userManager = userManager;
             _next = next;
+            _temp = new temp(context,userManager);
         }
 
         public async Task Invoke(HttpContext context)
@@ -81,6 +92,7 @@ namespace BattleBands
 
         private static async Task<string> ReceiveStringAsync(WebSocket socket, CancellationToken ct = default(CancellationToken))
         {
+            //_temp.GetFromDb();
             var buffer = new ArraySegment<byte>(new byte[8192]);
             using (var ms = new MemoryStream())
             {

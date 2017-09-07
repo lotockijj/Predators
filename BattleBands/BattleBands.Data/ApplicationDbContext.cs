@@ -12,6 +12,8 @@ namespace BattleBands.Data
         public DbSet<ApplicationPhoto> Photo { get; set; }
         public DbSet<ApplicationMusic> Music { get; set; }
         public DbSet<ApplicationComment> Comments { get; set; }
+        public DbSet<ApplicationMessage> Messages { get; set; }
+
 
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
