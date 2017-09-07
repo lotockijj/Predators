@@ -50,15 +50,6 @@
             url: '/chatroom/',
             data: JSON.stringify(post),
             dataType: 'json',
-            success : function ()
-            { 
-                $.ajax({
-                    url: '/chatroom/',
-                    method: 'GET',
-                    dataType: 'JSON',
-                    success: addPostsList
-                });
-            }
         }).fail(function (e) {
             console.log(e);
         });
