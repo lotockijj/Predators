@@ -26,11 +26,12 @@ namespace BattleBands.Services
             var comments = _unitOfWork.Comments.GetAllByDestination(id);
             foreach (var item in comments)
             {
-                result.Add(new GetPerformerCommentsViewModel()
+                var tmp = new GetPerformerCommentsViewModel()
                 {
                     Comment = item,
                     Name = _context.Users.Find(item.OwnerId).UserName
-                });
+                };
+                result.Add(tmp);
             }
             return result;
         }
