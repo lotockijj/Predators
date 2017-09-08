@@ -1,4 +1,9 @@
 ﻿@model IEnumerable<BattleBands.Models.ApplicationModels.ApplicationPerformer>
+
+<environment names="Development">
+    <link rel="stylesheet" href="~/css/Performer/Performer.css" />
+</environment>
+
 <h3>Found performers</h3>
 <br />
 <form asp-action="SearchWithCriteria">

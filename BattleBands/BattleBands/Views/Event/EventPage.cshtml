@@ -1,5 +1,17 @@
 ﻿@model BattleBands.Models.ViewModels.EventViewModels.EventPageViewModel
 
+<environment names="Development">
+    <link rel="stylesheet" href="~/css/Events/Events.css" />
+</environment>
+<style>
+    html {
+        background: #0c2856;
+    }
+    body {
+        background: #fff;
+    }
+</style>
+
 <h1>@Model.Event.EventName</h1><br />
 
 <a asp-controller="Picture" asp-action="AddEventLogo" asp-route-id="@Model.Event.EventId" class="btn btn-default">Upload logo</a><br />

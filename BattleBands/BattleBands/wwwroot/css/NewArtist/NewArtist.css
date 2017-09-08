@@ -1,4 +1,10 @@
-﻿body {
+﻿html {
+    background: #0c2856;
+}
+hr {
+    display: none;
+}
+body {
     max-width: 1150px;
 }
 .band {

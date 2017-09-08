@@ -1,7 +1,10 @@
-﻿body {
-    font: 400 15px/1.8 Lato, sans-serif;
+﻿hr {
+    display: none;
 }
-
+body {
+    font: 400 15px/1.8 Lato, sans-serif;
+    background-color: #0c2856;
+}
 .landing .band-photos {
     width: 100%;
     height: 600px;

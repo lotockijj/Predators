@@ -1,5 +1,5 @@
 ﻿html {
-    background: #e6e9e9;
+    background: #0c2856;
 }
 body {
     background: #fff;
@@ -17,7 +17,6 @@ p.text {
     border: 1px solid #000000;
     word-wrap: break-word;
 }
-
 .btn-group .button, .myButton {
     background-color: #141f33;
     border: 1px solid white;

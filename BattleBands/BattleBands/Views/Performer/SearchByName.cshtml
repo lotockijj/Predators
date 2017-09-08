@@ -5,6 +5,9 @@
 @{
     ViewData["Title"] = "Performers";
 }
+<environment names="Development">
+    <link rel="stylesheet" href="~/css/Performer/Performer.css" />
+</environment>
 <h3>Performers!</h3>
 <form asp-action="SearchWithCriteria">
     <input type="text" placeholder="Performer's name" name="name">
