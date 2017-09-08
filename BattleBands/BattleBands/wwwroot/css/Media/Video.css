@@ -1,5 +1,5 @@
 ﻿html {
-    background: #e6e9e9;
+    background: #0c2856;
 }
 body {
     background: #fff;
@@ -11,6 +11,10 @@ body {
     margin: 0 auto;
     max-width: 1150px;
     padding: 2em 2em 4em;
+    padding-left: 100px;
+}
+hr {
+    display: none;
 }
 h4 {
     margin-top: 30px;

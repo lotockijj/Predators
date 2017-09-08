@@ -3,7 +3,9 @@
 @{
     ViewBag.Title = "My performers";
 }
-
+<environment names="Development">
+    <link rel="stylesheet" href="~/css/Performer/Performer.css" />
+</environment>
 <h3>@ViewData["Title"]</h3>
 <div class="row">
     <div class="col-md-8">
